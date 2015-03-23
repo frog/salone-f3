@@ -22,7 +22,7 @@ if (dbUrl) {
     dbUrl = 'mongodb://localhost:27017/f3-production'
     process.env.ENV = "DEV";
 }
-
+logger.info("Connecting to ... "+dbUrl);
 MongoClient.connect(dbUrl, function (err, db) {
     if (err) throw err;
     //connection to the database open, we can
