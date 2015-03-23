@@ -30,7 +30,7 @@ MongoClient.connect(dbUrl, function (err, db) {
 
     //create Express app on port 5000
     var app = express();
-    app.set('port', (process.env.PORT || 5000));
+    app.set('port', 5000);
     app.use(express.static(__dirname + '/public'));
 
     var server = http.Server(app);
