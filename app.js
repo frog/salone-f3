@@ -12,7 +12,17 @@ var logger = new winston.Logger({
 var MongoClient = require('mongodb').MongoClient,
     format = require('util').format;
 
-MongoClient.connect('mongodb://localhost:27017/f3-production', function (err, db) {
+var dbUrl = process.env.MONGO_URL;
+if (dbUrl) {
+    logger.info("Starting up PRODUCTION");
+    process.env.ENV = "PROD";
+} else {
+    logger.info("Starting up DEV");
+    dbUrl = 'mongodb://localhost:27017/f3-production'
+    process.env.ENV = "DEV";
+}
+
+MongoClient.connect(dbUrl, function (err, db) {
     if (err) throw err;
     //connection to the database open, we can
     //we can use the var DB as closured
@@ -69,7 +79,7 @@ MongoClient.connect('mongodb://localhost:27017/f3-production', function (err, db
             },
             function (err, result) {
                 if (!err) {
-                    collection.findOne(query, {}, function(err, result) {
+                    collection.findOne(query, {}, function (err, result) {
                         console.dir(result);
                         logger.info('sending', result);
                         io.emit('update', result);
@@ -109,8 +119,21 @@ MongoClient.connect('mongodb://localhost:27017/f3-production', function (err, db
 });
 
 
-var seed = function (db) {
-
+var seed = function (collection) {
+    logger.info("Seeding in data");
+    spreads.map(function (value, idx) {
+        var query = {"spreadId": value.spreadId};
+        collection.findOneAndUpdate(query,
+            value,
+            {
+                returnOriginal: false,
+                upsert: true
+            },
+            function (err, result) {
+                if (err) throw new Error("error in seeding", err);
+            });
+    });
+    logger.info("End Seeding");
 };
 
 var spreads = [
