@@ -24,7 +24,10 @@ if (dbUrl) {
 }
 logger.info("Connecting to ... "+dbUrl);
 MongoClient.connect(dbUrl, function (err, db) {
-    if (err) throw err;
+    if (err) {
+        logger.error("ERROR in connect", err);
+        throw err;
+    }
     //connection to the database open, we can
     //we can use the var DB as closured
 
