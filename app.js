@@ -2,6 +2,8 @@ var express = require('express');
 var http = require('http');
 var socketio = require('socket.io');
 var winston = require('winston');
+
+//set up logger
 var logger = new winston.Logger({
     transports: [
         new (winston.transports.Console)(),
@@ -10,9 +12,8 @@ var logger = new winston.Logger({
 });
 
 
-var MongoClient = require('mongodb').MongoClient,
-    format = require('util').format;
-
+//set up db connection
+var mongo = require('mongodb').MongoClient;
 var dbUrl = process.env.MONGO_URL;
 if (dbUrl) {
     logger.info("Starting up PRODUCTION");
@@ -22,20 +23,21 @@ if (dbUrl) {
     dbUrl = 'mongodb://localhost:27017/f3-production'
     process.env.ENV = "DEV";
 }
+
+
 logger.info("Connecting to ... "+dbUrl);
-MongoClient.connect(dbUrl, function (err, db) {
+var PORT = 5000;
+mongo.connect(dbUrl, function (err, db) {
     if (err) {
         logger.error("ERROR in connect", err);
         throw err;
     }
-    //connection to the database open, we can
-    //we can use the var DB as closured
-
 
     //create Express app on port 5000
     var app = express();
-    app.set('port', 5000);
+    app.set('port', PORT);
     app.use(express.static(__dirname + '/public'));
+
     var server = http.Server(app);
     var io = socketio(server);
 
@@ -46,6 +48,12 @@ MongoClient.connect(dbUrl, function (err, db) {
 
     app.get('/isAlive', function (request, response) {
         response.send('yes, I\'m alive. Really');
+    });
+
+    app.get('/spreads', function (req, res) {
+        collection.find().toArray(function (err, docs) {
+            sendJSON(res, 200, docs);
+        });
     });
 
     app.get('/voteFiction/:spreadId', function (req, res) {
@@ -67,7 +75,6 @@ MongoClient.connect(dbUrl, function (err, db) {
     });
 
     var allowedFields = ['fact', 'fiction'];
-
     function incrementVoteFor(spreadId, a_field, cb) {
         if (allowedFields.indexOf(a_field) < 0) throw new Error("unknown field: " + a_field);
         var increment = {};
@@ -82,6 +89,8 @@ MongoClient.connect(dbUrl, function (err, db) {
             },
             function (err, result) {
                 if (!err) {
+                    // at every update of the db, we send out a websocket
+                    // packet out
                     collection.findOne(query, {}, function (err, result) {
                         console.dir(result);
                         logger.info('sending', result);
@@ -100,13 +109,6 @@ MongoClient.connect(dbUrl, function (err, db) {
     function sendJSONMessage(res, the_status, the_message) {
         return sendJSON(res, the_status, {status: the_status, message: the_message})
     }
-
-    app.get('/spreads', function (req, res) {
-        collection.find().toArray(function (err, docs) {
-            sendJSON(res, 200, docs);
-        });
-    });
-
 
     server.listen(app.get('port'), function () {
         logger.info('--> f3 server ready to rock on port:' + app.get('port'))
