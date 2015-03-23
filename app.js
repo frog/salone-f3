@@ -1,4 +1,6 @@
-var express = require('express')
+var express = require('express');
+var http = require('http');
+var socketio = require('socket.io');
 var winston = require('winston');
 var logger = new winston.Logger({
     transports: [
@@ -21,6 +23,8 @@ MongoClient.connect('mongodb://localhost:27017/spreads', function (err, db) {
     app.set('port', (process.env.PORT || 5000));
     app.use(express.static(__dirname + '/public'));
 
+    var server = http.Server(app);
+    var io = socketio(server);
 
     var collection = db.collection('spreads');
 
@@ -34,7 +38,7 @@ MongoClient.connect('mongodb://localhost:27017/spreads', function (err, db) {
     app.get('/voteFiction/:spreadId', function (req, res) {
         var spreadId = req.param('spreadId');
         logger.info('FICTION vote for ' + spreadId);
-        incrementVoteFor(spreadId, 'fact',
+        incrementVoteFor(spreadId, 'fiction',
             function () {
                 sendJSONMessage(res, 200, 'Fiction vote registered! Thanks');
             });
@@ -43,21 +47,36 @@ MongoClient.connect('mongodb://localhost:27017/spreads', function (err, db) {
     app.get('/voteFact/:spreadId', function (req, res) {
         var spreadId = req.param('spreadId');
         logger.info('FACT vote for ' + spreadId);
-        incrementVoteFor(spreadId, 'fiction',
+        incrementVoteFor(spreadId, 'fact',
             function () {
                 sendJSONMessage(res, 200, 'Fact vote registered! Thanks');
             });
     });
 
     var allowedFields = ['fact', 'fiction'];
+
     function incrementVoteFor(spreadId, a_field, cb) {
-        if (allowedFields.indexOf(a_field) < 0) throw new Error("unknown field: " +a_field);
+        if (allowedFields.indexOf(a_field) < 0) throw new Error("unknown field: " + a_field);
         var increment = {};
         increment[a_field] = 1;
-        collection.updateOne({"spreadId": spreadId},
+
+        var query = {"spreadId": spreadId};
+        collection.findOneAndUpdate(query,
             {'$inc': increment},
-            {upsert: true},
-            cb);
+            {
+                returnOriginal: false,
+                upsert: true
+            },
+            function (err, result) {
+                if (!err) {
+                    collection.findOne(query, {}, function(err, result) {
+                        console.dir(result);
+                        logger.info('sending', result);
+                        io.emit('update', result);
+                    });
+                }
+                cb(err, result);
+            });
     }
 
     function sendJSON(res, status, content) {
@@ -75,8 +94,17 @@ MongoClient.connect('mongodb://localhost:27017/spreads', function (err, db) {
         });
     });
 
-    app.listen(app.get('port'), function () {
+
+    server.listen(app.get('port'), function () {
         logger.info('--> f3 server ready to rock on port:' + app.get('port'))
+    });
+
+
+    io.on('connection', function (socket) {
+        logger.info('DataViz client connected');
+        socket.on('disconnect', function () {
+            logger.info('DataViz client disconnected');
+        });
     });
 });
 
@@ -87,17 +115,17 @@ var seed = function (db) {
 
 var spreads = [
     {
-        spreadId : "3dbabies",
+        spreadId: "3dbabies",
         text: "in the future a lot of printed babies around.",
         tags: ['human', '3d', 'printing']
     },
     {
-        spreadId : "3dbabies1",
+        spreadId: "3dbabies1",
         text: "in the future a lot of printed babies around.",
         tags: ['human', '3d', 'printing']
     },
     {
-        spreadId : "3dbabies2",
+        spreadId: "3dbabies2",
         text: "in the future a lot of printed babies around.",
         tags: ['human', '3d', 'printing']
     }
