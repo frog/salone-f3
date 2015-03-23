@@ -12,7 +12,7 @@ var logger = new winston.Logger({
 var MongoClient = require('mongodb').MongoClient,
     format = require('util').format;
 
-MongoClient.connect('mongodb://localhost:27017/spreads', function (err, db) {
+MongoClient.connect('mongodb://localhost:27017/f3-production', function (err, db) {
     if (err) throw err;
     //connection to the database open, we can
     //we can use the var DB as closured
