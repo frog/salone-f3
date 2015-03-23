@@ -36,7 +36,6 @@ MongoClient.connect(dbUrl, function (err, db) {
     var app = express();
     app.set('port', 5000);
     app.use(express.static(__dirname + '/public'));
-
     var server = http.Server(app);
     var io = socketio(server);
 
@@ -152,7 +151,7 @@ var spreads = [
         tags: ['human', '3d', 'printing']
     },
     {
-        spreadId: "3dbabies2",
+        spreadId: "3dbabies3",
         text: "in the future a lot of printed babies around.",
         tags: ['human', '3d', 'printing']
     }
