@@ -282,9 +282,7 @@ class AttribSpec(object):
     def prep_array(self, ar):
         """Convert ar to an array of the correct type and check its shape."""
         ar = numpy.ascontiguousarray(ar, dtype=self.dtype)
-        print(list(self.allowed_shapes))
         if ar.shape[1:] not in self.allowed_shapes:
-            print("SHAPE ",ar.shape)
             raise ValueError("Invalid array shape: %s" % ar.shape)
         return ar
 

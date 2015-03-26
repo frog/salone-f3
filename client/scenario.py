@@ -25,7 +25,6 @@ class Scenario:
                 self.loadEvent.texture_data = glesutils.TextureData.from_file("images/"+num)
                 print "Texture Data loaded, signaling"
                 self.loadEvent.set()
-                
             threading.Thread(target=worker, args=(self.imagePath,)).start()   
             
         if sync:
@@ -52,9 +51,10 @@ class Scenarios:
     
     current = 0
     list = [
-        Scenario("3dprinted", "banner.tga"),
-        Scenario("3dprinted", "fiction.tga"),
-        Scenario("3dprinted", "fact.tga")]
+        Scenario("3dbabies", "banner.tga"),
+        Scenario("3dbabies1", "banner.tga"),
+        Scenario("3dbabies2", "banner.tga"),
+        Scenario("3dbabies3", "banner.tga")]
     
     @staticmethod
     def getCurrent():

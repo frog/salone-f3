@@ -5,7 +5,9 @@ from rpigl.gles2 import *
 from scenario import *
 from animation import *
 from pygame.locals import *
+from stamp import *
 from time import sleep
+import urllib2
 
 pi = pigpio.pi()
 PIR_PIN_KO = 4
@@ -37,9 +39,11 @@ void main(void) {
 # Here is the fragment shader
 fragment_glsl = """
 uniform sampler2D texture; // access the texture
+uniform float alpha; // access the texture
 varying vec2 texcoord_var;
 void main(void) {
   gl_FragColor = texture2D(texture, texcoord_var);
+  gl_FragColor.a = alpha;
 }
 """
 
@@ -57,7 +61,7 @@ class Future(glesutils.GameWindow):
         """All setup which requires the OpenGL context to be active."""
         
         self.currentScenario = 0
-        self.animation = None
+        self.animation = []
         self.okpressed = 0
         self.kopressed = 0
         
@@ -83,9 +87,10 @@ class Future(glesutils.GameWindow):
         # normally, when using only one texture, 0 would be more logical,
         # but this is just for demo purposes
         program.uniform.texture.value = 0 # bind texture to texture unit 1
+        program.uniform.alpha.value = 1.0
         
-        x_max = float(self.width / 2) / float(self.height / 2)
-        print("Salone ", x_max)
+        self.actual_w_to_h_ratio = float(self.width) / float(self.height)
+        print("WtoH ratio", self.actual_w_to_h_ratio)
         # data for the three vertices
         y_min = 0.70;
         positions = ((0.0, 0.0), (1.0, 0.0), (1.0, 1.0), (0.0, 1.0))
@@ -115,31 +120,50 @@ class Future(glesutils.GameWindow):
         print "Before Preloading"
         Scenarios.preload()
         print "Pre-loaded"
+        
+        self.fact = Stamp("fact", self)
+        self.fiction = Stamp("fiction", self)
+        self.currentStamp = None
 
-    def doneAnimation(self):
-        self.animation = None
+    def doneAnimation(self, anim):
+        self.animation.remove(anim)
+        self.currentStamp = None
         Scenarios.getPrevious().unloadTexture()
-        Scenarios.getNext().loadTexture(False)
+        Scenarios.getNext().loadTexture(True)
+
+    def doneAnimation2(self, anim):
+        self.animation.remove(anim)
         
     def on_frame(self, time):
-        if self.animation != None:
-            self.animation.update()
-        self.redraw()
-        if self.kopressed == 0:
-            self.kopressed = pi.read(PIR_PIN_KO)
-            if self.kopressed == 1:
-                print "KO!"
-                self.goOn()
-        else:
-            self.kopressed = pi.read(PIR_PIN_KO)
+        for a in self.animation:
+            a.update()
             
-        if self.okpressed == 0:
-            self.okpressed = pi.read(PIR_PIN_OK)
-            if self.okpressed == 1:
-                print "OK!"
-                self.goOn()
-        else:
-            self.okpressed = pi.read(PIR_PIN_OK)
+        self.redraw()
+        if len(self.animation) == 0:
+            if self.kopressed == 0:
+                self.kopressed = pi.read(PIR_PIN_KO)
+                if self.kopressed == 1:
+                    print "KO!"                
+                    self.currentStamp = self.fiction
+                    import urllib2
+                    f = urllib2.urlopen('https://f3.cloud.frogdesign.com/voteFiction/'+Scenarios.getCurrent().id)
+                    print f.read(100)
+                    f.close()
+                    self.goOn()
+            else:
+                self.kopressed = pi.read(PIR_PIN_KO)
+                
+            if self.okpressed == 0:
+                self.okpressed = pi.read(PIR_PIN_OK)
+                if self.okpressed == 1:
+                    print "OK!"
+                    self.currentStamp = self.fact
+                    import urllib2
+                    f = urllib2.urlopen('https://f3.cloud.frogdesign.com/voteFact/'+Scenarios.getCurrent().id)
+                    print f.read(100)
+                    self.goOn()
+            else:
+                self.okpressed = pi.read(PIR_PIN_OK)
             
         
     def on_quit(self, event): 
@@ -156,7 +180,8 @@ class Future(glesutils.GameWindow):
     def draw(self):
         time = pygame.time.get_ticks()
         
-        if self.animation != None:
+        if len(self.animation) > 0:
+            self.program.uniform.alpha.value = 1.0
             s = Scenarios.getPrevious()
             s.bindOn(1)
             self.program.uniform.texture.value = 1
@@ -164,42 +189,69 @@ class Future(glesutils.GameWindow):
             #self.mvp_mat.value = transforms.compose(self.translation, self.base_matrix)
             self.mvp_mat.value = self.base_matrix;
             self.drawing.draw()
+                        
+            if not self.currentStamp is None: 
+                self.currentStamp.draw(self)
             
             s = Scenarios.getCurrent()
             s.bindOn(0)
+            self.program.uniform.alpha.value = 1.0
             self.program.uniform.texture.value = 0
             self.translation[1,3] = 2.0 - game.translate
             self.mvp_mat.value = transforms.compose(self.translation, self.base_matrix)
             #self.mvp_mat.value = self.mvp;
             self.drawing.draw()
-        else:
+        else:                        
             s = Scenarios.getCurrent()
             s.bindOn(0)
+            self.program.uniform.alpha.value = 1.0
             self.program.uniform.texture.value = 0
-            self.mvp_mat.value = self.base_matrix
-            self.drawing.draw()
+            self.translation[1,3] = 0
+            self.mvp_mat.value = transforms.compose(self.translation, self.base_matrix)
+            #self.mvp_mat.value = self.base_matrix
+            self.drawing.draw()         
             
+        self.mvp_mat.value = self.base_matrix;
         #print "Time: ", pygame.time.get_ticks() - time
         
     def goOn(self):
+        
         Scenarios.advance()
         Scenarios.getCurrent().loadTexture()
-        self.animation = SlideAnimation(self.doneAnimation)
-        self.animation.start()
+        animation = SlideAnimation(self.doneAnimation);
+        stampAnimation = StampAnimation(self.doneAnimation2);
+        self.animation.append(animation)
+        self.animation.append(stampAnimation)
+        animation.start()
+        stampAnimation.start()
         
 class SlideAnimation(Animation):
     
     def __init__(self, callback):
-        Animation.__init__(self, 1000, 0.0, 2.0)
+        Animation.__init__(self, 1000, 0.0, 2.0, 1000)
         self.callback = callback
 
     def onTick(self, value):
         game.translate = value
-        
 
     def onEnd(self):
         game.translate = 1.0
-        self.callback()
+        self.callback(self)
+        
+class StampAnimation(Animation):
+    
+    def __init__(self, callback):
+        Animation.__init__(self, 500, 0.0, 1.0)
+        self.callback = callback
+
+    def onTick(self, value):
+        if not game.currentStamp is None:
+            game.currentStamp.setZoom(value)
+            game.currentStamp.setAlpha(value) 
+            game.currentStamp.setRotation(int(35 * value)) 
+
+    def onEnd(self):
+        self.callback(self)
 
 #cleanly exit
 def cleanExit():

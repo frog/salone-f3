@@ -80,9 +80,16 @@ def compose(*matrices):
             m = numpy.dot(m, matrix)
         return m
 
-def composeEfficient(a, b, out):
+def composeEfficient(*matrices):
     """Multiply the given transformation matrices together."""
-    numpy.dot(a, b, out)
+    if len(matrices) < 3:
+        raise ValueError("need three arguments")
+    else:
+        buffer = matrices[-1]
+        m = matrices[0]
+        for matrix in matrices[1:-1]:
+            m = numpy.dot(m, matrix, buffer)
+        return buffer
 
 
 def normal_transform(matrix):
