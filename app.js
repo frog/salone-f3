@@ -38,6 +38,7 @@ mongo.connect(dbUrl, function (err, db) {
     app.set('port', PORT);
     app.use(express.static(__dirname + '/public'));
 
+
     var server = http.Server(app);
     var io = socketio(server);
 
