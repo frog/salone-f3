@@ -70,8 +70,8 @@ class Future(glesutils.GameWindow):
         #glClearColor(1, 0, 0, 0)
 
         # set up pre-multiplied alpha
-        glDisable(GL_BLEND)
-        #glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA)
+        glEnable(GL_BLEND)
+        glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA)
         
         glDisable(GL_DEPTH_TEST)
 

@@ -7,7 +7,7 @@ var winston = require('winston');
 var logger = new winston.Logger({
     transports: [
         new (winston.transports.Console)(),
-        new (winston.transports.File)({ filename: 'server.log' })
+        new (winston.transports.File)({filename: 'server.log'})
     ]
 });
 
@@ -25,7 +25,7 @@ if (dbUrl) {
 }
 
 
-logger.info("Connecting to ... "+dbUrl);
+logger.info("Connecting to ... " + dbUrl);
 var PORT = 5000;
 mongo.connect(dbUrl, function (err, db) {
     if (err) {
@@ -42,6 +42,7 @@ mongo.connect(dbUrl, function (err, db) {
     var io = socketio(server);
 
     var collection = db.collection('spreads');
+    var votes = db.collection('votes');
 
     //make sure that the spreads database is correctly initialized
     seed(collection);
@@ -75,6 +76,7 @@ mongo.connect(dbUrl, function (err, db) {
     });
 
     var allowedFields = ['fact', 'fiction'];
+
     function incrementVoteFor(spreadId, a_field, cb) {
         if (allowedFields.indexOf(a_field) < 0) throw new Error("unknown field: " + a_field);
         var increment = {};
@@ -99,6 +101,15 @@ mongo.connect(dbUrl, function (err, db) {
                 }
                 cb(err, result);
             });
+
+        votes.insertOne({spreadId: spreadId, which: a_field, tstamp: new Date()}, function (err, r) {
+            //no op
+            if (err != null) {
+                logger.error('error inserting vote!', err);
+            } else {
+                io.emit('updateTstamp');
+            }
+        });
     }
 
     function sendJSON(res, status, content) {
