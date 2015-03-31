@@ -1,37 +1,52 @@
-var browserify = require('browserify');
 var gulp = require('gulp');
-var gutil = require('gulp-util');
-var buffer = require('vinyl-buffer');
-var source = require('vinyl-source-stream');
 var sourcemaps = require('gulp-sourcemaps');
-var watchify = require('watchify');
 
-gulp.task('browserify', function() {
-    return browserify('./vizOne.js')
-        .bundle()
-        //Pass desired output filename to vinyl-source-stream
-        .pipe(source('bundle.js'))
-        // Start piping stream to tasks!
-        .pipe(gulp.dest('./public/js'));
-});
+const JS_PATH = './web/js/**/*.js';
+const CSS_PATH = './web/css/**/*.scss';
 
-
-var bundler = watchify(browserify(watchify.args));
-// add the file to bundle
-bundler.add('./vizOne.js');
-
-gulp.task('watch', bundle); // so you can run `gulp js` to build the file
-bundler.on('update', bundle); // on any dep update, runs the bundler
-bundler.on('log', gutil.log); // output build logs to terminal
-
-function bundle() {
-    return bundler.bundle()
-        // log errors if they happen
-        .on('error', gutil.log.bind(gutil, 'Browserify Error'))
-        .pipe(source('bundle.js'))
-        // optional, remove if you dont want sourcemaps
-        .pipe(buffer())
-        .pipe(sourcemaps.init({loadMaps: true})) // loads map from browserify file
-        .pipe(sourcemaps.write('.')) // writes .map file
-        .pipe(gulp.dest('./public/js'));
+function processJS() {
+    var browserify = require('browserify');
+    var gutil = require('gulp-util');
+    var source = require('vinyl-source-stream');
+    var buffer = require('vinyl-buffer');
+    var uglify = require('gulp-uglify');
+    require('glob')(JS_PATH, {}, function (err, files) {
+        var b = browserify();
+        files.forEach(function (file) {
+            b.add(file);
+        });
+        b.bundle()
+            .on('log', gutil.log) // output build logs to terminal
+            .on('error', gutil.log.bind(gutil, 'Browserify Error'))
+            .pipe(source('bundle.js'))
+            .pipe(buffer())
+            .pipe(uglify())
+            .pipe(sourcemaps.init({loadMaps: true})) // loads map from browserify file
+            .pipe(sourcemaps.write('.')) // writes .map file
+            .pipe(gulp.dest('./public/js'));
+    });
 }
+gulp.task('javascript', processJS);
+
+
+function processCSS() {
+    var sass = require('gulp-sass'),
+        minifyCSS = require('gulp-minify-css');
+    gulp.src(CSS_PATH)
+        .pipe(sourcemaps.init())
+        .pipe(sass({
+            outpuStyle: 'compressed',
+            errLogToConsole: true
+        }))
+        .pipe(sourcemaps.write('.'))
+        .pipe(gulp.dest('./public/css'))
+        .pipe(minifyCSS());
+}
+gulp.task('sass', processCSS);
+
+gulp.task('watch', function () {
+    processJS();
+    processCSS();
+    gulp.watch(CSS_PATH, ['sass']);
+    gulp.watch(JS_PATH, ['javascript']);
+});
