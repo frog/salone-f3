@@ -14,7 +14,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "(gulp watch & echo $!> client.pid) && (node node_modules/nodemon/bin/nodemon app.js & echo $!> server.pid)",
+    "start": "node app.js",
     "stop": "kill -TERM $(cat client.pid); kill -TERM $(cat server.pid)"
   },
   "dependencies": {
