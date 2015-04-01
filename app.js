@@ -58,6 +58,12 @@ mongo.connect(dbUrl, function (err, db) {
         });
     });
 
+    app.get('/votes', function (req, res) {
+        votes.find().toArray(function (err, docs) {
+            sendJSON(res, 200, docs);
+        });
+    });
+
     app.get('/voteFiction/:spreadId', function (req, res) {
         var spreadId = req.param('spreadId');
         logger.info('FICTION vote for ' + spreadId);
@@ -141,7 +147,7 @@ var seed = function (collection) {
     spreads.map(function (value, idx) {
         var query = {"spreadId": value.spreadId};
         collection.findOneAndUpdate(query,
-            value,
+            { $set: value },
             {
                 returnOriginal: false,
                 upsert: true

@@ -1,21 +1,41 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 var React = require('react');
-var io = require('socket.io-client')
+var io = require('socket.io-client');
+var Chart = require('chart.js');
+var reqwest = require('reqwest');
 
 var socket = io();
 
 socket.on('update', function (data) {
     console.log(data);
-    document.getElementById("console").innerHTML += "<p>Received!"+JSON.stringify(data)+"</p>"
 });
 
-var VizOne = React.createClass({displayName: 'VizOne',
-    render: function() {
+var VizOne = React.createClass({
+    displayName: 'VizOne',
+    fetchData: function () {
+        reqwest({
+            url: '/spreads'
+            , type: 'json'
+            , method: 'get'
+            , error: function (err) {
+            }
+            , success: function (resp) {
+                var count = resp.reduce(function (count, currentItem) {
+                    if (currentItem.fiction) count += currentItem.fiction;
+                    if (currentItem.fact) count += currentItem.fact;
+                    return count;
+                }, 0)
+                this.setState({votes: count});
+                console.log(resp)
+            }.bind(this)
+        });
+    },
+    render: function () {
         return (
             React.createElement("div", {className: "vizOne viz"}, 
                 React.createElement("div", {className: "counter"}, 
                     React.createElement("p", {className: "title"}, "Total votes collected"), 
-                    React.createElement("p", {className: "number"}, "3")
+                    React.createElement("p", {className: "number"}, this.state.votes)
                 ), 
                 React.createElement("div", {className: "flow"}, 
                     React.createElement("p", {className: "title"}, "Flow of voting"), 
@@ -26,18 +46,26 @@ var VizOne = React.createClass({displayName: 'VizOne',
                 )
             )
         );
+    },
+    getInitialState: function () {
+        return {votes: 0};
+    },
+    componentDidMount: function () {
+        this.fetchData();
+        socket.on('update', function (data) {
+            this.fetchData();
+        }.bind(this));
     }
 });
-
-var Chart = require('chart.js');
-var VoteFlowChart = React.createClass({displayName: 'VoteFlowChart',
-    render: function() {
+var VoteFlowChart = React.createClass({
+    displayName: 'VoteFlowChart',
+    render: function () {
         return (
             React.createElement("canvas", null)
         );
     },
-    componentDidMount : function() {
-        var node =  React.findDOMNode(this);
+    componentDidMount: function () {
+        var node = React.findDOMNode(this);
         var ctx = node.getContext("2d");
         var hours = 5;
         var everyMinutes = 10;
@@ -46,13 +74,13 @@ var VoteFlowChart = React.createClass({displayName: 'VoteFlowChart',
             datasets: [
                 {
                     fillColor: "white",
-                    data: [65, 59, 90,40,15]
+                    data: [65, 59, 90, 40, 15]
                 }
             ]
         };
         this.theChart = new Chart(ctx).Line(data, {
             animation: false,
-            bezierCurve:false,
+            bezierCurve: false,
             pointDot: false,
             responsive: true,
             maintainAspectRatio: false,
@@ -69,14 +97,15 @@ var VoteFlowChart = React.createClass({displayName: 'VoteFlowChart',
         });
     }
 });
-var VoteFlowLabels = React.createClass({displayName: 'VoteFlowLabels',
+var VoteFlowLabels = React.createClass({
+    displayName: 'VoteFlowLabels',
 
-    render: function() {
+    render: function () {
         var hours = [18, 19, 20, 21, 22, 23];
-        var nodes = hours.map(function(h) {
-           return (
-               React.createElement("span", {className: "label"}, "h.", h)
-           );
+        var nodes = hours.map(function (h) {
+            return (
+                React.createElement("span", {className: "label"}, "h.", h)
+            );
         });
         return (
             React.createElement("div", {className: "voteFlowLabels"}, nodes)
@@ -89,8 +118,7 @@ React.render(
     document.getElementById('content')
 );
 
-
-},{"chart.js":3,"react":158,"socket.io-client":159}],2:[function(require,module,exports){
+},{"chart.js":3,"react":158,"reqwest":159,"socket.io-client":160}],2:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -23286,10 +23314,627 @@ module.exports = warning;
 module.exports = require('./lib/React');
 
 },{"./lib/React":31}],159:[function(require,module,exports){
+/*!
+  * Reqwest! A general purpose XHR connection manager
+  * license MIT (c) Dustin Diaz 2014
+  * https://github.com/ded/reqwest
+  */
+
+!function (name, context, definition) {
+  if (typeof module != 'undefined' && module.exports) module.exports = definition()
+  else if (typeof define == 'function' && define.amd) define(definition)
+  else context[name] = definition()
+}('reqwest', this, function () {
+
+  var win = window
+    , doc = document
+    , httpsRe = /^http/
+    , protocolRe = /(^\w+):\/\//
+    , twoHundo = /^(20\d|1223)$/ //http://stackoverflow.com/questions/10046972/msie-returns-status-code-of-1223-for-ajax-request
+    , byTag = 'getElementsByTagName'
+    , readyState = 'readyState'
+    , contentType = 'Content-Type'
+    , requestedWith = 'X-Requested-With'
+    , head = doc[byTag]('head')[0]
+    , uniqid = 0
+    , callbackPrefix = 'reqwest_' + (+new Date())
+    , lastValue // data stored by the most recent JSONP callback
+    , xmlHttpRequest = 'XMLHttpRequest'
+    , xDomainRequest = 'XDomainRequest'
+    , noop = function () {}
+
+    , isArray = typeof Array.isArray == 'function'
+        ? Array.isArray
+        : function (a) {
+            return a instanceof Array
+          }
+
+    , defaultHeaders = {
+          'contentType': 'application/x-www-form-urlencoded'
+        , 'requestedWith': xmlHttpRequest
+        , 'accept': {
+              '*':  'text/javascript, text/html, application/xml, text/xml, */*'
+            , 'xml':  'application/xml, text/xml'
+            , 'html': 'text/html'
+            , 'text': 'text/plain'
+            , 'json': 'application/json, text/javascript'
+            , 'js':   'application/javascript, text/javascript'
+          }
+      }
+
+    , xhr = function(o) {
+        // is it x-domain
+        if (o['crossOrigin'] === true) {
+          var xhr = win[xmlHttpRequest] ? new XMLHttpRequest() : null
+          if (xhr && 'withCredentials' in xhr) {
+            return xhr
+          } else if (win[xDomainRequest]) {
+            return new XDomainRequest()
+          } else {
+            throw new Error('Browser does not support cross-origin requests')
+          }
+        } else if (win[xmlHttpRequest]) {
+          return new XMLHttpRequest()
+        } else {
+          return new ActiveXObject('Microsoft.XMLHTTP')
+        }
+      }
+    , globalSetupOptions = {
+        dataFilter: function (data) {
+          return data
+        }
+      }
+
+  function succeed(r) {
+    var protocol = protocolRe.exec(r.url);
+    protocol = (protocol && protocol[1]) || window.location.protocol;
+    return httpsRe.test(protocol) ? twoHundo.test(r.request.status) : !!r.request.response;
+  }
+
+  function handleReadyState(r, success, error) {
+    return function () {
+      // use _aborted to mitigate against IE err c00c023f
+      // (can't read props on aborted request objects)
+      if (r._aborted) return error(r.request)
+      if (r._timedOut) return error(r.request, 'Request is aborted: timeout')
+      if (r.request && r.request[readyState] == 4) {
+        r.request.onreadystatechange = noop
+        if (succeed(r)) success(r.request)
+        else
+          error(r.request)
+      }
+    }
+  }
+
+  function setHeaders(http, o) {
+    var headers = o['headers'] || {}
+      , h
+
+    headers['Accept'] = headers['Accept']
+      || defaultHeaders['accept'][o['type']]
+      || defaultHeaders['accept']['*']
+
+    var isAFormData = typeof FormData === 'function' && (o['data'] instanceof FormData);
+    // breaks cross-origin requests with legacy browsers
+    if (!o['crossOrigin'] && !headers[requestedWith]) headers[requestedWith] = defaultHeaders['requestedWith']
+    if (!headers[contentType] && !isAFormData) headers[contentType] = o['contentType'] || defaultHeaders['contentType']
+    for (h in headers)
+      headers.hasOwnProperty(h) && 'setRequestHeader' in http && http.setRequestHeader(h, headers[h])
+  }
+
+  function setCredentials(http, o) {
+    if (typeof o['withCredentials'] !== 'undefined' && typeof http.withCredentials !== 'undefined') {
+      http.withCredentials = !!o['withCredentials']
+    }
+  }
+
+  function generalCallback(data) {
+    lastValue = data
+  }
+
+  function urlappend (url, s) {
+    return url + (/\?/.test(url) ? '&' : '?') + s
+  }
+
+  function handleJsonp(o, fn, err, url) {
+    var reqId = uniqid++
+      , cbkey = o['jsonpCallback'] || 'callback' // the 'callback' key
+      , cbval = o['jsonpCallbackName'] || reqwest.getcallbackPrefix(reqId)
+      , cbreg = new RegExp('((^|\\?|&)' + cbkey + ')=([^&]+)')
+      , match = url.match(cbreg)
+      , script = doc.createElement('script')
+      , loaded = 0
+      , isIE10 = navigator.userAgent.indexOf('MSIE 10.0') !== -1
+
+    if (match) {
+      if (match[3] === '?') {
+        url = url.replace(cbreg, '$1=' + cbval) // wildcard callback func name
+      } else {
+        cbval = match[3] // provided callback func name
+      }
+    } else {
+      url = urlappend(url, cbkey + '=' + cbval) // no callback details, add 'em
+    }
+
+    win[cbval] = generalCallback
+
+    script.type = 'text/javascript'
+    script.src = url
+    script.async = true
+    if (typeof script.onreadystatechange !== 'undefined' && !isIE10) {
+      // need this for IE due to out-of-order onreadystatechange(), binding script
+      // execution to an event listener gives us control over when the script
+      // is executed. See http://jaubourg.net/2010/07/loading-script-as-onclick-handler-of.html
+      script.htmlFor = script.id = '_reqwest_' + reqId
+    }
+
+    script.onload = script.onreadystatechange = function () {
+      if ((script[readyState] && script[readyState] !== 'complete' && script[readyState] !== 'loaded') || loaded) {
+        return false
+      }
+      script.onload = script.onreadystatechange = null
+      script.onclick && script.onclick()
+      // Call the user callback with the last value stored and clean up values and scripts.
+      fn(lastValue)
+      lastValue = undefined
+      head.removeChild(script)
+      loaded = 1
+    }
+
+    // Add the script to the DOM head
+    head.appendChild(script)
+
+    // Enable JSONP timeout
+    return {
+      abort: function () {
+        script.onload = script.onreadystatechange = null
+        err({}, 'Request is aborted: timeout', {})
+        lastValue = undefined
+        head.removeChild(script)
+        loaded = 1
+      }
+    }
+  }
+
+  function getRequest(fn, err) {
+    var o = this.o
+      , method = (o['method'] || 'GET').toUpperCase()
+      , url = typeof o === 'string' ? o : o['url']
+      // convert non-string objects to query-string form unless o['processData'] is false
+      , data = (o['processData'] !== false && o['data'] && typeof o['data'] !== 'string')
+        ? reqwest.toQueryString(o['data'])
+        : (o['data'] || null)
+      , http
+      , sendWait = false
+
+    // if we're working on a GET request and we have data then we should append
+    // query string to end of URL and not post data
+    if ((o['type'] == 'jsonp' || method == 'GET') && data) {
+      url = urlappend(url, data)
+      data = null
+    }
+
+    if (o['type'] == 'jsonp') return handleJsonp(o, fn, err, url)
+
+    // get the xhr from the factory if passed
+    // if the factory returns null, fall-back to ours
+    http = (o.xhr && o.xhr(o)) || xhr(o)
+
+    http.open(method, url, o['async'] === false ? false : true)
+    setHeaders(http, o)
+    setCredentials(http, o)
+    if (win[xDomainRequest] && http instanceof win[xDomainRequest]) {
+        http.onload = fn
+        http.onerror = err
+        // NOTE: see
+        // http://social.msdn.microsoft.com/Forums/en-US/iewebdevelopment/thread/30ef3add-767c-4436-b8a9-f1ca19b4812e
+        http.onprogress = function() {}
+        sendWait = true
+    } else {
+      http.onreadystatechange = handleReadyState(this, fn, err)
+    }
+    o['before'] && o['before'](http)
+    if (sendWait) {
+      setTimeout(function () {
+        http.send(data)
+      }, 200)
+    } else {
+      http.send(data)
+    }
+    return http
+  }
+
+  function Reqwest(o, fn) {
+    this.o = o
+    this.fn = fn
+
+    init.apply(this, arguments)
+  }
+
+  function setType(header) {
+    // json, javascript, text/plain, text/html, xml
+    if (header.match('json')) return 'json'
+    if (header.match('javascript')) return 'js'
+    if (header.match('text')) return 'html'
+    if (header.match('xml')) return 'xml'
+  }
+
+  function init(o, fn) {
+
+    this.url = typeof o == 'string' ? o : o['url']
+    this.timeout = null
+
+    // whether request has been fulfilled for purpose
+    // of tracking the Promises
+    this._fulfilled = false
+    // success handlers
+    this._successHandler = function(){}
+    this._fulfillmentHandlers = []
+    // error handlers
+    this._errorHandlers = []
+    // complete (both success and fail) handlers
+    this._completeHandlers = []
+    this._erred = false
+    this._responseArgs = {}
+
+    var self = this
+
+    fn = fn || function () {}
+
+    if (o['timeout']) {
+      this.timeout = setTimeout(function () {
+        timedOut()
+      }, o['timeout'])
+    }
+
+    if (o['success']) {
+      this._successHandler = function () {
+        o['success'].apply(o, arguments)
+      }
+    }
+
+    if (o['error']) {
+      this._errorHandlers.push(function () {
+        o['error'].apply(o, arguments)
+      })
+    }
+
+    if (o['complete']) {
+      this._completeHandlers.push(function () {
+        o['complete'].apply(o, arguments)
+      })
+    }
+
+    function complete (resp) {
+      o['timeout'] && clearTimeout(self.timeout)
+      self.timeout = null
+      while (self._completeHandlers.length > 0) {
+        self._completeHandlers.shift()(resp)
+      }
+    }
+
+    function success (resp) {
+      var type = o['type'] || resp && setType(resp.getResponseHeader('Content-Type')) // resp can be undefined in IE
+      resp = (type !== 'jsonp') ? self.request : resp
+      // use global data filter on response text
+      var filteredResponse = globalSetupOptions.dataFilter(resp.responseText, type)
+        , r = filteredResponse
+      try {
+        resp.responseText = r
+      } catch (e) {
+        // can't assign this in IE<=8, just ignore
+      }
+      if (r) {
+        switch (type) {
+        case 'json':
+          try {
+            resp = win.JSON ? win.JSON.parse(r) : eval('(' + r + ')')
+          } catch (err) {
+            return error(resp, 'Could not parse JSON in response', err)
+          }
+          break
+        case 'js':
+          resp = eval(r)
+          break
+        case 'html':
+          resp = r
+          break
+        case 'xml':
+          resp = resp.responseXML
+              && resp.responseXML.parseError // IE trololo
+              && resp.responseXML.parseError.errorCode
+              && resp.responseXML.parseError.reason
+            ? null
+            : resp.responseXML
+          break
+        }
+      }
+
+      self._responseArgs.resp = resp
+      self._fulfilled = true
+      fn(resp)
+      self._successHandler(resp)
+      while (self._fulfillmentHandlers.length > 0) {
+        resp = self._fulfillmentHandlers.shift()(resp)
+      }
+
+      complete(resp)
+    }
+
+    function timedOut() {
+      self._timedOut = true
+      self.request.abort()      
+    }
+
+    function error(resp, msg, t) {
+      resp = self.request
+      self._responseArgs.resp = resp
+      self._responseArgs.msg = msg
+      self._responseArgs.t = t
+      self._erred = true
+      while (self._errorHandlers.length > 0) {
+        self._errorHandlers.shift()(resp, msg, t)
+      }
+      complete(resp)
+    }
+
+    this.request = getRequest.call(this, success, error)
+  }
+
+  Reqwest.prototype = {
+    abort: function () {
+      this._aborted = true
+      this.request.abort()
+    }
+
+  , retry: function () {
+      init.call(this, this.o, this.fn)
+    }
+
+    /**
+     * Small deviation from the Promises A CommonJs specification
+     * http://wiki.commonjs.org/wiki/Promises/A
+     */
+
+    /**
+     * `then` will execute upon successful requests
+     */
+  , then: function (success, fail) {
+      success = success || function () {}
+      fail = fail || function () {}
+      if (this._fulfilled) {
+        this._responseArgs.resp = success(this._responseArgs.resp)
+      } else if (this._erred) {
+        fail(this._responseArgs.resp, this._responseArgs.msg, this._responseArgs.t)
+      } else {
+        this._fulfillmentHandlers.push(success)
+        this._errorHandlers.push(fail)
+      }
+      return this
+    }
+
+    /**
+     * `always` will execute whether the request succeeds or fails
+     */
+  , always: function (fn) {
+      if (this._fulfilled || this._erred) {
+        fn(this._responseArgs.resp)
+      } else {
+        this._completeHandlers.push(fn)
+      }
+      return this
+    }
+
+    /**
+     * `fail` will execute when the request fails
+     */
+  , fail: function (fn) {
+      if (this._erred) {
+        fn(this._responseArgs.resp, this._responseArgs.msg, this._responseArgs.t)
+      } else {
+        this._errorHandlers.push(fn)
+      }
+      return this
+    }
+  , 'catch': function (fn) {
+      return this.fail(fn)
+    }
+  }
+
+  function reqwest(o, fn) {
+    return new Reqwest(o, fn)
+  }
+
+  // normalize newline variants according to spec -> CRLF
+  function normalize(s) {
+    return s ? s.replace(/\r?\n/g, '\r\n') : ''
+  }
+
+  function serial(el, cb) {
+    var n = el.name
+      , t = el.tagName.toLowerCase()
+      , optCb = function (o) {
+          // IE gives value="" even where there is no value attribute
+          // 'specified' ref: http://www.w3.org/TR/DOM-Level-3-Core/core.html#ID-862529273
+          if (o && !o['disabled'])
+            cb(n, normalize(o['attributes']['value'] && o['attributes']['value']['specified'] ? o['value'] : o['text']))
+        }
+      , ch, ra, val, i
+
+    // don't serialize elements that are disabled or without a name
+    if (el.disabled || !n) return
+
+    switch (t) {
+    case 'input':
+      if (!/reset|button|image|file/i.test(el.type)) {
+        ch = /checkbox/i.test(el.type)
+        ra = /radio/i.test(el.type)
+        val = el.value
+        // WebKit gives us "" instead of "on" if a checkbox has no value, so correct it here
+        ;(!(ch || ra) || el.checked) && cb(n, normalize(ch && val === '' ? 'on' : val))
+      }
+      break
+    case 'textarea':
+      cb(n, normalize(el.value))
+      break
+    case 'select':
+      if (el.type.toLowerCase() === 'select-one') {
+        optCb(el.selectedIndex >= 0 ? el.options[el.selectedIndex] : null)
+      } else {
+        for (i = 0; el.length && i < el.length; i++) {
+          el.options[i].selected && optCb(el.options[i])
+        }
+      }
+      break
+    }
+  }
+
+  // collect up all form elements found from the passed argument elements all
+  // the way down to child elements; pass a '<form>' or form fields.
+  // called with 'this'=callback to use for serial() on each element
+  function eachFormElement() {
+    var cb = this
+      , e, i
+      , serializeSubtags = function (e, tags) {
+          var i, j, fa
+          for (i = 0; i < tags.length; i++) {
+            fa = e[byTag](tags[i])
+            for (j = 0; j < fa.length; j++) serial(fa[j], cb)
+          }
+        }
+
+    for (i = 0; i < arguments.length; i++) {
+      e = arguments[i]
+      if (/input|select|textarea/i.test(e.tagName)) serial(e, cb)
+      serializeSubtags(e, [ 'input', 'select', 'textarea' ])
+    }
+  }
+
+  // standard query string style serialization
+  function serializeQueryString() {
+    return reqwest.toQueryString(reqwest.serializeArray.apply(null, arguments))
+  }
+
+  // { 'name': 'value', ... } style serialization
+  function serializeHash() {
+    var hash = {}
+    eachFormElement.apply(function (name, value) {
+      if (name in hash) {
+        hash[name] && !isArray(hash[name]) && (hash[name] = [hash[name]])
+        hash[name].push(value)
+      } else hash[name] = value
+    }, arguments)
+    return hash
+  }
+
+  // [ { name: 'name', value: 'value' }, ... ] style serialization
+  reqwest.serializeArray = function () {
+    var arr = []
+    eachFormElement.apply(function (name, value) {
+      arr.push({name: name, value: value})
+    }, arguments)
+    return arr
+  }
+
+  reqwest.serialize = function () {
+    if (arguments.length === 0) return ''
+    var opt, fn
+      , args = Array.prototype.slice.call(arguments, 0)
+
+    opt = args.pop()
+    opt && opt.nodeType && args.push(opt) && (opt = null)
+    opt && (opt = opt.type)
+
+    if (opt == 'map') fn = serializeHash
+    else if (opt == 'array') fn = reqwest.serializeArray
+    else fn = serializeQueryString
+
+    return fn.apply(null, args)
+  }
+
+  reqwest.toQueryString = function (o, trad) {
+    var prefix, i
+      , traditional = trad || false
+      , s = []
+      , enc = encodeURIComponent
+      , add = function (key, value) {
+          // If value is a function, invoke it and return its value
+          value = ('function' === typeof value) ? value() : (value == null ? '' : value)
+          s[s.length] = enc(key) + '=' + enc(value)
+        }
+    // If an array was passed in, assume that it is an array of form elements.
+    if (isArray(o)) {
+      for (i = 0; o && i < o.length; i++) add(o[i]['name'], o[i]['value'])
+    } else {
+      // If traditional, encode the "old" way (the way 1.3.2 or older
+      // did it), otherwise encode params recursively.
+      for (prefix in o) {
+        if (o.hasOwnProperty(prefix)) buildParams(prefix, o[prefix], traditional, add)
+      }
+    }
+
+    // spaces should be + according to spec
+    return s.join('&').replace(/%20/g, '+')
+  }
+
+  function buildParams(prefix, obj, traditional, add) {
+    var name, i, v
+      , rbracket = /\[\]$/
+
+    if (isArray(obj)) {
+      // Serialize array item.
+      for (i = 0; obj && i < obj.length; i++) {
+        v = obj[i]
+        if (traditional || rbracket.test(prefix)) {
+          // Treat each array item as a scalar.
+          add(prefix, v)
+        } else {
+          buildParams(prefix + '[' + (typeof v === 'object' ? i : '') + ']', v, traditional, add)
+        }
+      }
+    } else if (obj && obj.toString() === '[object Object]') {
+      // Serialize object item.
+      for (name in obj) {
+        buildParams(prefix + '[' + name + ']', obj[name], traditional, add)
+      }
+
+    } else {
+      // Serialize scalar item.
+      add(prefix, obj)
+    }
+  }
+
+  reqwest.getcallbackPrefix = function () {
+    return callbackPrefix
+  }
+
+  // jQuery and Zepto compatibility, differences can be remapped here so you can call
+  // .ajax.compat(options, callback)
+  reqwest.compat = function (o, fn) {
+    if (o) {
+      o['type'] && (o['method'] = o['type']) && delete o['type']
+      o['dataType'] && (o['type'] = o['dataType'])
+      o['jsonpCallback'] && (o['jsonpCallbackName'] = o['jsonpCallback']) && delete o['jsonpCallback']
+      o['jsonp'] && (o['jsonpCallback'] = o['jsonp'])
+    }
+    return new Reqwest(o, fn)
+  }
+
+  reqwest.ajaxSetup = function (options) {
+    options = options || {}
+    for (var k in options) {
+      globalSetupOptions[k] = options[k]
+    }
+  }
+
+  return reqwest
+});
+
+},{}],160:[function(require,module,exports){
 
 module.exports = require('./lib/');
 
-},{"./lib/":160}],160:[function(require,module,exports){
+},{"./lib/":161}],161:[function(require,module,exports){
 
 /**
  * Module dependencies.
@@ -23378,7 +24023,7 @@ exports.connect = lookup;
 exports.Manager = require('./manager');
 exports.Socket = require('./socket');
 
-},{"./manager":161,"./socket":163,"./url":164,"debug":168,"socket.io-parser":205}],161:[function(require,module,exports){
+},{"./manager":162,"./socket":164,"./url":165,"debug":169,"socket.io-parser":206}],162:[function(require,module,exports){
 
 /**
  * Module dependencies.
@@ -23883,7 +24528,7 @@ Manager.prototype.onreconnect = function(){
   this.emitAll('reconnect', attempt);
 };
 
-},{"./on":162,"./socket":163,"./url":164,"backo2":165,"component-bind":166,"component-emitter":167,"debug":168,"engine.io-client":169,"indexof":201,"object-component":202,"socket.io-parser":205}],162:[function(require,module,exports){
+},{"./on":163,"./socket":164,"./url":165,"backo2":166,"component-bind":167,"component-emitter":168,"debug":169,"engine.io-client":170,"indexof":202,"object-component":203,"socket.io-parser":206}],163:[function(require,module,exports){
 
 /**
  * Module exports.
@@ -23909,7 +24554,7 @@ function on(obj, ev, fn) {
   };
 }
 
-},{}],163:[function(require,module,exports){
+},{}],164:[function(require,module,exports){
 
 /**
  * Module dependencies.
@@ -24296,7 +24941,7 @@ Socket.prototype.disconnect = function(){
   return this;
 };
 
-},{"./on":162,"component-bind":166,"component-emitter":167,"debug":168,"has-binary":199,"socket.io-parser":205,"to-array":211}],164:[function(require,module,exports){
+},{"./on":163,"component-bind":167,"component-emitter":168,"debug":169,"has-binary":200,"socket.io-parser":206,"to-array":212}],165:[function(require,module,exports){
 (function (global){
 
 /**
@@ -24373,7 +25018,7 @@ function url(uri, loc){
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"debug":168,"parseuri":203}],165:[function(require,module,exports){
+},{"debug":169,"parseuri":204}],166:[function(require,module,exports){
 
 /**
  * Expose `Backoff`.
@@ -24460,7 +25105,7 @@ Backoff.prototype.setJitter = function(jitter){
 };
 
 
-},{}],166:[function(require,module,exports){
+},{}],167:[function(require,module,exports){
 /**
  * Slice reference.
  */
@@ -24485,7 +25130,7 @@ module.exports = function(obj, fn){
   }
 };
 
-},{}],167:[function(require,module,exports){
+},{}],168:[function(require,module,exports){
 
 /**
  * Expose `Emitter`.
@@ -24651,7 +25296,7 @@ Emitter.prototype.hasListeners = function(event){
   return !! this.listeners(event).length;
 };
 
-},{}],168:[function(require,module,exports){
+},{}],169:[function(require,module,exports){
 
 /**
  * Expose `debug()` as the module.
@@ -24790,11 +25435,11 @@ try {
   if (window.localStorage) debug.enable(localStorage.debug);
 } catch(e){}
 
-},{}],169:[function(require,module,exports){
+},{}],170:[function(require,module,exports){
 
 module.exports =  require('./lib/');
 
-},{"./lib/":170}],170:[function(require,module,exports){
+},{"./lib/":171}],171:[function(require,module,exports){
 
 module.exports = require('./socket');
 
@@ -24806,7 +25451,7 @@ module.exports = require('./socket');
  */
 module.exports.parser = require('engine.io-parser');
 
-},{"./socket":171,"engine.io-parser":184}],171:[function(require,module,exports){
+},{"./socket":172,"engine.io-parser":185}],172:[function(require,module,exports){
 (function (global){
 /**
  * Module dependencies.
@@ -25515,7 +26160,7 @@ Socket.prototype.filterUpgrades = function (upgrades) {
 };
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./transport":172,"./transports":173,"component-emitter":179,"debug":181,"engine.io-parser":184,"indexof":201,"parsejson":195,"parseqs":196,"parseuri":197}],172:[function(require,module,exports){
+},{"./transport":173,"./transports":174,"component-emitter":180,"debug":182,"engine.io-parser":185,"indexof":202,"parsejson":196,"parseqs":197,"parseuri":198}],173:[function(require,module,exports){
 /**
  * Module dependencies.
  */
@@ -25676,7 +26321,7 @@ Transport.prototype.onClose = function () {
   this.emit('close');
 };
 
-},{"component-emitter":179,"engine.io-parser":184}],173:[function(require,module,exports){
+},{"component-emitter":180,"engine.io-parser":185}],174:[function(require,module,exports){
 (function (global){
 /**
  * Module dependencies
@@ -25733,7 +26378,7 @@ function polling(opts){
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./polling-jsonp":174,"./polling-xhr":175,"./websocket":177,"xmlhttprequest":178}],174:[function(require,module,exports){
+},{"./polling-jsonp":175,"./polling-xhr":176,"./websocket":178,"xmlhttprequest":179}],175:[function(require,module,exports){
 (function (global){
 
 /**
@@ -25970,7 +26615,7 @@ JSONPPolling.prototype.doWrite = function (data, fn) {
 };
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./polling":176,"component-inherit":180}],175:[function(require,module,exports){
+},{"./polling":177,"component-inherit":181}],176:[function(require,module,exports){
 (function (global){
 /**
  * Module requirements.
@@ -26358,7 +27003,7 @@ function unloadHandler() {
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./polling":176,"component-emitter":179,"component-inherit":180,"debug":181,"xmlhttprequest":178}],176:[function(require,module,exports){
+},{"./polling":177,"component-emitter":180,"component-inherit":181,"debug":182,"xmlhttprequest":179}],177:[function(require,module,exports){
 /**
  * Module dependencies.
  */
@@ -26605,7 +27250,7 @@ Polling.prototype.uri = function(){
   return schema + '://' + this.hostname + port + this.path + query;
 };
 
-},{"../transport":172,"component-inherit":180,"debug":181,"engine.io-parser":184,"parseqs":196,"xmlhttprequest":178}],177:[function(require,module,exports){
+},{"../transport":173,"component-inherit":181,"debug":182,"engine.io-parser":185,"parseqs":197,"xmlhttprequest":179}],178:[function(require,module,exports){
 /**
  * Module dependencies.
  */
@@ -26845,7 +27490,7 @@ WS.prototype.check = function(){
   return !!WebSocket && !('__initialize' in WebSocket && this.name === WS.prototype.name);
 };
 
-},{"../transport":172,"component-inherit":180,"debug":181,"engine.io-parser":184,"parseqs":196,"ws":198}],178:[function(require,module,exports){
+},{"../transport":173,"component-inherit":181,"debug":182,"engine.io-parser":185,"parseqs":197,"ws":199}],179:[function(require,module,exports){
 // browser shim for xmlhttprequest module
 var hasCORS = require('has-cors');
 
@@ -26883,9 +27528,9 @@ module.exports = function(opts) {
   }
 }
 
-},{"has-cors":193}],179:[function(require,module,exports){
-arguments[4][167][0].apply(exports,arguments)
-},{"dup":167}],180:[function(require,module,exports){
+},{"has-cors":194}],180:[function(require,module,exports){
+arguments[4][168][0].apply(exports,arguments)
+},{"dup":168}],181:[function(require,module,exports){
 
 module.exports = function(a, b){
   var fn = function(){};
@@ -26893,7 +27538,7 @@ module.exports = function(a, b){
   a.prototype = new fn;
   a.prototype.constructor = a;
 };
-},{}],181:[function(require,module,exports){
+},{}],182:[function(require,module,exports){
 
 /**
  * This is the web browser implementation of `debug()`.
@@ -27042,7 +27687,7 @@ function load() {
 
 exports.enable(load());
 
-},{"./debug":182}],182:[function(require,module,exports){
+},{"./debug":183}],183:[function(require,module,exports){
 
 /**
  * This is the common logic for both the Node.js and web browser
@@ -27241,7 +27886,7 @@ function coerce(val) {
   return val;
 }
 
-},{"ms":183}],183:[function(require,module,exports){
+},{"ms":184}],184:[function(require,module,exports){
 /**
  * Helpers.
  */
@@ -27354,7 +27999,7 @@ function plural(ms, n, name) {
   return Math.ceil(ms / n) + ' ' + name + 's';
 }
 
-},{}],184:[function(require,module,exports){
+},{}],185:[function(require,module,exports){
 (function (global){
 /**
  * Module dependencies.
@@ -27952,7 +28597,7 @@ exports.decodePayloadAsBinary = function (data, binaryType, callback) {
 };
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./keys":185,"after":186,"arraybuffer.slice":187,"base64-arraybuffer":188,"blob":189,"has-binary":190,"utf8":192}],185:[function(require,module,exports){
+},{"./keys":186,"after":187,"arraybuffer.slice":188,"base64-arraybuffer":189,"blob":190,"has-binary":191,"utf8":193}],186:[function(require,module,exports){
 
 /**
  * Gets the keys for an object.
@@ -27973,7 +28618,7 @@ module.exports = Object.keys || function keys (obj){
   return arr;
 };
 
-},{}],186:[function(require,module,exports){
+},{}],187:[function(require,module,exports){
 module.exports = after
 
 function after(count, callback, err_cb) {
@@ -28003,7 +28648,7 @@ function after(count, callback, err_cb) {
 
 function noop() {}
 
-},{}],187:[function(require,module,exports){
+},{}],188:[function(require,module,exports){
 /**
  * An abstraction for slicing an arraybuffer even when
  * ArrayBuffer.prototype.slice is not supported
@@ -28034,7 +28679,7 @@ module.exports = function(arraybuffer, start, end) {
   return result.buffer;
 };
 
-},{}],188:[function(require,module,exports){
+},{}],189:[function(require,module,exports){
 /*
  * base64-arraybuffer
  * https://github.com/niklasvh/base64-arraybuffer
@@ -28095,7 +28740,7 @@ module.exports = function(arraybuffer, start, end) {
   };
 })("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/");
 
-},{}],189:[function(require,module,exports){
+},{}],190:[function(require,module,exports){
 (function (global){
 /**
  * Create a blob builder even when vendor prefixes exist
@@ -28148,7 +28793,7 @@ module.exports = (function() {
 })();
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],190:[function(require,module,exports){
+},{}],191:[function(require,module,exports){
 (function (global){
 
 /*
@@ -28210,12 +28855,12 @@ function hasBinary(data) {
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"isarray":191}],191:[function(require,module,exports){
+},{"isarray":192}],192:[function(require,module,exports){
 module.exports = Array.isArray || function (arr) {
   return Object.prototype.toString.call(arr) == '[object Array]';
 };
 
-},{}],192:[function(require,module,exports){
+},{}],193:[function(require,module,exports){
 (function (global){
 /*! http://mths.be/utf8js v2.0.0 by @mathias */
 ;(function(root) {
@@ -28458,7 +29103,7 @@ module.exports = Array.isArray || function (arr) {
 }(this));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],193:[function(require,module,exports){
+},{}],194:[function(require,module,exports){
 
 /**
  * Module dependencies.
@@ -28483,7 +29128,7 @@ try {
   module.exports = false;
 }
 
-},{"global":194}],194:[function(require,module,exports){
+},{"global":195}],195:[function(require,module,exports){
 
 /**
  * Returns `this`. Execute this without a "context" (i.e. without it being
@@ -28493,7 +29138,7 @@ try {
 
 module.exports = (function () { return this; })();
 
-},{}],195:[function(require,module,exports){
+},{}],196:[function(require,module,exports){
 (function (global){
 /**
  * JSON parse.
@@ -28528,7 +29173,7 @@ module.exports = function parsejson(data) {
   }
 };
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],196:[function(require,module,exports){
+},{}],197:[function(require,module,exports){
 /**
  * Compiles a querystring
  * Returns string representation of the object
@@ -28567,7 +29212,7 @@ exports.decode = function(qs){
   return qry;
 };
 
-},{}],197:[function(require,module,exports){
+},{}],198:[function(require,module,exports){
 /**
  * Parses an URI
  *
@@ -28608,7 +29253,7 @@ module.exports = function parseuri(str) {
     return uri;
 };
 
-},{}],198:[function(require,module,exports){
+},{}],199:[function(require,module,exports){
 
 /**
  * Module dependencies.
@@ -28653,7 +29298,7 @@ function ws(uri, protocols, opts) {
 
 if (WebSocket) ws.prototype = WebSocket.prototype;
 
-},{}],199:[function(require,module,exports){
+},{}],200:[function(require,module,exports){
 (function (global){
 
 /*
@@ -28715,9 +29360,9 @@ function hasBinary(data) {
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"isarray":200}],200:[function(require,module,exports){
-arguments[4][191][0].apply(exports,arguments)
-},{"dup":191}],201:[function(require,module,exports){
+},{"isarray":201}],201:[function(require,module,exports){
+arguments[4][192][0].apply(exports,arguments)
+},{"dup":192}],202:[function(require,module,exports){
 
 var indexOf = [].indexOf;
 
@@ -28728,7 +29373,7 @@ module.exports = function(arr, obj){
   }
   return -1;
 };
-},{}],202:[function(require,module,exports){
+},{}],203:[function(require,module,exports){
 
 /**
  * HOP ref.
@@ -28813,7 +29458,7 @@ exports.length = function(obj){
 exports.isEmpty = function(obj){
   return 0 == exports.length(obj);
 };
-},{}],203:[function(require,module,exports){
+},{}],204:[function(require,module,exports){
 /**
  * Parses an URI
  *
@@ -28840,7 +29485,7 @@ module.exports = function parseuri(str) {
   return uri;
 };
 
-},{}],204:[function(require,module,exports){
+},{}],205:[function(require,module,exports){
 (function (global){
 /*global Blob,File*/
 
@@ -28985,7 +29630,7 @@ exports.removeBlobs = function(data, callback) {
 };
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./is-buffer":206,"isarray":209}],205:[function(require,module,exports){
+},{"./is-buffer":207,"isarray":210}],206:[function(require,module,exports){
 
 /**
  * Module dependencies.
@@ -29387,7 +30032,7 @@ function error(data){
   };
 }
 
-},{"./binary":204,"./is-buffer":206,"component-emitter":207,"debug":208,"isarray":209,"json3":210}],206:[function(require,module,exports){
+},{"./binary":205,"./is-buffer":207,"component-emitter":208,"debug":209,"isarray":210,"json3":211}],207:[function(require,module,exports){
 (function (global){
 
 module.exports = isBuf;
@@ -29404,13 +30049,13 @@ function isBuf(obj) {
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],207:[function(require,module,exports){
-arguments[4][167][0].apply(exports,arguments)
-},{"dup":167}],208:[function(require,module,exports){
+},{}],208:[function(require,module,exports){
 arguments[4][168][0].apply(exports,arguments)
 },{"dup":168}],209:[function(require,module,exports){
-arguments[4][191][0].apply(exports,arguments)
-},{"dup":191}],210:[function(require,module,exports){
+arguments[4][169][0].apply(exports,arguments)
+},{"dup":169}],210:[function(require,module,exports){
+arguments[4][192][0].apply(exports,arguments)
+},{"dup":192}],211:[function(require,module,exports){
 /*! JSON v3.2.6 | http://bestiejs.github.io/json3 | Copyright 2012-2013, Kit Cambridge | http://kit.mit-license.org */
 ;(function (window) {
   // Convenience aliases.
@@ -30273,7 +30918,7 @@ arguments[4][191][0].apply(exports,arguments)
   }
 }(this));
 
-},{}],211:[function(require,module,exports){
+},{}],212:[function(require,module,exports){
 module.exports = toArray
 
 function toArray(list, index) {
