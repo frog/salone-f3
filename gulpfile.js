@@ -20,7 +20,7 @@ function processJS() {
             .on('error', gutil.log.bind(gutil, 'Browserify Error'))
             .pipe(source('bundle.js'))
             .pipe(buffer())
-            .pipe(uglify())
+            //.pipe(uglify())
             .pipe(sourcemaps.init({loadMaps: true})) // loads map from browserify file
             .pipe(sourcemaps.write('.')) // writes .map file
             .pipe(gulp.dest('./public/js'));
