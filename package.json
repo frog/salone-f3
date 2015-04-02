@@ -1,16 +1,46 @@
 {
   "name": "f3",
+  "browserify": {
+    "transform": [
+      [
+        "reactify"
+      ]
+    ]
+  },
   "version": "0.0.1",
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node node_modules/nodemon/bin/nodemon app.js",
+    "startDev": "(gulp watch & echo $!> client.pid) && (node node_modules/nodemon/bin/nodemon app.js & echo $!> server.pid)",
+    "stop": "kill -TERM $(cat client.pid); kill -TERM $(cat server.pid)"
   },
   "dependencies": {
     "express": "^4.0.0",
     "mongodb": "^2.0.0",
+    "nodemon": "1.3.7",
+    "reqwest": "^1.1.5",
     "socket.io": "^1.3.5",
-    "winston": "^0.9.0"
+    "winston": "^0.9.0",
+    "react": "0.13.1",
+    "socket.io-client": "^1.3.5"
+  },
+  "devDependencies": {
+    "browserify": "9.0.3",
+    "chart.js": "^1.0.2",
+    "glob": "^5.0.3",
+    "gulp": "3.8.11",
+    "gulp-browserify": "^0.5.1",
+    "gulp-livereload": "^3.8.0",
+    "gulp-minify-css": "^1.0.0",
+    "gulp-sass": "^1.3.3",
+    "gulp-sourcemaps": "^1.5.1",
+    "gulp-uglify": "^1.1.0",
+    "gulp-util": "3.0.4",
+    "reactify": "1.1.0",
+    "vinyl-buffer": "1.0.0",
+    "vinyl-source-stream": "1.1.0",
+    "vinyl-transform": "^1.0.0"
   },
   "engines": {
     "node": "0.10.x"
@@ -20,7 +50,11 @@
     "url": "https://github.com/frog/salone-f3"
   },
   "keywords": [
-    "node"
+    "node",
+    "mongo",
+    "fact",
+    "fiction",
+    "future"
   ],
   "author": "Emanuele Di Saverio <emanuele.disaverio@gmail.com>",
   "license": "MIT"

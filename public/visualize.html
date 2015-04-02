@@ -3,20 +3,10 @@
 <head lang="en">
     <meta charset="UTF-8"/>
     <title></title>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <script type="text/javascript" src="js/bundle.js" defer></script>
 </head>
 <body>
-    <h3>Static page test</h3>
-    <p>I'm here don't know really</p>
-    <div id="console">
-
-    </div>
-    <script src="/socket.io/socket.io.js"></script>
-    <script>
-        var socket = io();
-        socket.on('update', function (data) {
-            console.log(data);
-            document.getElementById("console").innerHTML += "<p>Received!"+JSON.stringify(data)+"</p>"
-        });
-    </script>
+    <div id="content"></div>
 </body>
 </html>
