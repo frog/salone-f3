@@ -31,5 +31,5 @@ node_modules
 .lock-wscript
 
 # IDE files
-.project
-.pydevproject
+#.project
+#.pydevproject
