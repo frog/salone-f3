@@ -1,30 +1,32 @@
 var gulp = require('gulp');
 var sourcemaps = require('gulp-sourcemaps');
+var wp = require("webpack");
+var webpack = require('gulp-webpack');
+var uglify = require('gulp-uglify');
 
 const JS_PATH = './web/js/**/*.js';
+const JS_DEST = './public/js';
 const CSS_PATH = './web/css/**/*.scss';
 
 function processJS() {
-    var browserify = require('browserify');
-    var gutil = require('gulp-util');
-    var source = require('vinyl-source-stream');
-    var buffer = require('vinyl-buffer');
-    var uglify = require('gulp-uglify');
-    require('glob')(JS_PATH, {}, function (err, files) {
-        var b = browserify();
-        files.forEach(function (file) {
-            b.add(file);
-        });
-        b.bundle()
-            .on('log', gutil.log) // output build logs to terminal
-            .on('error', gutil.log.bind(gutil, 'Browserify Error'))
-            .pipe(source('bundle.js'))
-            .pipe(buffer())
-            //.pipe(uglify())
-            .pipe(sourcemaps.init({loadMaps: true})) // loads map from browserify file
-            .pipe(sourcemaps.write('.')) // writes .map file
-            .pipe(gulp.dest('./public/js'));
-    });
+    return gulp.src(JS_PATH)
+        .pipe(webpack({
+            output: {
+                filename: 'bundle.js' //this is the default name, so you can skip it
+            },
+            devtool: "#source-map",
+            module: {
+                loaders: [
+                    { test: /\.js$/, loader: "jsx-loader?harmony" }
+                ]
+            },
+            plugins: [
+                new wp.optimize.UglifyJsPlugin({
+                    compress: { warnings: false}
+                })
+            ]
+        }))
+        .pipe(gulp.dest(JS_DEST));
 }
 gulp.task('javascript', processJS);
 

@@ -2,6 +2,7 @@ var express = require('express');
 var http = require('http');
 var socketio = require('socket.io');
 var winston = require('winston');
+var async = require('async');
 
 //set up logger
 var logger = new winston.Logger({
@@ -17,11 +18,11 @@ var mongo = require('mongodb').MongoClient;
 var dbUrl = process.env.MONGO_URL;
 if (dbUrl) {
     logger.info("Starting up PRODUCTION");
-    process.env.ENV = "PROD";
+    process.env.NODE_ENV = "PROD";
 } else {
     logger.info("Starting up DEV");
     dbUrl = 'mongodb://localhost:27017/f3-production'
-    process.env.ENV = "DEV";
+    process.env.NODE_ENV = "DEV";
 }
 
 
@@ -44,6 +45,8 @@ mongo.connect(dbUrl, function (err, db) {
 
     var collection = db.collection('spreads');
     var votes = db.collection('votes');
+
+    var allowedFields = ['fact', 'fiction'];
 
     //make sure that the spreads database is correctly initialized
     seed(collection);
@@ -82,9 +85,7 @@ mongo.connect(dbUrl, function (err, db) {
             });
     });
 
-    var allowedFields = ['fact', 'fiction'];
-
-    function incrementVoteFor(spreadId, a_field, cb) {
+    function incrementVoteFor(spreadId, a_field, cb, date) {
         if (allowedFields.indexOf(a_field) < 0) throw new Error("unknown field: " + a_field);
         var increment = {};
         increment[a_field] = 1;
@@ -109,12 +110,16 @@ mongo.connect(dbUrl, function (err, db) {
                 cb(err, result);
             });
 
-        votes.insertOne({spreadId: spreadId, which: a_field, tstamp: new Date()}, function (err, r) {
+        if (!date) date = new Date();
+
+        var new_vote = {spreadId: spreadId, which: a_field, tstamp: date};
+        votes.insertOne(new_vote, function (err, r) {
             //no op
             if (err != null) {
                 logger.error('error inserting vote!', err);
             } else {
-                io.emit('updateTstamp');
+                io.emit('updateTstamp', new_vote);
+
             }
         });
     }
@@ -128,8 +133,39 @@ mongo.connect(dbUrl, function (err, db) {
         return sendJSON(res, the_status, {status: the_status, message: the_message})
     }
 
+    //
+    // WEB ENDPOINTS
+    //
+
+    var skeleton = '<!DOCTYPE html>' +
+        '<html>' +
+        '   <head lang="en">' +
+        '   <meta charset="UTF-8"/>' +
+        '   <title></title>' +
+        '<link rel="stylesheet" type="text/css" href="css/style.css"/>' +
+        '<script type="text/javascript" src="js/bundle.js"></script>' +
+        '</head>' +
+        '<body>' +
+        '   <div id="content"></div>' +
+        '   <script type="text/javascript">window.showContent("VizOne");</script>' +
+        '</body>' +
+        '</html>';
+
+
+    app.get('/vizone', function (req, res) {
+        res.set('Content-Type', 'text/html');
+        res.status(200).send(skeleton);
+    });
+
+    //if (process.env.NODE_ENV != "PROD") {
+        app.get('/reseed', function (req, res) {
+            seed(collection, true);
+            res.status(200).send("WHOLE DB reseeded!");
+        });
+    //}
+
     server.listen(app.get('port'), function () {
-        logger.info('--> f3 server ready to rock on port:' + app.get('port'))
+        logger.info('--> f3 server ready to rock on port:' + app.get('port') + process.env.NODE_ENV);
     });
 
 
@@ -139,25 +175,65 @@ mongo.connect(dbUrl, function (err, db) {
             logger.info('DataViz client disconnected');
         });
     });
-});
 
 
-var seed = function (collection) {
-    logger.info("Seeding in data");
-    spreads.map(function (value, idx) {
-        var query = {"spreadId": value.spreadId};
-        collection.findOneAndUpdate(query,
-            { $set: value },
-            {
-                returnOriginal: false,
-                upsert: true
-            },
-            function (err, result) {
-                if (err) throw new Error("error in seeding", err);
+    function seed(collection, reset) {
+        logger.info("Seeding in data");
+        function dropSpreads(cb) {
+            collection.deleteMany({}, null, cb);
+        }
+
+        function dropVotes(cb) {
+            votes.deleteMany({}, null, cb);
+        }
+
+        function insert(cb) {
+            spreads.map(function (value, idx) {
+                var query = {"spreadId": value.spreadId};
+                collection.findOneAndUpdate(query,
+                    {$set: value},
+                    {
+                        returnOriginal: false,
+                        upsert: true
+                    },
+                    function (err, result) {
+                        if (err) throw new Error("error in seeding", err);
+                    });
             });
-    });
-    logger.info("End Seeding");
-};
+            if (reset) {
+                var moment = require('moment');
+                var cursor = moment().hours(18).minutes(2).seconds(0);
 
+                function addNVotes(n, cursor) {
+                    for (var i = 0; i < n; i++) {
+                        incrementVoteFor('3babies', 'fact', function () {
+                        }, cursor.toDate());
+                    }
+                }
+
+                var votes = [25, 12, 45, 23, 56, 2, 5, 120]
+                votes.map(function (a) {
+                    addNVotes(a, cursor)
+                    cursor.add({minutes: 10});
+                });
+            }
+            cb(null, 'OK');
+        }
+
+        var funcs = [];
+
+        if (reset == undefined) reset = false;
+        if (reset) {
+            funcs.push(dropSpreads);
+            funcs.push(dropVotes);
+        }
+        funcs.push(insert);
+
+        async.series(funcs, function (err, result) {
+            logger.info("End Seeding!");
+        });
+    }
+
+});
 var fs = require('fs');
 var spreads = JSON.parse(fs.readFileSync('spreads.json', 'utf8'));
