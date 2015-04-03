@@ -3,6 +3,8 @@ var http = require('http');
 var socketio = require('socket.io');
 var winston = require('winston');
 var async = require('async');
+var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
 
 //set up logger
 var logger = new winston.Logger({
@@ -37,8 +39,12 @@ mongo.connect(dbUrl, function (err, db) {
     //create Express app on port 5000
     var app = express();
     app.set('port', PORT);
-    app.use(express.static(__dirname + '/public'));
+    app.use(express.static(__dirname + '/../public'));
 
+    app.use(session({
+        store: new MongoStore({ db: db }),
+        secret: 'keyboard cat'
+    }));
 
     var server = http.Server(app);
     var io = socketio(server);
@@ -52,6 +58,8 @@ mongo.connect(dbUrl, function (err, db) {
     seed(collection);
 
     app.get('/isAlive', function (request, response) {
+        console.log("SESSION ", request.session);
+        //request.session.pino = "YES"
         response.send('yes, I\'m alive. Really');
     });
 
@@ -69,6 +77,8 @@ mongo.connect(dbUrl, function (err, db) {
 
     app.get('/voteFiction/:spreadId', function (req, res) {
         var spreadId = req.param('spreadId');
+        if (req.session.votedIdsFiction == undefined) req.session.votedIdsFiction = [];
+        req.session.votedIdsFiction.push(spreadId);
         logger.info('FICTION vote for ' + spreadId);
         incrementVoteFor(spreadId, 'fiction',
             function () {
@@ -78,6 +88,8 @@ mongo.connect(dbUrl, function (err, db) {
 
     app.get('/voteFact/:spreadId', function (req, res) {
         var spreadId = req.param('spreadId');
+        if (req.session.votedIdsFact == undefined) req.session.votedIdsFact = [];
+        req.session.votedIdsFact.push(spreadId);
         logger.info('FACT vote for ' + spreadId);
         incrementVoteFor(spreadId, 'fact',
             function () {
