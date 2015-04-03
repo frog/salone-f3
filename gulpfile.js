@@ -17,7 +17,8 @@ function processJS() {
             devtool: "#source-map",
             module: {
                 loaders: [
-                    { test: /\.js$/, loader: "jsx-loader?harmony" }
+                    { test: /\.js$/, loader: "jsx-loader?harmony" },
+                    { test: /\.json$/, loader: "json-loader" }
                 ]
             },
             plugins: [

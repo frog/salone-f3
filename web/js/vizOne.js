@@ -2,7 +2,7 @@ var React = require('react');
 var io = require('socket.io-client');
 var Chart = require('chart.js');
 var reqwest = require('reqwest');
-var moment = require('moment');
+var moment = require('moment-timezone');
 
 var socket = io();
 

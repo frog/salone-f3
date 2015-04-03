@@ -201,8 +201,8 @@ mongo.connect(dbUrl, function (err, db) {
                     });
             });
             if (reset) {
-                var moment = require('moment');
-                var cursor = moment().hours(18).minutes(2).seconds(0);
+                var moment = require('moment-timezone');
+                var cursor = moment().tz("Europe/Rome").hours(18).minutes(2).seconds(0);
 
                 function addNVotes(n, cursor) {
                     for (var i = 0; i < n; i++) {
