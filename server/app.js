@@ -157,12 +157,12 @@ mongo.connect(dbUrl, function (err, db) {
         res.status(200).send(skeleton);
     });
 
-    //if (process.env.NODE_ENV != "PROD") {
+    if (process.env.NODE_ENV != "PROD") {
         app.get('/reseed', function (req, res) {
             seed(collection, true);
             res.status(200).send("WHOLE DB reseeded!");
         });
-    //}
+    }
 
     server.listen(app.get('port'), function () {
         logger.info('--> f3 server ready to rock on port:' + app.get('port') + process.env.NODE_ENV);
@@ -211,7 +211,7 @@ mongo.connect(dbUrl, function (err, db) {
                     }
                 }
 
-                var votes = [25, 12, 45, 23, 56, 2, 5, 120]
+                var votes = [25, 12, 45, 23, 56, 2, 5, 120];
                 votes.map(function (a) {
                     addNVotes(a, cursor)
                     cursor.add({minutes: 10});
@@ -236,4 +236,4 @@ mongo.connect(dbUrl, function (err, db) {
 
 });
 var fs = require('fs');
-var spreads = JSON.parse(fs.readFileSync('spreads.json', 'utf8'));
+var spreads = JSON.parse(fs.readFileSync(__dirname +'/spreads.json', 'utf8'));

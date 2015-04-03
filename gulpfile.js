@@ -8,13 +8,14 @@ const JS_PATH = './web/js/**/*.js';
 const JS_DEST = './public/js';
 const CSS_PATH = './web/css/**/*.scss';
 
-function processJS() {
+function processJS(need_watch) {
+    if (need_watch == undefined) need_watch = false;
     return gulp.src(JS_PATH)
         .pipe(webpack({
             output: {
                 filename: 'bundle.js' //this is the default name, so you can skip it
             },
-            devtool: "#source-map",
+            devtool: "eval-source-map",
             module: {
                 loaders: [
                     { test: /\.js$/, loader: "jsx-loader?harmony" },
@@ -25,7 +26,8 @@ function processJS() {
                 new wp.optimize.UglifyJsPlugin({
                     compress: { warnings: false}
                 })
-            ]
+            ],
+            watch : need_watch
         }))
         .pipe(gulp.dest(JS_DEST));
 }
@@ -48,8 +50,7 @@ function processCSS() {
 gulp.task('sass', processCSS);
 
 gulp.task('watch', function () {
-    processJS();
+    processJS(true);
     processCSS();
     gulp.watch(CSS_PATH, ['sass']);
-    gulp.watch(JS_PATH, ['javascript']);
 });
