@@ -5,7 +5,7 @@ var winston = require('winston');
 var async = require('async');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
-var React = require('React');
+var React = require('react');
 
 //set up logger
 var logger = new winston.Logger({
