@@ -5,6 +5,7 @@ var winston = require('winston');
 var async = require('async');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
+var React = require('React');
 
 //set up logger
 var logger = new winston.Logger({
@@ -42,9 +43,18 @@ mongo.connect(dbUrl, function (err, db) {
     app.use(express.static(__dirname + '/../public'));
 
     app.use(session({
-        store: new MongoStore({ db: db }),
+        store: new MongoStore({db: db}),
         secret: 'keyboard cat'
     }));
+
+    app.use(function (req, res, next) {
+        if (req.session.votedIdsFact == undefined) req.session.votedIdsFact = [];
+        if (req.session.votedIdsFiction == undefined) req.session.votedIdsFiction = [];
+        next()
+    });
+
+    app.set('view engine', 'ejs');
+    require("node-jsx").install();
 
     var server = http.Server(app);
     var io = socketio(server);
@@ -60,7 +70,7 @@ mongo.connect(dbUrl, function (err, db) {
     app.get('/isAlive', function (request, response) {
         console.log("SESSION ", request.session);
         //request.session.pino = "YES"
-        response.send('yes, I\'m alive. Really');
+        response.send('yes, I\'m alive. Really' + JSON.stringify(request.session));
     });
 
     app.get('/spreads', function (req, res) {
@@ -77,24 +87,30 @@ mongo.connect(dbUrl, function (err, db) {
 
     app.get('/voteFiction/:spreadId', function (req, res) {
         var spreadId = req.param('spreadId');
-        if (req.session.votedIdsFiction == undefined) req.session.votedIdsFiction = [];
-        req.session.votedIdsFiction.push(spreadId);
-        logger.info('FICTION vote for ' + spreadId);
-        incrementVoteFor(spreadId, 'fiction',
-            function () {
-                sendJSONMessage(res, 200, 'Fiction vote registered! Thanks');
-            });
+        if (req.session.votedIdsFiction.indexOf(spreadId) < 0) {
+            req.session.votedIdsFiction.push(spreadId);
+            logger.info('FICTION vote for ' + spreadId);
+            incrementVoteFor(spreadId, 'fiction',
+                function () {
+                    sendJSONMessage(res, 200, 'Fiction vote registered! Thanks');
+                });
+        } else {
+            sendJSONMessage(res, 418, 'A teapot');
+        }
     });
 
     app.get('/voteFact/:spreadId', function (req, res) {
         var spreadId = req.param('spreadId');
-        if (req.session.votedIdsFact == undefined) req.session.votedIdsFact = [];
-        req.session.votedIdsFact.push(spreadId);
-        logger.info('FACT vote for ' + spreadId);
-        incrementVoteFor(spreadId, 'fact',
-            function () {
-                sendJSONMessage(res, 200, 'Fact vote registered! Thanks');
-            });
+        if (req.session.votedIdsFact.indexOf(spreadId) < 0) {
+            req.session.votedIdsFact.push(spreadId);
+            logger.info('FACT vote for ' + spreadId);
+            incrementVoteFor(spreadId, 'fact',
+                function () {
+                    sendJSONMessage(res, 200, 'Fact vote registered! Thanks');
+                });
+        } else {
+            sendJSONMessage(res, 418, 'A teapot');
+        }
     });
 
     function incrementVoteFor(spreadId, a_field, cb, date) {
@@ -167,6 +183,26 @@ mongo.connect(dbUrl, function (err, db) {
     app.get('/vizone', function (req, res) {
         res.set('Content-Type', 'text/html');
         res.status(200).send(skeleton);
+    });
+
+    app.get('/', function (req, res) {
+        collection.find().toArray(function (err, docs) {
+            var viewFile = "voteView";
+            var VoteView = React.createFactory(require('../web/js/' + viewFile).ViewClass);
+            //console.log(docs[0])
+            var startingProps = {
+                spreads: docs,
+                votedIdsFact: req.session.votedIdsFact ? req.session.votedIdsFact : [],
+                votedIdsFiction: req.session.votedIdsFiction ? req.session.votedIdsFiction : []
+            };
+            var reactHtml = React.renderToString(VoteView(startingProps));
+            res.render('index', {
+                title: "Welcome",
+                viewFile: viewFile,
+                reactHtml: reactHtml,
+                props: JSON.stringify(startingProps)
+            });
+        });
     });
 
     if (process.env.NODE_ENV != "PROD") {
@@ -248,4 +284,4 @@ mongo.connect(dbUrl, function (err, db) {
 
 });
 var fs = require('fs');
-var spreads = JSON.parse(fs.readFileSync(__dirname +'/spreads.json', 'utf8'));
+var spreads = JSON.parse(fs.readFileSync(__dirname + '/spreads.json', 'utf8'));

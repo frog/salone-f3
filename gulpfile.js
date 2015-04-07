@@ -15,7 +15,7 @@ function processJS(need_watch) {
             output: {
                 filename: 'bundle.js' //this is the default name, so you can skip it
             },
-            devtool: "eval-source-map",
+            //devtool: "eval-source-map",
             module: {
                 loaders: [
                     { test: /\.js$/, loader: "jsx-loader?harmony" },

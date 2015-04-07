@@ -182,3 +182,5 @@ topLevelElements['VizOne'] = VizOne;
 window.showContent = function (id ) {
     React.render(React.createElement(topLevelElements[id], null), document.getElementById("content"));
 };
+
+module.exports.ViewClass = VizOne

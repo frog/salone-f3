@@ -1,0 +1,16 @@
+
+<html>
+    <title><%- title %></title>
+<body>
+    <div id="content">
+        <%- reactHtml %>
+    </div>
+    <script type="text/javascript" src="js/bundle.js"></script>
+    <script type="text/javascript">
+        (function() {
+            var props = <%- props %>;
+            window.renderClient("<%= viewFile %>", props);
+        })();
+    </script>
+</body>
+</html>
