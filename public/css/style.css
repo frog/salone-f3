@@ -50,13 +50,13 @@ html, body {
   font-family: FOFfont;
   font-weight: 200;
   font-style: normal;
-  src: url('https://server205.lab.frogdesign.com/fonts/champion-htf-lightweight.ttf'); }
+  src: url('https://server205.lab.frogdesign.com/fonts/ch-light.ttf'); }
 
 @font-face {
   font-family: FOFfont;
   font-weight: 100;
   font-style: normal;
-  src: url('https://server205.lab.frogdesign.com/fonts/champion-htf-featherweight.ttf'); }
+  src: url('https://server205.lab.frogdesign.com/fonts/ch-feather.ttf'); }
 
 .viz {
   font-family: FOFfont, sans-serif;
