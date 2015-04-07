@@ -133,6 +133,7 @@ var VoteFlowChart = React.createClass({
                 }
             ]
         };
+        if (this.theChart) this.theChart.destroy();
         this.theChart = new Chart(ctx).Line(data, {
             animation: false,
             bezierCurve: false,
