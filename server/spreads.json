@@ -3,7 +3,7 @@
     "spreadId": "lastdriver",
     "headline": "Meet the man with the last drivers licence",
     "text": "Meet Henry, the happy Londoner who was granted the last drivers licence before The Great Ban of Human Driving Act in 2021. Full story on page 6.",
-    "tags": ["mobility/transportation"],
+    "tags": ["mobility"],
     "href": "http://www.wired.com/2015/03/mercedes-benz-f-015-autonomous-car",
     "spreadFile": "banner.tga"
   },
@@ -11,7 +11,7 @@
     "spreadId": "truckstrike",
     "headline": "Truck drivers on strike (against self-driving trucks)",
     "text": "Robo-commerce: self-driving trucks and drones will deliver anything wherever your are in a few hours. Representatives of local unions gathered in town hall for regional march against “modern profanities”.",
-    "tags": ["mobility/transportation"],
+    "tags": ["mobility"],
     "href": "http://www.bloomberg.com/news/articles/2014-12-09/self-driving-trucks-to-revolutionize-logistics-dhl-says",
     "spreadFile": "banner.tga"
   },
@@ -19,7 +19,7 @@
     "spreadId": "parismanhattan",
     "headline": "Paris > Manhattan - 1 hour!",
     "text": "Europeans flock to French capital as Hyperloop Tube System is extended below the Atlantic for quick and safe travels to the US in less than an hour.",
-    "tags": ["mobility/transportation"],
+    "tags": ["mobility"],
     "href": "http://en.wikipedia.org/wiki/Hyperloop",
     "spreadFile": "banner.tga"
   },
@@ -27,7 +27,7 @@
     "spreadId": "declinemoon",
     "headline": "Decline in moon tourism",
     "text": "Richard Branson: \"Let’s face it, the moon was cool in the 60s, now it’s just a dead lump in the sky, blocking the view“.",
-    "tags": ["mobility/transportation"],
+    "tags": ["mobility"],
     "href": "http://www.futuretimeline.net/21stcentury/2035.htm#.VPhASlPF_QE",
     "spreadFile": "banner.tga"
   },
@@ -35,7 +35,7 @@
     "spreadId": "savedbydrones",
     "headline": "Saved by drones",
     "text": "A drone swarm saved twelve people from drowning after a boat incident outside Sicily. The drone patrol quickly reached the location and saved the passengers by releasing inflating file rafts to the people in water.",
-    "tags": ["mobility/transportation"],
+    "tags": ["mobility"],
     "href": "http://www.gizmag.com/pars-life-saving-flying-robot/29831",
     "spreadFile": "banner.tga"
   },
@@ -43,7 +43,7 @@
     "spreadId": "venushorror",
     "headline": "Venus cloud city horror",
     "text": "Crew burns in sulphur as Genesis Aircraft loses control. “We need to review security protocol“ says commander in chief.",
-    "tags": ["mobility/transportation"],
+    "tags": ["mobility"],
     "href": "http://www.popularmechanics.com/space/a13379/nasa-cloud-city-venus-colony-17549027",
     "spreadFile": "banner.tga"
   },
@@ -51,7 +51,7 @@
     "spreadId": "augmentedeyes",
     "headline": "Augmented eyes",
     "text": "Google announced their next generation contact lenses at SXSW2025 last month. Early adopters are already complaining of severe dependencies to the new technology. “Taking the lenses off is basically impossible as I don’t want to loose any of the new features”.",
-    "tags": ["healthcarenbodies"],
+    "tags": ["healthcare"],
     "href": "http://www.dailymail.co.uk/news/article-2334257/Mission-Impossible-style-contact-lenses-pictures-scan-data-step-closer-reality-scientists-develop-LED-soft-lenses.html",
     "spreadFile": "banner.tga"
   },
@@ -59,7 +59,7 @@
     "spreadId": "mybodyac",
     "headline": "My body AC",
     "text": "“Cool as a breeze”. Barcelona residents rejoice as a new system for administrating their own temperature is installed directly into their bodies.",
-    "tags": ["healthcarenbodies"],
+    "tags": ["healthcare"],
     "href": "http://www.wired.com/2013/10/an-ingenious-wristband-that-keeps-your-body-at-the-perfect-temperature-no-ac-required",
     "spreadFile": "banner.tga"
   },
@@ -67,7 +67,7 @@
     "spreadId": "swalloweddoctor",
     "headline": "“I SWALLOWED MY DOCTOR”",
     "text": "Brooklyn mother-of-five explains how her medical condition is monitored from inside her body.",
-    "tags": ["healthcarenbodies"],
+    "tags": ["healthcare"],
     "href": "http://www.fastcoexist.com/3042782/4-crazy-predictions-for-the-future-of-health-care-human-augmentation-hacked-dna-and-more",
     "spreadFile": "banner.tga"
   },
@@ -75,7 +75,7 @@
     "spreadId": "elevatoradviced",
     "headline": "“THE ELEVATOR ADVICED ME TO TAKE THE STAIRS”",
     "text": "American senior citizen was told to take the stairs while visiting a super mall in Germany. By the elevator. “The elevator read public data and offered a suggestion to improve the woman’s health”.",
-    "tags": ["healthcarenbodies"],
+    "tags": ["healthcare"],
     "href": "http://www.pleasurabletroublemakers.com/intervator/",
     "spreadFile": "banner.tga"
   },
@@ -83,7 +83,7 @@
     "spreadId": "thirdeye",
     "headline": "My third eye",
     "text": "Meet the mother-of-four that installed a third eye in her neck for perfect 360 degree vision. “I can’t believe I lived without it before”.",
-    "tags": ["healthcarenbodies"],
+    "tags": ["healthcare"],
     "href": "http://getnarrative.com/shop",
     "spreadFile": "banner.tga"
   },
@@ -91,7 +91,7 @@
     "spreadId": "livingtatoos",
     "headline": "Living tatoos",
     "text": "Smart digital tattoos are on the rise in Japan. Teenage groups are exploring new ideas by uploading images to their skin for a fresh appearance every day.",
-    "tags": ["healthcarenbodies"],
+    "tags": ["healthcare"],
     "href": "http://www.fastcodesign.com/3036175/from-the-designers-of-fitbit-a-digital-tattoo-implanted-under-your-skin",
     "spreadFile": "banner.tga"
   },
@@ -99,7 +99,7 @@
     "spreadId": "headtransplant",
     "headline": "MAN GETS HEAD TRANSPLANT",
     "text": "Neighbours flock to get their know “new” acquaintance. Best friend laughs: “He definitely had an upgrade”.",
-    "tags": ["healthcarenbodies"],
+    "tags": ["healthcare"],
     "href": "http://www.telegraph.co.uk/news/science/science-news/11436319/Frankenstein-style-human-head-transplant-could-happen-in-two-years.html",
     "spreadFile": "banner.tga"
   },
@@ -128,7 +128,7 @@
     "spreadFile": "banner.tga"
   },
   {
-    "spreadId": "education",
+    "spreadId": "kidscant",
     "headline": "KIDS CAN’T WRITE",
     "text": "Disaster as Finish Government presents school results just eight years after decision to stop teaching handwriting is taken. “It’s true our kids can’t write with their hands but our PISA results speak for themselves” says Head of Education.",
     "tags": ["education"],
@@ -197,14 +197,6 @@
     "text": "Public outcry in Scaninavia as men and women cannot be publicly distinguished using pronouns like “him” or “her”. Teenagers: “Genders are passé”.",
     "tags": ["misc"],
     "href": "http://en.wikipedia.org/wiki/Hen_%28pronoun%29",
-    "spreadFile": "banner.tga"
-  },
-  {
-    "spreadId": "forgiveme",
-    "headline": "FORGIVE ME FATHER FOR I HAVE SINNED",
-    "text": "New faith, in technology. Thousands joins AI-based religious cult founded by a robotic priest.",
-    "tags": ["misc"],
-    "href": "http://www.salon.com/2014/09/14/what_robot_theology_tells_us_about_ourselves_partner/",
     "spreadFile": "banner.tga"
   },
   {

@@ -63,7 +63,7 @@ var VoteView = React.createClass({
         var rows = spreads.map(function (elem) {
 
             //composing the class name
-            var className = 'spread';
+            var className = 'team boxed-grey';
             var voteArea = (
                 <div>
                     <button onClick={parentElement.handleClick.bind(parentElement, elem.spreadId, 'Fact')}>FACT</button>
@@ -71,26 +71,70 @@ var VoteView = React.createClass({
                 </div>
             );
             if (votedIdsFact.indexOf(elem.spreadId) >= 0) {
-                className += " voted votedFact";
+                className += " votatofact";
                 voteArea = <p> VOTED FACT </p>
             }
             if (votedIdsFiction.indexOf(elem.spreadId) >= 0) {
-                className += " voted votedFiction";
+                className += " votatofiction";
                 voteArea = <p> VOTED FICTION </p>
+            }
+
+            var spreadTitleImg = "/hpstatic/img/spreadTitles/"+elem.spreadId+".png";
+            //console.log("el ",elem);
+            if (elem.tags && elem.tags.length > 0) {
+                var categoryId = elem.tags[0];
+                var categoryTitleImg = "/hpstatic/img/categories/" + categoryId + ".png";
             }
 
             return (
                 <div className={className}>
-                    <p>{elem.spreadId}</p>
-                    <p>{elem.headline}</p>
+                    <img src="/hpstatic/img/fact-voted.png" width="50%" className="bollinofact bollino" alt="Fact"/>
+                    <img src="/hpstatic/img/fiction-voted.png" width="50%" className="bollinofiction bollino" alt="Fact"/>
+                    <img src={categoryTitleImg} width="70%" className="categoria" alt={categoryId}/>
+                    <img src={spreadTitleImg} className="headline" width="100%"/>
+                    <hr/>
                     <p>{elem.text}</p>
-                    {voteArea}
+                    <div className="votingbuttons">
+                        <button type="button" className="btn btn-circle btn-lg fact" onClick={parentElement.handleClick.bind(parentElement, elem.spreadId, 'Fact')}>
+                            <h6>Fact</h6>
+                        </button>
+                        <button type="button" className="btn btn-circle btn-lg fiction" onClick={parentElement.handleClick.bind(parentElement, elem.spreadId, 'Fiction')}>
+                            <h6>Fiction</h6>
+                        </button>
+                    </div>
+                    <div className="sharebutton">
+                        <a href="https://twitter.com/share?url=http://pinollo.com&via=hazam&text=eccomunque %23pino&related=myinteraction&dnt=true&counturl=http://realurl" target="_blank" type="button" className="btn share"><h6>Share on Twitter</h6></a>
+                    </div>
                 </div>
             )
         });
+
+        var colsize = Math.ceil(rows.length / 4.0);
+        var cols = [];
+
+        for (var i = 0; i < 4; i++) {
+            var nelem = Math.min(colsize, rows.length);
+            cols[i] = rows.slice(0, nelem);
+            rows =  rows.slice(nelem);
+        }
+
+        var the_cols = cols.map(function(a) {
+            return (
+                <div className="col-xs-12 col-sm-3 col-md-3">
+                        {a}
+                </div>
+            );
+        });
+
+
+
         return (
-            <div>
-                {rows}
+            <div className="container">
+                <section id="voting">
+                    <div class="row">
+                        {the_cols}
+                    </div>
+                </section>
             </div>);
     },
     componentDidMount: function () {

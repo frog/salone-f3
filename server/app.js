@@ -85,6 +85,7 @@ mongo.connect(dbUrl, function (err, db) {
         });
     });
 
+
     app.get('/voteFiction/:spreadId', function (req, res) {
         var spreadId = req.param('spreadId');
         if (req.session.votedIdsFiction.indexOf(spreadId) < 0) {
@@ -205,12 +206,12 @@ mongo.connect(dbUrl, function (err, db) {
         });
     });
 
-    if (process.env.NODE_ENV != "PROD") {
+   // if (process.env.NODE_ENV != "PROD") {
         app.get('/reseed', function (req, res) {
             seed(collection, true);
             res.status(200).send("WHOLE DB reseeded!");
         });
-    }
+    //}
 
     server.listen(app.get('port'), function () {
         logger.info('--> f3 server ready to rock on port:' + app.get('port') + process.env.NODE_ENV);
@@ -254,7 +255,7 @@ mongo.connect(dbUrl, function (err, db) {
 
                 function addNVotes(n, cursor) {
                     for (var i = 0; i < n; i++) {
-                        incrementVoteFor('3babies', 'fact', function () {
+                        incrementVoteFor('3dbabies', 'fact', function () {
                         }, cursor.toDate());
                     }
                 }
