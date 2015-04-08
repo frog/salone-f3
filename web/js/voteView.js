@@ -3,11 +3,39 @@ var io = require('socket.io-client');
 
 var isBrowser = !(global && Object.prototype.toString.call(global.process) === '[object process]');
 
+var TweetButton = React.createClass({
+    displayName: 'TweetButton',
+    render: function () {
+        var postfix = " @frogdesign";
+        var hashtags = ' #'+['factorfiction','frogmi'].join(' #');
+        var url = "http://f3.cloud.frogdesign.com";
+        var availableChars = 140 - hashtags.length - postfix.length -  /*url.length*/ 22 - 1;
+        var tweetText = this.props.spread.text;
+        if (tweetText.length >= availableChars) {
+            tweetText = tweetText.substring(0, availableChars - 3);
+            tweetText = tweetText +"...";
+        }
+        var the_target = "https://twitter.com/share?";
+        the_target += "&url="+url+"&counturl="+url;
+        the_target += "&related=frogdesign&dnt=true";
+        the_target += "&text="+encodeURIComponent(tweetText+hashtags+postfix);
+        //the_target += "&hashtags="+hashtags.join(',');
+        return (
+            <div className="sharebutton">
+                <a href={the_target} target="_blank" type="button" className="btn share">
+                    <h6>Share on Twitter</h6>
+                </a>
+            </div>
+        );
+    }
+});
+
 var VoteView = React.createClass({
     displayName: 'VoteView',
     handleClick: function (spreadId, fof) {
         console.log("want to vote for", spreadId, fof);
         var parentElement = this;
+
         function checkSpreadAsVoted(spreadId, fof) {
             var attribName = "votedIds" + fof;
             var votedFact = parentElement.state[attribName];
@@ -84,7 +112,7 @@ var VoteView = React.createClass({
                 voteArea = <p> VOTED FICTION </p>
             }
 
-            var spreadTitleImg = "/hpstatic/img/spreadTitles/"+elem.spreadId+".png";
+            var spreadTitleImg = "/hpstatic/img/spreadTitles/" + elem.spreadId + ".png";
             //console.log("el ",elem);
             if (elem.tags && elem.tags.length > 0) {
                 var categoryId = elem.tags[0];
@@ -107,9 +135,7 @@ var VoteView = React.createClass({
                             <h6>Fiction</h6>
                         </button>
                     </div>
-                    <div className="sharebutton">
-                        <a href="https://twitter.com/share?url=http://pinollo.com&via=hazam&text=eccomunque %23pino&related=myinteraction&dnt=true&counturl=http://realurl" target="_blank" type="button" className="btn share"><h6>Share on Twitter</h6></a>
-                    </div>
+                    <TweetButton spread={elem}/>
                 </div>
             )
         });
@@ -120,10 +146,10 @@ var VoteView = React.createClass({
         for (var i = 0; i < 4; i++) {
             var nelem = Math.min(colsize, rows.length);
             cols[i] = rows.slice(0, nelem);
-            rows =  rows.slice(nelem);
+            rows = rows.slice(nelem);
         }
 
-        var the_cols = cols.map(function(a) {
+        var the_cols = cols.map(function (a) {
             return (
                 <div className="col-xs-12 col-sm-3 col-md-3">
                         {a}
@@ -132,22 +158,24 @@ var VoteView = React.createClass({
         });
 
 
-
         return (
             <div className="container">
                 <section id="intro" className="intro">
-                    <a href="#voting" className="smoothScroll"><img src="/hpstatic/img/cover.png" width="100%" alt="Vote Now"/></a>
+                    <a href="#voting" className="smoothScroll">
+                        <img src="/hpstatic/img/cover.png" width="100%" alt="Vote Now"/>
+                    </a>
                 </section>
                 <section id="about" className="home-section text-center bg-gray">
                     <div className="container">
                         <div className="col-md-offset-3 col-md-6">
                             <img src="/hpstatic/img/ten.png" width="50%" alt="frog turns 10"/>
 
-                                <h3>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
-                                    totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae
-                                    dicta sunt explicabo.</h3></div>
+                            <h3>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
+                                totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae
+                                dicta sunt explicabo.</h3>
                         </div>
-                    </section>
+                    </div>
+                </section>
                 <div id="separatore">
                     <img src="/hpstatic/img/fact-or-fiction.png" alt="Fact or Fiction"/>
                 </div>
@@ -166,14 +194,18 @@ var VoteView = React.createClass({
                                 <div className="col-md-4">
 
                                     <div className="section">
-                                        <div id="registerheadline"><h2>REGISTER TOBEFIXED</h2></div>
+                                        <div id="registerheadline">
+                                            <h2>REGISTER TOBEFIXED</h2>
+                                        </div>
                                         <p>You are invited to join us at frog Milan on April 14th as we will celebrate our 10th
                                             anniversary by speculating on possible futures. Together, we will assess what may become
                                             future fact or fiction for Salone in 2025.</p>
 
                                         <div className="rsvpbutton">
                                             <a href="http://info2.frogdesign.com/future-fact-or-fiction" target="_blank"
-                                                className="btn-lg rsvp"><span>RSVP</span></a>
+                                                className="btn-lg rsvp">
+                                                <span>RSVP</span>
+                                            </a>
                                         </div>
                                     </div>
 
@@ -187,25 +219,39 @@ var VoteView = React.createClass({
                     <div className="container">
                         <div className="row">
                             <div className="col-md-3 col-md-offset-1">
-                                <p><a href="http://www.frogdesign.com" target="_blank"><span className="frogfooter">frog</span></a></p>
+                                <p>
+                                    <a href="http://www.frogdesign.com" target="_blank">
+                                        <span className="frogfooter">frog</span>
+                                    </a>
+                                </p>
 
                                 <p className="georgia">Design and innovation that advances the human experience.</p>
                             </div>
                             <div className="col-xs-12 col-xs-offset-0 col-md-5 col-md-offset-3">
-                                <a href="https://twitter.com/frogdesign" target="_blank"><span className="fa-stack fa-lg">
-                                    <i className="fa fa-circle fa-stack-2x"></i>
-                                    <i className="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                                </span></a>
-                                <a href="http://www.facebook.com/pages/frog+design/5612622846" target="_blank"><span
-                                    className="fa-stack fa-lg">
-                                    <i className="fa fa-circle fa-stack-2x"></i>
-                                    <i className="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                                </span></a>
+                                <a href="https://twitter.com/frogdesign" target="_blank">
+                                    <span className="fa-stack fa-lg">
+                                        <i className="fa fa-circle fa-stack-2x"></i>
+                                        <i className="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                                <a href="http://www.facebook.com/pages/frog+design/5612622846" target="_blank">
+                                    <span
+                                        className="fa-stack fa-lg">
+                                        <i className="fa fa-circle fa-stack-2x"></i>
+                                        <i className="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
                                 <h6 className="hashtags col-xs-12">#FactOrFiction #FrogMI</h6>
                             </div>
-                            <div className="col-md-11 col-md-offset-1"><p class="className">© 2015 frog design inc. All Rights Reserved. <a
-                                href="http://www.frogdesign.com/privacy-policy.html">Privacy Policy</a> | <a
-                                href="http://www.frogdesign.com/terms-of-use.html">Terms of Use</a></p></div>
+                            <div className="col-md-11 col-md-offset-1">
+                                <p class="className">© 2015 frog design inc. All Rights Reserved.
+                                    <a
+                                        href="http://www.frogdesign.com/privacy-policy.html">Privacy Policy</a>
+                                    |
+                                    <a
+                                        href="http://www.frogdesign.com/terms-of-use.html">Terms of Use</a>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </footer>
