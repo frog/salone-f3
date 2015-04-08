@@ -12,7 +12,7 @@ var TweetButton = React.createClass({
         var availableChars = 140 - hashtags.length - postfix.length -  /*url.length*/ 22 - 1;
         var tweetText = this.props.spread.text;
         if (tweetText.length >= availableChars) {
-            tweetText = tweetText.substring(0, availableChars - 3);
+            tweetText = tweetText.substring(0, availableChars - 1);
             tweetText = tweetText +"\u2026";
         }
         var the_target = "https://twitter.com/share?";
