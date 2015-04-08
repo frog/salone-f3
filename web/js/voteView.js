@@ -244,12 +244,10 @@ var VoteView = React.createClass({
                                 <h6 className="hashtags col-xs-12">#FactOrFiction #FrogMI</h6>
                             </div>
                             <div className="col-md-11 col-md-offset-1">
-                                <p class="className">© 2015 frog design inc. All Rights Reserved.
-                                    <a
-                                        href="http://www.frogdesign.com/privacy-policy.html">Privacy Policy</a>
+                                <p className="legal">© 2015 frog design inc. All Rights Reserved.
+                                    <a href="http://www.frogdesign.com/privacy-policy.html">Privacy Policy</a>
                                     |
-                                    <a
-                                        href="http://www.frogdesign.com/terms-of-use.html">Terms of Use</a>
+                                    <a href="http://www.frogdesign.com/terms-of-use.html">Terms of Use</a>
                                 </p>
                             </div>
                         </div>
