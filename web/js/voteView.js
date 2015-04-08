@@ -1,6 +1,8 @@
 var React = require('react');
 var io = require('socket.io-client');
 
+var isBrowser = !(global && Object.prototype.toString.call(global.process) === '[object process]');
+
 var VoteView = React.createClass({
     displayName: 'VoteView',
     handleClick: function (spreadId, fof) {
@@ -27,7 +29,7 @@ var VoteView = React.createClass({
             }
         }
 
-        if (window !== undefined) {
+        if (isBrowser) {
             var reqwest = require('reqwest');
             //this.setState({});
             var the_url = '/vote' + fof + "/" + spreadId;
@@ -48,6 +50,9 @@ var VoteView = React.createClass({
                     //don't to anything since optimistically set
                 }.bind(this)
             });
+
+
+            var masonry = require('masonry-layout');
         }
     },
     render: function () {
@@ -130,11 +135,80 @@ var VoteView = React.createClass({
 
         return (
             <div className="container">
+                <section id="intro" className="intro">
+                    <a href="#voting" className="smoothScroll"><img src="/hpstatic/img/cover.png" width="100%" alt="Vote Now"/></a>
+                </section>
+                <section id="about" className="home-section text-center bg-gray">
+                    <div className="container">
+                        <div className="col-md-offset-3 col-md-6">
+                            <img src="/hpstatic/img/ten.png" width="50%" alt="frog turns 10"/>
+
+                                <h3>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
+                                    totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae
+                                    dicta sunt explicabo.</h3></div>
+                        </div>
+                    </section>
+                <div id="separatore">
+                    <img src="/hpstatic/img/fact-or-fiction.png" alt="Fact or Fiction"/>
+                </div>
                 <section id="voting">
-                    <div class="row">
+                    <div className="row">
                         {the_cols}
                     </div>
                 </section>
+                <section id="contact" className="home-section">
+                    <div className="heading-contact marginbot-50">
+                        <div className="container">
+                            <div className="row">
+                                <div className="col-md-6 col-md-offset-1">
+                                    qui va immagine quotidiano piegato
+                                </div>
+                                <div className="col-md-4">
+
+                                    <div className="section">
+                                        <div id="registerheadline"><h2>REGISTER TOBEFIXED</h2></div>
+                                        <p>You are invited to join us at frog Milan on April 14th as we will celebrate our 10th
+                                            anniversary by speculating on possible futures. Together, we will assess what may become
+                                            future fact or fiction for Salone in 2025.</p>
+
+                                        <div className="rsvpbutton">
+                                            <a href="http://info2.frogdesign.com/future-fact-or-fiction" target="_blank"
+                                                className="btn-lg rsvp"><span>RSVP</span></a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <footer id="footer">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-md-3 col-md-offset-1">
+                                <p><a href="http://www.frogdesign.com" target="_blank"><span className="frogfooter">frog</span></a></p>
+
+                                <p className="georgia">Design and innovation that advances the human experience.</p>
+                            </div>
+                            <div className="col-xs-12 col-xs-offset-0 col-md-5 col-md-offset-3">
+                                <a href="https://twitter.com/frogdesign" target="_blank"><span className="fa-stack fa-lg">
+                                    <i className="fa fa-circle fa-stack-2x"></i>
+                                    <i className="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span></a>
+                                <a href="http://www.facebook.com/pages/frog+design/5612622846" target="_blank"><span
+                                    className="fa-stack fa-lg">
+                                    <i className="fa fa-circle fa-stack-2x"></i>
+                                    <i className="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                                </span></a>
+                                <h6 className="hashtags col-xs-12">#FactOrFiction #FrogMI</h6>
+                            </div>
+                            <div className="col-md-11 col-md-offset-1"><p class="className">© 2015 frog design inc. All Rights Reserved. <a
+                                href="http://www.frogdesign.com/privacy-policy.html">Privacy Policy</a> | <a
+                                href="http://www.frogdesign.com/terms-of-use.html">Terms of Use</a></p></div>
+                        </div>
+                    </div>
+                </footer>
             </div>);
     },
     componentDidMount: function () {

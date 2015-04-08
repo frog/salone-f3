@@ -19,7 +19,8 @@ function processJS(need_watch) {
             module: {
                 loaders: [
                     { test: /\.js$/, loader: "jsx-loader?harmony" },
-                    { test: /\.json$/, loader: "json-loader" }
+                    { test: /\.json$/, loader: "json-loader" },
+                    { test: /masonry-layout/, loader: 'imports?define=>false&this=>window'}
                 ]
             },
             plugins: [
