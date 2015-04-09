@@ -126,9 +126,10 @@ class Future(glesutils.GameWindow):
         self.currentStamp = None
 
     def doneAnimation(self, anim):
+        print "Done Animation"
         self.animation.remove(anim)
         self.currentStamp = None
-        Scenarios.getPrevious().unloadTexture()
+        Scenarios.getPrevious().unloadTexture
         Scenarios.getNext().loadTexture(True)
 
     def doneAnimation2(self, anim):

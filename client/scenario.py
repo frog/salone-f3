@@ -69,7 +69,7 @@ class Scenarios:
             for a in json_data:
                 tga_name = a['spreadId']+'.tga'
                 Scenarios.list.append(Scenario(a['spreadId'], tga_name))
-                print(a['spreadId'], tga_name)
+                #print(a['spreadId'], tga_name)
     
     @staticmethod
     def getCurrent():
