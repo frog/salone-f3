@@ -145,10 +145,7 @@ class Future(glesutils.GameWindow):
                 if self.kopressed == 1:
                     print "KO!"                
                     self.currentStamp = self.fiction
-                    import urllib2
-                    f = urllib2.urlopen('https://f3.cloud.frogdesign.com/voteFiction/'+Scenarios.getCurrent().id)
-                    print f.read(100)
-                    f.close()
+                    Scenarios.getCurrent().vote('Fiction')
                     self.goOn()
             else:
                 self.kopressed = pi.read(PIR_PIN_KO)
@@ -158,9 +155,7 @@ class Future(glesutils.GameWindow):
                 if self.okpressed == 1:
                     print "OK!"
                     self.currentStamp = self.fact
-                    import urllib2
-                    f = urllib2.urlopen('https://f3.cloud.frogdesign.com/voteFact/'+Scenarios.getCurrent().id)
-                    print f.read(100)
+                    Scenarios.getCurrent().vote('Fact')
                     self.goOn()
             else:
                 self.okpressed = pi.read(PIR_PIN_OK)
@@ -267,6 +262,8 @@ signal.signal(signal.SIGINT, signal_handler)
 
 
 
+Scenarios.parseAndLoad()
+
 try:
     game = Future(640, 480, pygame.RESIZABLE)
     game.translate = 0.0
@@ -274,5 +271,5 @@ try:
 except Exception, err:
     traceback.print_exc()
     cleanExit()
-
+ 
 cleanExit()
