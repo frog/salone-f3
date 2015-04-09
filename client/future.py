@@ -132,7 +132,7 @@ class Future(glesutils.GameWindow):
         self.currentStamp = None
         self.preload = True;
 
-    def doneAnimation2(self, anim):
+    def doneStampAnimation(self, anim):
         print "Done STAMP"
         self.animation.remove(anim)
         #by now, the next texture NEEDS to be loaded
@@ -224,7 +224,7 @@ class Future(glesutils.GameWindow):
         
     def goOn(self):
         Scenarios.advance()
-        stampAnimation = StampAnimation(self.doneAnimation2);
+        stampAnimation = StampAnimation(self.doneStampAnimation);
         self.animation.append(stampAnimation)
         stampAnimation.start()
         
