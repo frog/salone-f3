@@ -561,14 +561,26 @@ def load_uniform(uniform, value):
         ptr = ar.ctypes.data_as(c_float_p)
         loader(uniform, ptr)
 
-def _get_array_from_alpha_surface(surface):
-    rgb = pygame.surfarray.pixels3d(surface).astype(numpy.uint16)
-    #alpha = pygame.surfarray.pixels_alpha(surface)
+def _get_array_from_alpha_surface(surface, withAlpha = False):
+    rgb = pygame.surfarray.pixels3d(surface).astype(numpy.uint8)
+    if (withAlpha):
+        alpha = pygame.surfarray.pixels_alpha(surface)
     #rgb *= alpha[:,:,numpy.newaxis]
     #rgb /= 255
     result = numpy.empty(rgb.shape[:-1] + (4,), dtype=numpy.uint8)
     result[:,:,:3] = rgb
-    result[:,:,3] = 1.0
+    if (withAlpha):
+        result[:,:,3] = alpha
+    else:
+        result[:,:,3] = 255
+    
+    #rgb = pygame.surfarray.pixels3d(surface).astype(numpy.uint16)
+    #alpha = pygame.surfarray.pixels_alpha(surface)
+    #rgb *= alpha[:,:,numpy.newaxis]
+    #rgb /= 255
+    #result = numpy.empty(rgb.shape[:-1] + (4,), dtype=numpy.uint8)
+    #result[:,:,:3] = rgb
+    #result[:,:,3] = alpha
     return result
 
 
@@ -601,7 +613,7 @@ class TextureData(object):
         return TextureData(ar.ctypes.data, width, height, format, ar)
  
     @staticmethod
-    def from_surface(surface):
+    def from_surface(surface, withAlpha = False):
         """Create texture data from a Pygame Surface."""
         if surface.get_flags() & pygame.SRCALPHA:
             #print "32"
@@ -619,7 +631,7 @@ class TextureData(object):
             surface = convert(desired_depth, surface.get_flags())
 
         #print "TEXT2"
-        array = get_array(surface)
+        array = get_array(surface, withAlpha)
         #print "ARRAY"
         ar = numpy.swapaxes(array, 0, 1)
         #print "DATA"
@@ -628,10 +640,10 @@ class TextureData(object):
         return result
 
     @staticmethod
-    def from_file(filename_or_obj):
+    def from_file(filename_or_obj, withAlpha = False):
         """Create texture data from a file, either indicated by name or by file object."""
         image = pygame.image.load(filename_or_obj)
-        texture = TextureData.from_surface(image)
+        texture = TextureData.from_surface(image, withAlpha)
         return texture
 
     @staticmethod
@@ -730,6 +742,7 @@ class Texture(object):
 
     def __del__(self):
         """Delete the texture."""
+        print "DELETING TEXTURE"+str(self.texture.value)
         do_when_gl_active(partial(gles2.glDeleteTextures, 1, ctypes.byref(ctypes.c_uint(self.texture.value))))
         self.texture.value = 0
 
@@ -748,8 +761,9 @@ class Texture(object):
             texture_data = (texture_data,)
 
         assert len(targets) == len(texture_data)
-
+        #print "--> load before binding"
         with self.bound():
+            #print "--> load bound"
             gles2.glTexParameteri(self.target, gles2.GL_TEXTURE_MIN_FILTER, gles2.GL_LINEAR_MIPMAP_LINEAR if mipmap_generation else gles2.GL_LINEAR)
             gles2.glTexParameteri(self.target, gles2.GL_TEXTURE_MAG_FILTER, gles2.GL_LINEAR)
             gles2.glTexParameteri(self.target, gles2.GL_TEXTURE_WRAP_S, repeat_s)
@@ -764,7 +778,9 @@ class Texture(object):
             sizes = []
             for i in range(len(targets)):
                 data = conversion(texture_data[i])
+                #print "--> load before textImage"
                 gles2.glTexImage2D(targets[i], 0, data.format, data.width, data.height, 0, data.format, gles2.GL_UNSIGNED_BYTE, data.pointer)
+                #print "--> load after textImage"
                 sizes.append((data.width, data.height))
 
             self.sizes = tuple(sizes)

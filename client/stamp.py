@@ -5,15 +5,15 @@ class Stamp:
     def __init__(self, outcome, gameWindow):
         self.outcome = outcome
         if outcome is "fact":
-            self.filename = "fact.tga"
+            self.filename = "fact.png"
             self.endpoint = "voteFact"
         elif outcome is "fiction":
-            self.filename = "fiction.tga"
+            self.filename = "fiction.png"
             self.endpoint = "voteFiction"
         else:
             raise ValueError("Invalid stamp outcome: %s" % outcome)
         
-        self.texture_data = glesutils.TextureData.from_file("images/"+self.filename)
+        self.texture_data = glesutils.TextureData.from_file("images/"+self.filename, True)
         self.texture = glesutils.Texture.from_data(self.texture_data)
         
         self.matrix = transforms.translation(0,0,0)

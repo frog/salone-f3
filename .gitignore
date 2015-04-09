@@ -33,4 +33,4 @@ node_modules
 # IDE files
 #.project
 #.pydevproject
-.DS_Store
+*.DS_Store

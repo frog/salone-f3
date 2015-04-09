@@ -43,7 +43,7 @@ uniform float alpha; // access the texture
 varying vec2 texcoord_var;
 void main(void) {
   gl_FragColor = texture2D(texture, texcoord_var);
-  gl_FragColor.a = alpha;
+  
 }
 """
 
@@ -53,7 +53,7 @@ void main(void) {
 array_spec = glesutils.ArraySpec("vertex_attrib,texcoord_attrib:2f")
 
 class Future(glesutils.GameWindow):
-    framerate = 60
+    framerate = 30
     angle = 0
     program = None
 
@@ -64,6 +64,7 @@ class Future(glesutils.GameWindow):
         self.animation = []
         self.okpressed = 0
         self.kopressed = 0
+        self.preload = False
         
         # compile vertex and fragment shaders
         vertex_shader = glesutils.VertexShader(vertex_glsl)
@@ -71,13 +72,13 @@ class Future(glesutils.GameWindow):
         # link them together into a program
         program = glesutils.Program(vertex_shader, fragment_shader)
         # set the background to RGBA = (1, 0, 0, 1) (solid red)
-        #glClearColor(1, 0, 0, 0)
+        glClearColor(1, 0, 0, 0)
 
         # set up pre-multiplied alpha
         glEnable(GL_BLEND)
         glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA)
         
-        glDisable(GL_DEPTH_TEST)
+        #glDisable(GL_DEPTH_TEST)
 
         # load uniforms
         self.mvp_mat = program.uniform.mvp_mat
@@ -126,14 +127,20 @@ class Future(glesutils.GameWindow):
         self.currentStamp = None
 
     def doneAnimation(self, anim):
-        print "Done Animation"
+        print "Done SLIDE"
         self.animation.remove(anim)
         self.currentStamp = None
-        Scenarios.getPrevious().unloadTexture
-        Scenarios.getNext().loadTexture(True)
+        self.preload = True;
 
-    def doneAnimation2(self, anim):
+    def doneStampAnimation(self, anim):
+        print "Done STAMP"
         self.animation.remove(anim)
+        #by now, the next texture NEEDS to be loaded
+        Scenarios.getCurrent().loadTexture(True)
+        Scenarios.getNext().loadTexture(True)
+        animation = SlideAnimation(self.doneAnimation);
+        self.animation.append(animation)
+        animation.start()
         
     def on_frame(self, time):
         for a in self.animation:
@@ -160,7 +167,11 @@ class Future(glesutils.GameWindow):
                     self.goOn()
             else:
                 self.okpressed = pi.read(PIR_PIN_OK)
-            
+        if self.preload:
+            self.preload = False
+            Scenarios.getPrevious().unloadTexture()
+            #Scenarios.getNext().loadTexture(True)    
+        
         
     def on_quit(self, event): 
         self.done = True
@@ -190,13 +201,14 @@ class Future(glesutils.GameWindow):
                 self.currentStamp.draw(self)
             
             s = Scenarios.getCurrent()
-            s.bindOn(0)
-            self.program.uniform.alpha.value = 1.0
-            self.program.uniform.texture.value = 0
-            self.translation[1,3] = 2.0 - game.translate
-            self.mvp_mat.value = transforms.compose(self.translation, self.base_matrix)
-            #self.mvp_mat.value = self.mvp;
-            self.drawing.draw()
+            if s.isReady():
+                s.bindOn(0)
+                self.program.uniform.alpha.value = 1.0
+                self.program.uniform.texture.value = 0
+                self.translation[1,3] = 2.0 - game.translate
+                self.mvp_mat.value = transforms.compose(self.translation, self.base_matrix)
+                #self.mvp_mat.value = self.mvp;
+                self.drawing.draw()
         else:                        
             s = Scenarios.getCurrent()
             s.bindOn(0)
@@ -211,27 +223,22 @@ class Future(glesutils.GameWindow):
         #print "Time: ", pygame.time.get_ticks() - time
         
     def goOn(self):
-        
         Scenarios.advance()
-        Scenarios.getCurrent().loadTexture()
-        animation = SlideAnimation(self.doneAnimation);
-        stampAnimation = StampAnimation(self.doneAnimation2);
-        self.animation.append(animation)
+        stampAnimation = StampAnimation(self.doneStampAnimation);
         self.animation.append(stampAnimation)
-        animation.start()
         stampAnimation.start()
         
 class SlideAnimation(Animation):
     
     def __init__(self, callback):
-        Animation.__init__(self, 1000, 0.0, 2.0, 1000)
+        Animation.__init__(self, 1000, 0.0, 2.0, 0)
         self.callback = callback
 
     def onTick(self, value):
         game.translate = value
 
     def onEnd(self):
-        game.translate = 1.0
+        game.translate = 0.0
         self.callback(self)
         
 class StampAnimation(Animation):
@@ -244,7 +251,7 @@ class StampAnimation(Animation):
         if not game.currentStamp is None:
             game.currentStamp.setZoom(value)
             game.currentStamp.setAlpha(value) 
-            game.currentStamp.setRotation(int(35 * value)) 
+            game.currentStamp.setRotation(-35 + int(35 * value)) 
 
     def onEnd(self):
         self.callback(self)
