@@ -1,0 +1,55 @@
+<html>
+<head>
+    <title><%- title %></title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/hpstatic/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:300,400,700' rel='stylesheet' type='text/css'>
+    <!-- Fonts -->
+    <link href="/hpstatic/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- <link href="css/nivo-lightbox.css" rel="stylesheet" /> -->
+    <!-- <link href="css/nivo-lightbox-theme/default/default.css" rel="stylesheet" type="text/css" /> -->
+    <link href="/hpstatic/css/animate.css" rel="stylesheet" />
+    <!-- Squad theme CSS -->
+    <link href="/hpstatic/css/style.css" rel="stylesheet">
+    <link href="/hpstatic/color/default.css" rel="stylesheet">
+
+    <meta name="twitter:card" content="photo" />
+    <meta name="twitter:site" content="@frogdesign" />
+    <meta name="twitter:title" content="Future? Fact or Fiction?" />
+    <meta name="twitter:image" content="http://f3.cloud.frogdesign.com/hpstatic/img/cover.png" />
+    <meta name="twitter:url" content="https://f3.cloud.frogdesign.com" />
+    <meta name="twitter:description" content="This is a test description test description">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body data-spy="scroll">
+
+<header id="navbar" role="banner">
+    <div class="nav-mask" style="width: 120px;"></div>
+    <nav class="main container desktop">
+        <div class="wrapper">
+            <a id="logo" href="#contact" title="Home" class="smoothScroll"></a>
+        </div>
+    </nav>
+</header>
+    <div id="content">
+        <%- reactHtml %>
+    </div>
+    <div id="container" class="js-masonry" data-masonry-options='{ "columnWidth": 200, "itemSelector": ".item" }'>
+        <div class="item" style="background-color: red; width:33%">ITEM</div>
+        <div class="item" style="background-color: #800080; width:33%">ITEM</div>
+        <div class="item" style="background-color: blue; width:33%">ITEM</div>
+    </div>
+    <script type="text/javascript" src="js/bundle.js"></script>
+    <script type="text/javascript">
+        (function() {
+            var props = <%- props %>;
+            window.renderClient("<%= viewFile %>", props);
+        })();
+    </script>
+    <script type="text/javascript" src="js/masonry.pkgd.js"></script>
+    <script src="/hpstatic/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/hpstatic/js/smoothscroll.js"></script>
+</body>
+</html>
