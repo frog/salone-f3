@@ -64,11 +64,12 @@ class Scenarios:
     
     @staticmethod
     def parseAndLoad():
-        with open("../spreads.json") as json_file:
+        with open("../server/spreads.json") as json_file:
             json_data = json.load(json_file)
             for a in json_data:
-                Scenarios.list.append(Scenario(a['spreadId'], a['spreadFile']))
-                print(a['spreadId'], a['spreadFile'])
+                tga_name = a['spreadId']+'.tga'
+                Scenarios.list.append(Scenario(a['spreadId'], tga_name))
+                print(a['spreadId'], tga_name)
     
     @staticmethod
     def getCurrent():
