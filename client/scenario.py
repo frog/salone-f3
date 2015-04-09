@@ -3,6 +3,7 @@ from rpigl.gles2 import *
 import threading
 import json    
 import urllib2
+import time
 
 class Scenario:
 
@@ -10,6 +11,7 @@ class Scenario:
         self.id = id #string
         self.imagePath = imagePath #string
         self.texture = None
+        self.loading = False
         self.loadEvent = threading.Event()
         self.textureID = -1 #not bound
         
@@ -22,21 +24,27 @@ class Scenario:
             self.textureID = textureID
         
     def loadTexture(self, sync =True):
-        if not self.isReady():
-            def worker(num):
-                self.loadEvent.texture_data = glesutils.TextureData.from_file("images/"+num)
-                print "Texture Data loaded, signaling"
-                self.loadEvent.set()
-            threading.Thread(target=worker, args=(self.imagePath,)).start()   
+        print "loadTexture "+ self.imagePath+" sync "+str(sync)+ " ready "
+        
+        if (not self.isReady()) and (not self.loading):
+        #    def worker(num):
+            t0 = time.clock()
+            self.loadEvent.texture_data = glesutils.TextureData.from_file("images/"+self.imagePath)
+            print time.clock() - t0, " sec : Texture Data loaded, signaling"
+            self.loadEvent.set()
+            self.loading = True
+        #    threading.Thread(target=worker, args=(self.imagePath,)).start()   
             
-        if sync:
+        if sync and (not self.isReady()):
             while not self.loadEvent.isSet():
                 #if not loaded then wait to be loaded
                 self.loadEvent.wait()
-            
+                print "OUT of the lock"
+            self.loading = False
             #this is quick
-            self.texture = glesutils.Texture.from_data(self.loadEvent.texture_data)
+            self.texture = glesutils.Texture.from_data(self.loadEvent.texture_data, mipmap=False, cubemap=False)
             print "Texture loading done."
+        print "Over."
         
     def unloadTexture(self):
         #not sure what happens here, setting the world to null
@@ -48,12 +56,15 @@ class Scenario:
         self.textureID = -1
         self.loadEvent = threading.Event()
         
-    def vote(self, fof):           
-        def worker(id, fof):            
-            f = urllib2.urlopen('https://f3.cloud.frogdesign.com/vote'+fof+'/'+id)
-            print "Signaled"
-            print f.read(50)
-            f.close()
+    def vote(self, fof):
+        def worker(id, fof):       
+            try :     
+                f = urllib2.urlopen('https://f3.cloud.frogdesign.com/vote'+fof+'/'+id)
+                print "Signaled"
+                print f.read(20)
+                f.close()
+            except :
+                pass
         threading.Thread(target=worker, args=(self.id,fof,)).start()   
         
 
@@ -98,7 +109,7 @@ class Scenarios:
         
     @staticmethod
     def preload(sync =True):
-        for i in range(0,3):
+        for i in range(0,2):
             Scenarios.list[Scenarios.current + i].loadTexture(sync)
 
 
