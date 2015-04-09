@@ -1,6 +1,8 @@
 from rpigl import glesutils, transforms
 from rpigl.gles2 import *
 import threading
+import json    
+import urllib2
 
 class Scenario:
 
@@ -46,15 +48,28 @@ class Scenario:
         self.textureID = -1
         self.loadEvent = threading.Event()
         
+    def vote(self, fof):           
+        def worker(id, fof):            
+            f = urllib2.urlopen('https://f3.cloud.frogdesign.com/vote'+fof+'/'+id)
+            print "Signaled"
+            print f.read(50)
+            f.close()
+        threading.Thread(target=worker, args=(self.id,fof,)).start()   
+        
 
 class Scenarios:
     
     current = 0
-    list = [
-        Scenario("3dbabies", "banner.tga"),
-        Scenario("3dbabies1", "banner.tga"),
-        Scenario("3dbabies2", "banner.tga"),
-        Scenario("3dbabies3", "banner.tga")]
+    list = []
+    
+    @staticmethod
+    def parseAndLoad():
+        with open("../server/spreads.json") as json_file:
+            json_data = json.load(json_file)
+            for a in json_data:
+                tga_name = a['spreadId']+'.tga'
+                Scenarios.list.append(Scenario(a['spreadId'], tga_name))
+                print(a['spreadId'], tga_name)
     
     @staticmethod
     def getCurrent():
