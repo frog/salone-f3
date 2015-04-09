@@ -78,9 +78,6 @@ var VoteView = React.createClass({
                     //don't to anything since optimistically set
                 }.bind(this)
             });
-
-
-            var masonry = require('masonry-layout');
         }
     },
     render: function () {
@@ -162,7 +159,8 @@ var VoteView = React.createClass({
             <div className="container">
                 <section id="intro" className="intro">
                     <a href="#voting" className="smoothScroll">
-                        <img src="/hpstatic/img/cover.png" width="100%" alt="Vote Now"/>
+                        <img className="bannerBig" src="/hpstatic/img/cover.png" width="100%" alt="Vote Now"/>
+                        <img className="bannerSmall" src="/hpstatic/img/cover_small.png" width="100%" alt="Vote Now"/>
                     </a>
                 </section>
                 <section id="about" className="home-section text-center bg-gray">
