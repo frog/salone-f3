@@ -1,14 +1,17 @@
 var React = require('react');
-var io = require('socket.io-client');
-var Chart = require('chart.js');
-var reqwest = require('reqwest');
+
+var isBrowser = !(global && Object.prototype.toString.call(global.process) === '[object process]');
+if (isBrowser) {
+    var Chart = require('chart.js');
+    var reqwest = require('reqwest');
+    var io = require('socket.io-client');
+    var socket = io();
+    socket.on('update', function (data) {
+        console.log(data);
+    });
+}
 var moment = require('moment-timezone');
 
-var socket = io();
-
-socket.on('update', function (data) {
-    console.log(data);
-});
 
 var VizOne = React.createClass({
     displayName: 'VizOne',
@@ -160,6 +163,7 @@ var VoteFlowChart = React.createClass({
         }.bind(this));
     }
 });
+
 var VoteFlowLabels = React.createClass({
     displayName: 'VoteFlowLabels',
 
@@ -176,12 +180,81 @@ var VoteFlowLabels = React.createClass({
     }
 });
 
+var TweetDisplay = React.createClass({
+    getInitialState: function() {
+        return {tweet : this.props.tweet};
+    },
+    render : function() {
+        var str = this.state.tweet.text;
+        str = str.replace(/(\#[a-zA-Z0-9\-\_]+)/g,'<span class="greenHashtag">$1</span>');
+        return (
+            <div className="viz two" ref="twitter">
+                <p className="title" style={{paddingTop: 26+'px'}}>Factorfiction tweet</p>
+                <p className="tweetText" dangerouslySetInnerHTML={{__html: str}}>
+                </p>
+            </div>
+        );
+    },
+    componentDidMount: function () {
+        socket.on('newTweet', function (data) {
+            this.setState({tweet : data});
+        }.bind(this));
+    }
+});
+
+var Carousel = React.createClass({
+
+    displayName: 'Carousel',
+
+    getInitialState: function () {
+        return {currentIdx: 1, dir: 'right'}
+    },
+
+    render: function () {
+        return (
+            <div className="carousel">
+                <TweetDisplay ref="twitter" tweet={this.props.tweet}/>
+                <VizOne ref="chart"/>
+                <div className="viz three" ref="single"/>
+            </div>
+        );
+    },
+    componentDidMount: function () {
+        var components = [
+            React.findDOMNode(this.refs.twitter),
+            React.findDOMNode(this.refs.chart),
+            React.findDOMNode(this.refs.single)
+        ];
+        var state = this.state;
+        console.log('componentDidMount -> state', state);
+        setInterval(function () {
+            if (state.dir === 'right') {
+                components[state.currentIdx].style.left = '-100%';
+                state.currentIdx++;
+                components[state.currentIdx].style.left = '0';
+                if (state.currentIdx == 2) {
+                    state.dir = 'left';
+                }
+            } else {
+                components[state.currentIdx].style.left = '100%';
+                state.currentIdx--;
+                components[state.currentIdx].style.left = '0';
+                if (state.currentIdx == 0) {
+                    state.dir = 'right';
+                }
+
+            }
+        }, 5000);
+    }
+});
+
 
 var topLevelElements = {}
-topLevelElements['VizOne'] = VizOne;
+topLevelElements['VizOne'] = Carousel;
 
-window.showContent = function (id ) {
+
+/*window.showContent = function (id) {
     React.render(React.createElement(topLevelElements[id], null), document.getElementById("content"));
-};
+};*/
 
-module.exports.ViewClass = VizOne
+module.exports.ViewClass = Carousel

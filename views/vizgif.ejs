@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Shift CMD+F!</title>
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <style>
+        .centeredInTheMiddle {
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+        }
+
+        .animated {
+            -webkit-transition: all .5s;
+            -ms-transform: scale(0.5,0.5) rotate(15deg); /* IE 9 */
+            -webkit-transform: scale(0.5,0.5) rotate(15deg); /* Safari */
+            transform: scale(0.5,0.5) rotate(15deg);
+            opacity: 0;
+        }
+
+        .popped {
+            -ms-transform: scale(1,1) rotate(0deg); /* IE 9 */
+            -webkit-transform: scale(1,1) rotate(0deg); /* Safari */
+            transform: scale(1,1) rotate(0deg);
+            opacity: 1;
+        }
+    </style>
+
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body style="background-color: black">
+<img src="/imgs/gifs/<%- which %>" class="centeredInTheMiddle"/>
+<img id="fact" src="/imgs/fact.png" class="centeredInTheMiddle animated"/>
+<img id="fiction" src="/imgs/fiction.png" class="centeredInTheMiddle animated"/>
+
+<script>
+    var elems = {}
+    elems["fact"] = document.getElementById("fact");
+    elems["fiction"] = document.getElementById("fiction");
+    var socket = io();
+    socket.on('updateTstamp', function (data) {
+        //fect data again on update
+        console.log("data", data.which);
+        var target = elems[data.which];
+        target.className = 'centeredInTheMiddle animated popped';
+        setTimeout(function() {
+            target.className = "centeredInTheMiddle animated";
+        }, 2000)
+    })
+</script>
+</body>
+</html>
