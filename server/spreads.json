@@ -30,7 +30,7 @@
   {
     "spreadId": "savedbydrones",
     "headline": "Saved by drones",
-    "text": "A drone swarm saved twelve people from drowning after a boat incident outside Sicily. The drone patrol quickly reached the location and saved the passengers by releasing inflating file rafts to the people in water.",
+    "text": "A drone swarm saved twelve people from drowning after a boat incident outside Sicily. The drone patrol quickly reached the location and saved the passengers by releasing inflating life rafts to the people in water.",
     "tags": ["mobility"],
     "href": "http://www.gizmag.com/pars-life-saving-flying-robot/29831"
   },
@@ -65,7 +65,7 @@
   {
     "spreadId": "elevatoradviced",
     "headline": "“THE ELEVATOR ADVICED ME TO TAKE THE STAIRS”",
-    "text": "American senior citizen was told to take the stairs while visiting a super mall in Germany. By the elevator. “The elevator read public data and offered a suggestion to improve the woman’s health”.",
+    "text": "American senior citizen was told to take the stairs while visiting a super mall in Germany. By the elevator: “The elevator read public data and offered a suggestion to improve the woman’s health”.",
     "tags": ["healthcare"],
     "href": "http://www.pleasurabletroublemakers.com/intervator/"
   },
@@ -136,7 +136,7 @@
     "spreadId": "cashnotaccepted",
     "headline": "CASH NOT ACCEPTED",
     "text": "Confusion among tourists as Sweden removes all bills and coins from circulation.",
-    "tags": ["banking"],
+    "tags": ["finance"],
     "href": "http://www.theguardian.com/world/2014/nov/11/welcome-sweden-electronic-money-not-so-funny",
     "spreadFile": "banner.tga"
   },
@@ -144,7 +144,7 @@
     "spreadId": "bitcoinwipesout",
     "headline": "BITCOIN WIPES OUT THE DOLLAR",
     "text": "Bitcoin surpasses the dollar as top currency for investment in the US. Elderly abandon traditional banks to secure their pensions.",
-    "tags": ["banking"],
+    "tags": ["finance"],
     "href": "http://www.inc.com/christine-lagorio/fred-wilson-bitcoin-predictions.html"
   },
   {

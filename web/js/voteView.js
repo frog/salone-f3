@@ -226,7 +226,7 @@ var VoteView = React.createClass({
                                         <i className="fa fa-facebook fa-stack-1x fa-inverse"></i>
                                     </span>
                                 </a>
-                                <h6 className="hashtags col-xs-12">#FactOrFiction #FrogMI</h6>
+                                <h6 className="hashtags col-xs-12">#FactOrFiction #frogMI</h6>
                             </div>
                             <div className="col-md-11 col-md-offset-1">
                                 <p className="legal">© 2015 frog design inc. All Rights Reserved.

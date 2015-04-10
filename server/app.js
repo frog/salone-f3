@@ -225,12 +225,12 @@ mongo.connect(dbUrl, function (err, db) {
         });
     });
 
-    if (process.env.NODE_ENV != "PROD") {
+    //if (process.env.NODE_ENV != "PROD") {
         app.get('/reseed', function (req, res) {
             seed(collection, true);
             res.status(200).send("WHOLE DB reseeded!");
         });
-    }
+    //}
 
     server.listen(app.get('port'), function () {
         logger.info('--> f3 server ready to rock on port:' + app.get('port') + process.env.NODE_ENV);

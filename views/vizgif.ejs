@@ -5,6 +5,19 @@
     <title>Shift CMD+F!</title>
     <link href="/css/style.css" rel="stylesheet" type="text/css">
     <style>
+
+        body {
+            background-color: black;
+            font-family: FOFfont,serif;
+            font-weight: 400;
+            font-size: 200px;
+        }
+        @font-face {
+            font-family: FOFfont;
+            font-weight: 400;
+            font-style: normal;
+            src: url('https://server205.lab.frogdesign.com/fonts/ch-light.ttf'); }
+
         .centeredInTheMiddle {
             position: absolute;
             left: 0;
@@ -14,28 +27,60 @@
             margin: auto;
         }
 
+        .fullscreenClaim {
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+        }
+
         .animated {
             -webkit-transition: all .5s;
-            -ms-transform: scale(0.5,0.5) rotate(15deg); /* IE 9 */
-            -webkit-transform: scale(0.5,0.5) rotate(15deg); /* Safari */
-            transform: scale(0.5,0.5) rotate(15deg);
             opacity: 0;
         }
 
         .popped {
-            -ms-transform: scale(1,1) rotate(0deg); /* IE 9 */
-            -webkit-transform: scale(1,1) rotate(0deg); /* Safari */
-            transform: scale(1,1) rotate(0deg);
             opacity: 1;
+        }
+
+        #fact {
+            color: white;
+            background-color: #46bd01;
+            text-align: center;
+        }
+
+        #fiction {
+            color: black;
+            background-color: white;
+            text-align: center;
+        }
+
+        #fact i {
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #fiction i {
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
         }
     </style>
 
     <script src="/socket.io/socket.io.js"></script>
 </head>
-<body style="background-color: black">
+<body>
 <img src="/imgs/gifs/<%- which %>" class="centeredInTheMiddle"/>
-<img id="fact" src="/imgs/fact.png" class="centeredInTheMiddle animated"/>
-<img id="fiction" src="/imgs/fiction.png" class="centeredInTheMiddle animated"/>
+<div id="fact" class="fullscreenClaim animated">
+    <i class="">FACT</i>
+</div>
+<div id="fiction" class="fullscreenClaim animated">
+    <i class="">FICTION</i>
+</div>
 
 <script>
     var elems = {}
@@ -46,10 +91,10 @@
         //fect data again on update
         console.log("data", data.which);
         var target = elems[data.which];
-        target.className = 'centeredInTheMiddle animated popped';
+        target.className = 'fullscreenClaim animated popped';
         setTimeout(function() {
-            target.className = "centeredInTheMiddle animated";
-        }, 2000)
+            target.className = "fullscreenClaim animated";
+        }, 1000)
     })
 </script>
 </body>

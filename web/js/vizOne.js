@@ -215,6 +215,7 @@ var Carousel = React.createClass({
             <div className="carousel">
                 <TweetDisplay ref="twitter" tweet={this.props.tweet}/>
                 <VizOne ref="chart"/>
+                <TweetDisplay ref="twitter" tweet={this.props.tweet}/>
                 <div className="viz three" ref="single"/>
             </div>
         );
