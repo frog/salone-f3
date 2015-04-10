@@ -94,19 +94,10 @@ var VoteView = React.createClass({
 
             //composing the class name
             var className = 'team boxed-grey';
-            var voteArea = (
-                <div>
-                    <button onClick={parentElement.handleClick.bind(parentElement, elem.spreadId, 'Fact')}>FACT</button>
-                    <button onClick={parentElement.handleClick.bind(parentElement, elem.spreadId, 'Fiction')}>FICTION</button>
-                </div>
-            );
             if (votedIdsFact.indexOf(elem.spreadId) >= 0) {
                 className += " votatofact";
-                voteArea = <p> VOTED FACT </p>
-            }
-            if (votedIdsFiction.indexOf(elem.spreadId) >= 0) {
+            } else if (votedIdsFiction.indexOf(elem.spreadId) >= 0) {
                 className += " votatofiction";
-                voteArea = <p> VOTED FICTION </p>
             }
 
             var spreadTitleImg = "/hpstatic/img/spreadTitles/" + elem.spreadId + ".png";
@@ -163,7 +154,7 @@ var VoteView = React.createClass({
                         <img className="bannerSmall" src="/hpstatic/img/cover_small.png" width="100%" alt="Vote Now"/>
                     </a>
                 </section>
-                <section id="about" className="home-section text-center bg-gray">
+                <section id="about" className="text-center bg-gray">
                     <div className="container">
                         <div className="row">
                             <div className="col-md-6 blocktext">

@@ -168,18 +168,22 @@ mongo.connect(dbUrl, function (err, db) {
     //
     app.get('/vizone', function (req, res) {
 
-        var viewFile = "vizOne";
-        var Carousel = React.createFactory(require('../web/js/' + viewFile).ViewClass);
-        //console.log(docs[0])
-        var startingProps = {
-            tweet: latestTweet
-        };
-        var reactHtml = React.renderToString(Carousel(startingProps))
-        res.render('projection', {
-            title: "Welcome",
-            viewFile: viewFile,
-            reactHtml: reactHtml,
-            props: JSON.stringify(startingProps)
+        collection.find().toArray(function (err, docs) {
+
+            var viewFile = "vizOne";
+            var Carousel = React.createFactory(require('../web/js/' + viewFile).ViewClass);
+            //console.log(docs[0])
+            var startingProps = {
+                spreads: docs,
+                tweet: latestTweet
+            };
+            var reactHtml = React.renderToString(Carousel(startingProps))
+            res.render('projection', {
+                title: "Welcome",
+                viewFile: viewFile,
+                reactHtml: reactHtml,
+                props: JSON.stringify(startingProps)
+            });
         });
     });
 
@@ -268,6 +272,7 @@ mongo.connect(dbUrl, function (err, db) {
             }
         });
     }
+
     retrieveTweet();
     setInterval(retrieveTweet, 20000);
 
