@@ -660,6 +660,8 @@ input.gn-search:focus {
 	margin-bottom: 3.5rem;
 	padding-top: 3.5rem;
     padding-bottom: 3rem;
+    -webkit-transition: background-color 1000ms linear;
+    transition: background-color 1000ms linear;
 }
 
 .votatofact {
@@ -716,7 +718,7 @@ input.gn-search:focus {
 
 .sharebutton {
 	display: none;
-	margin-top: 1.5rem;
+    margin-top: 20px;
 }
 
 .sharebutton h6 {

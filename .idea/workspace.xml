@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1bb75932-12b9-4a8a-bffa-9fc15c58402d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/hpstatic/img/registerhere.png" afterPath="$PROJECT_DIR$/public/hpstatic/img/registerhere.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/hpstatic/img/ten.png" afterPath="$PROJECT_DIR$/public/hpstatic/img/ten.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/app.js" afterPath="$PROJECT_DIR$/server/app.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/bundle.js" afterPath="$PROJECT_DIR$/public/js/bundle.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/hpstatic/css/style.css" afterPath="$PROJECT_DIR$/public/hpstatic/css/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/js/voteView.js" afterPath="$PROJECT_DIR$/web/js/voteView.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="salone-f3.iws" />
@@ -98,8 +94,8 @@
       <file leaf-file-name="style.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/hpstatic/css/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.41944847" vertical-offset="1286" max-vertical-offset="19020">
-              <caret line="105" column="18" selection-start-line="105" selection-start-column="18" selection-end-line="105" selection-end-column="18" />
+            <state vertical-scroll-proportion="0.35413644" vertical-offset="10541" max-vertical-offset="19050">
+              <caret line="719" column="18" selection-start-line="719" selection-start-column="18" selection-end-line="719" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -836,8 +832,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/hpstatic/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.41944847" vertical-offset="1286" max-vertical-offset="19020">
-          <caret line="105" column="18" selection-start-line="105" selection-start-column="18" selection-end-line="105" selection-end-column="18" />
+        <state vertical-scroll-proportion="0.35413644" vertical-offset="10541" max-vertical-offset="19050">
+          <caret line="719" column="18" selection-start-line="719" selection-start-column="18" selection-end-line="719" selection-end-column="18" />
           <folding />
         </state>
       </provider>
