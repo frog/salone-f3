@@ -302,19 +302,19 @@ mongo.connect(dbUrl, function (err, db) {
             if (reset) {
                 var moment = require('moment-timezone');
                 var cursor = moment().tz("Europe/Rome").hours(18).minutes(2).seconds(0);
-
-                function addNVotes(n, cursor) {
-                    for (var i = 0; i < n; i++) {
-                        incrementVoteFor('3dbabies', 'fact', function () {
-                        }, cursor.toDate());
-                    }
-                }
-
-                var votes = [25, 12, 45, 23, 56, 2, 5, 120];
-                votes.map(function (a) {
-                    addNVotes(a, cursor)
-                    cursor.add({minutes: 10});
-                });
+                //
+                //function addNVotes(n, cursor) {
+                //    for (var i = 0; i < n; i++) {
+                //        incrementVoteFor('3dbabies', 'fact', function () {
+                //        }, cursor.toDate());
+                //    }
+                //}
+                //
+                //var votes = [25, 12, 45, 23, 56, 2, 5, 120];
+                //votes.map(function (a) {
+                //    addNVotes(a, cursor)
+                //    cursor.add({minutes: 10});
+                //});
             }
             cb(null, 'OK');
         }
