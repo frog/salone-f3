@@ -1,7 +1,6 @@
-<html>
+<html prefix="og: http://ogp.me/ns#">
 <head>
     <title><%- title %></title>
-
     <!-- Bootstrap Core CSS -->
     <link href="/hpstatic/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:300,400,700' rel='stylesheet' type='text/css'>
@@ -9,17 +8,21 @@
     <link href="/hpstatic/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <!-- <link href="css/nivo-lightbox.css" rel="stylesheet" /> -->
     <!-- <link href="css/nivo-lightbox-theme/default/default.css" rel="stylesheet" type="text/css" /> -->
-    <link href="/hpstatic/css/animate.css" rel="stylesheet" />
+    <link href="/hpstatic/css/animate.css" rel="stylesheet"/>
     <!-- Squad theme CSS -->
     <link href="/hpstatic/css/style.css" rel="stylesheet">
     <link href="/hpstatic/color/default.css" rel="stylesheet">
 
-    <meta name="twitter:card" content="photo" />
-    <meta name="twitter:site" content="@frogdesign" />
-    <meta name="twitter:title" content="Future? Fact or Fiction?" />
-    <meta name="twitter:image" content="http://f3.cloud.frogdesign.com/hpstatic/img/cover.png" />
-    <meta name="twitter:url" content="https://f3.cloud.frogdesign.com" />
-    <meta name="twitter:description" content="This is a test description test description">
+    <meta name="twitter:card" content="photo"/>
+    <meta name="twitter:site" content="@frogdesign"/>
+    <meta property="og:title" content="Future? Fact or Fiction?"/>
+    <meta name="twitter:title" content="Future? Fact or Fiction?"/>
+    <meta name="twitter:image" content="http://f3.cloud.frogdesign.com/hpstatic/img/cover.png"/>
+    <meta property="og:image" content="http://f3.cloud.frogdesign.com/hpstatic/img/cover.png"/>
+    <meta name="twitter:url" content="https://f3.cloud.frogdesign.com"/>
+    <meta property="og:url" content="https://f3.cloud.frogdesign.com"/>
+    <meta name="twitter:description" content="Please join us on April 14th as frog transforms its Milan studio for an immersive encounter with the technology-fuelled headlines of tomorrow - and explore what may become future factor or fiction together with panelists from IKEA, Empatica, and frog.">
+    <meta property="og:description" content="Please join us on April 14th as frog transforms its Milan studio for an immersive encounter with the technology-fuelled headlines of tomorrow - and explore what may become future factor or fiction together with panelists from IKEA, Empatica, and frog."/>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -33,18 +36,18 @@
         </div>
     </nav>
 </header>
-    <div id="content">
-        <%- reactHtml %>
-    </div>
-    <script type="text/javascript" src="js/bundle.js"></script>
-    <script type="text/javascript">
-        (function() {
-            var props = <%- props %>;
-            window.renderClient("<%= viewFile %>", props);
-        })();
-    </script>
-    <script type="text/javascript" src="js/masonry.pkgd.js"></script>
-    <script src="/hpstatic/js/jquery.min.js"></script>
-    <script type="text/javascript" src="/hpstatic/js/smoothscroll.js"></script>
+<div id="content">
+    <%- reactHtml %>
+</div>
+<script type="text/javascript" src="js/bundle.js"></script>
+<script type="text/javascript">
+    (function () {
+        var props = <%- props %>;
+        window.renderClient("<%= viewFile %>", props);
+    })();
+</script>
+<script type="text/javascript" src="js/masonry.pkgd.js"></script>
+<script src="/hpstatic/js/jquery.min.js"></script>
+<script type="text/javascript" src="/hpstatic/js/smoothscroll.js"></script>
 </body>
 </html>
