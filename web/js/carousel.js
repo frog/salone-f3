@@ -1,17 +1,17 @@
-var React = require('react');
+var React = require('react'),
+    moment = require('moment-timezone');
 
 var isBrowser = !(global && Object.prototype.toString.call(global.process) === '[object process]');
 if (isBrowser) {
-    var Chart = require('chart.js');
-    var reqwest = require('reqwest');
-    var io = require('socket.io-client');
+    var Chart = require('chart.js'),
+        reqwest = require('reqwest'),
+        io = require('socket.io-client');
+
     var socket = io();
     socket.on('update', function (data) {
         console.log(data);
     });
 }
-var moment = require('moment-timezone');
-
 
 var VizOne = React.createClass({
     displayName: 'VizOne',
@@ -33,6 +33,7 @@ var VizOne = React.createClass({
             }.bind(this)
         });
     },
+
     render: function () {
         return (
             <div className="vizOne viz">
@@ -181,15 +182,15 @@ var VoteFlowLabels = React.createClass({
 });
 
 var TweetDisplay = React.createClass({
-    getInitialState: function() {
-        return {tweet : this.props.tweet};
+    getInitialState: function () {
+        return {tweet: this.props.tweet};
     },
-    render : function() {
+    render: function () {
         var str = this.state.tweet.text;
-        str = str.replace(/(\#[a-zA-Z0-9\-\_]+)/g,'<span class="greenHashtag">$1</span>');
+        str = str.replace(/(\#[a-zA-Z0-9\-\_]+)/g, '<span class="greenHashtag">$1</span>');
         return (
             <div className="viz two" ref="twitter">
-                <p className="title" style={{paddingTop: 26+'px'}}>Factorfiction tweet</p>
+                <p className="title" style={{paddingTop: 26 + 'px'}}>Factorfiction tweet</p>
                 <p className="tweetText" dangerouslySetInnerHTML={{__html: str}}>
                 </p>
             </div>
@@ -197,7 +198,7 @@ var TweetDisplay = React.createClass({
     },
     componentDidMount: function () {
         socket.on('newTweet', function (data) {
-            this.setState({tweet : data});
+            this.setState({tweet: data});
         }.bind(this));
     }
 });
@@ -215,7 +216,6 @@ var Carousel = React.createClass({
             <div className="carousel">
                 <TweetDisplay ref="twitter" tweet={this.props.tweet}/>
                 <VizOne ref="chart"/>
-                <TweetDisplay ref="twitter" tweet={this.props.tweet}/>
                 <div className="viz three" ref="single"/>
             </div>
         );
@@ -248,14 +248,5 @@ var Carousel = React.createClass({
         }, 5000);
     }
 });
-
-
-var topLevelElements = {}
-topLevelElements['VizOne'] = Carousel;
-
-
-/*window.showContent = function (id) {
-    React.render(React.createElement(topLevelElements[id], null), document.getElementById("content"));
-};*/
 
 module.exports.ViewClass = Carousel

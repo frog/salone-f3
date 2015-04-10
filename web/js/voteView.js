@@ -3,32 +3,7 @@ var io = require('socket.io-client');
 
 var isBrowser = !(global && Object.prototype.toString.call(global.process) === '[object process]');
 
-var TweetButton = React.createClass({
-    displayName: 'TweetButton',
-    render: function () {
-        var postfix = " @frogdesign";
-        var hashtags = ' #' + ['factorfiction', 'frogmi'].join(' #');
-        var url = "http://f3.cloud.frogdesign.com";
-        var availableChars = 140 - hashtags.length - postfix.length - /*url.length*/ 22 - 1;
-        var tweetText = this.props.spread.text;
-        if (tweetText.length >= availableChars) {
-            tweetText = tweetText.substring(0, availableChars - 1);
-            tweetText = tweetText + "\u2026";
-        }
-        var the_target = "https://twitter.com/share?";
-        the_target += "&url=" + url + "&counturl=" + url;
-        the_target += "&related=frogdesign&dnt=true";
-        the_target += "&text=" + encodeURIComponent(tweetText + hashtags + postfix);
-        //the_target += "&hashtags="+hashtags.join(',');
-        return (
-            <div className="sharebutton">
-                <a href={the_target} target="_blank" type="button" className="btn share">
-                    <h6>Share on Twitter</h6>
-                </a>
-            </div>
-        );
-    }
-});
+var TweetButton = require('./tweetbutton').ViewClass;
 
 var VoteView = React.createClass({
     displayName: 'VoteView',

@@ -169,17 +169,17 @@ mongo.connect(dbUrl, function (err, db) {
     app.get('/vizone', function (req, res) {
 
         collection.find().toArray(function (err, docs) {
-
-            var viewFile = "vizOne";
+            var viewFile = "carousel";
             var Carousel = React.createFactory(require('../web/js/' + viewFile).ViewClass);
             //console.log(docs[0])
             var startingProps = {
                 spreads: docs,
                 tweet: latestTweet
             };
+
             var reactHtml = React.renderToString(Carousel(startingProps))
             res.render('projection', {
-                title: "Welcome",
+                pageTitle: "Welcome",
                 viewFile: viewFile,
                 reactHtml: reactHtml,
                 props: JSON.stringify(startingProps)
