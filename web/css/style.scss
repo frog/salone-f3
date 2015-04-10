@@ -16,16 +16,30 @@ html, body {
 
 @font-face {
   font-family: FOFfont;
-  font-weight: 200;
+  font-weight: 500;
+  font-style: normal;
+  src: url('https://server205.lab.frogdesign.com/fonts/ch-middle.ttf');
+}
+
+@font-face {
+  font-family: FOFfont;
+  font-weight: 400;
   font-style: normal;
   src: url('https://server205.lab.frogdesign.com/fonts/ch-light.ttf');
 }
 
 @font-face {
   font-family: FOFfont;
-  font-weight: 100;
+  font-weight: 300;
   font-style: normal;
   src: url('https://server205.lab.frogdesign.com/fonts/ch-feather.ttf');
+}
+
+@font-face {
+  font-family: FOFfont;
+  font-weight: 200;
+  font-style: normal;
+  src: url('https://server205.lab.frogdesign.com/fonts/ch-bantham.ttf');
 }
 
 @import url('http://fonts.googleapis.com/css?family=Source+Code+Pro:200,300,400,500,600,700,900|Roboto+Condensed:300italic,400italic,700italic,400,700,300');
@@ -37,7 +51,7 @@ html, body {
   height: 1920px;
   margin: 0 auto;
   position: relative;
-  //overflow: hidden;
+  overflow: hidden;
 
   & > div {
     -webkit-transition: all 1s;
@@ -54,9 +68,11 @@ html, body {
     left: -100%;
     .tweetText {
       margin-top: 46px;
-      font-weight: 100;
+      font-weight: 300;
       text-align: center;
       font-size: 9.8rem;
+      line-height: 10.2rem;
+      text-transform: uppercase;
       .greenHashtag {
         color: #46bd01;
       }
@@ -76,7 +92,7 @@ html, body {
     text-align: center;
     text-transform: uppercase;
     text-decoration: underline;
-    font-weight: 200;
+    font-weight: 400;
   }
 
   .counter {
@@ -84,7 +100,7 @@ html, body {
     padding: 26px 0;
     .number {
       margin-top: 46px;
-      font-weight: 100;
+      font-weight: 200;
       font-size: 38rem;
       text-align: center;
       text-transform: uppercase;

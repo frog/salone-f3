@@ -7,18 +7,18 @@ var TweetButton = React.createClass({
     displayName: 'TweetButton',
     render: function () {
         var postfix = " @frogdesign";
-        var hashtags = ' #'+['factorfiction','frogmi'].join(' #');
+        var hashtags = ' #' + ['factorfiction', 'frogmi'].join(' #');
         var url = "http://f3.cloud.frogdesign.com";
-        var availableChars = 140 - hashtags.length - postfix.length -  /*url.length*/ 22 - 1;
+        var availableChars = 140 - hashtags.length - postfix.length - /*url.length*/ 22 - 1;
         var tweetText = this.props.spread.text;
         if (tweetText.length >= availableChars) {
             tweetText = tweetText.substring(0, availableChars - 1);
-            tweetText = tweetText +"\u2026";
+            tweetText = tweetText + "\u2026";
         }
         var the_target = "https://twitter.com/share?";
-        the_target += "&url="+url+"&counturl="+url;
+        the_target += "&url=" + url + "&counturl=" + url;
         the_target += "&related=frogdesign&dnt=true";
-        the_target += "&text="+encodeURIComponent(tweetText+hashtags+postfix);
+        the_target += "&text=" + encodeURIComponent(tweetText + hashtags + postfix);
         //the_target += "&hashtags="+hashtags.join(',');
         return (
             <div className="sharebutton">
@@ -165,51 +165,47 @@ var VoteView = React.createClass({
                 </section>
                 <section id="about" className="home-section text-center bg-gray">
                     <div className="container">
-                        <div className="col-md-offset-3 col-md-6">
-                            <img src="/hpstatic/img/ten.png" width="50%" alt="frog turns 10"/>
+                        <div className="row">
+                            <div className="col-md-6 blocktext">
+                                <img src="/hpstatic/img/ten.png" width="50%" alt="frog turns 10"/>
 
-                            <h3>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
-                                totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae
-                                dicta sunt explicabo.</h3>
+                                <h3>Coinciding with the 54th Salone del Mobile, “Future Fact or Fiction” is an event hosted
+                                    by frog that tackles aspirational themes just slightly out of reach for the 2015 edition
+                                    of the world's largest furniture fair.</h3>
+
+                                <div className="rsvpbutton">
+                                    <a href="http://info2.frogdesign.com/future-fact-or-fiction" target="_blank"
+                                        className="btn-lg" alt="frog">
+                                        <img src="/hpstatic/img/friedolin_w.png" height="80" width="auto"/>
+                                    </a>
+                                </div>
+                            </div>
+                            <div className="col-md-6 blocktext">
+
+                                <img src="/hpstatic/img/registerhere.png" width="50%" alt="frog turns 10"/>
+
+                                <h3>Please join us on April 14th as frog transforms its Milan studio for an immersive
+                                    encounter with the technology-fuelled headlines of tomorrow - and explore what may become
+                                    future factor or fiction together with panelists from IKEA, Empatica, and frog.
+                                </h3>
+
+                                <div className="rsvpbutton">
+                                    <a href="http://info2.frogdesign.com/future-fact-or-fiction" target="_blank"
+                                        className="btn-lg rsvp">
+                                        <span>RSVP</span>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
                 <div id="separatore">
                     <img src="/hpstatic/img/fact-or-fiction.png" alt="Fact or Fiction"/>
+                    <p className="prompt">Give us your opinion on these fantastic future headlines</p>
                 </div>
                 <section id="voting">
                     <div className="row">
                         {the_cols}
-                    </div>
-                </section>
-                <section id="contact" className="home-section">
-                    <div className="heading-contact marginbot-50">
-                        <div className="container">
-                            <div className="row">
-                                <div className="col-md-6 col-md-offset-1">
-                                    qui va immagine quotidiano piegato
-                                </div>
-                                <div className="col-md-4">
-
-                                    <div className="section">
-                                        <div id="registerheadline">
-                                            <h2>REGISTER TOBEFIXED</h2>
-                                        </div>
-                                        <p>You are invited to join us at frog Milan on April 14th as we will celebrate our 10th
-                                            anniversary by speculating on possible futures. Together, we will assess what may become
-                                            future fact or fiction for Salone in 2025.</p>
-
-                                        <div className="rsvpbutton">
-                                            <a href="http://info2.frogdesign.com/future-fact-or-fiction" target="_blank"
-                                                className="btn-lg rsvp">
-                                                <span>RSVP</span>
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </section>
 
@@ -251,7 +247,8 @@ var VoteView = React.createClass({
                         </div>
                     </div>
                 </footer>
-            </div>);
+            </div>
+        );
     },
     componentDidMount: function () {
         console.log("ComponentDidMount")
