@@ -225,12 +225,12 @@ mongo.connect(dbUrl, function (err, db) {
         });
     });
 
-    //if (process.env.NODE_ENV != "PROD") {
+    if (process.env.NODE_ENV != "PROD") {
         app.get('/reseed', function (req, res) {
             seed(collection, true);
             res.status(200).send("WHOLE DB reseeded!");
         });
-    //}
+    }
 
     server.listen(app.get('port'), function () {
         logger.info('--> f3 server ready to rock on port:' + app.get('port') + process.env.NODE_ENV);
@@ -299,22 +299,22 @@ mongo.connect(dbUrl, function (err, db) {
                         if (err) throw new Error("error in seeding", err);
                     });
             });
-            if (reset) {
+            if (reset && process.env.NODE_ENV != "PROD") {
                 var moment = require('moment-timezone');
                 var cursor = moment().tz("Europe/Rome").hours(18).minutes(2).seconds(0);
-                //
-                //function addNVotes(n, cursor) {
-                //    for (var i = 0; i < n; i++) {
-                //        incrementVoteFor('3dbabies', 'fact', function () {
-                //        }, cursor.toDate());
-                //    }
-                //}
-                //
-                //var votes = [25, 12, 45, 23, 56, 2, 5, 120];
-                //votes.map(function (a) {
-                //    addNVotes(a, cursor)
-                //    cursor.add({minutes: 10});
-                //});
+
+                function addNVotes(n, cursor) {
+                    for (var i = 0; i < n; i++) {
+                        incrementVoteFor('3dbabies', 'fact', function () {
+                        }, cursor.toDate());
+                    }
+                }
+
+                var votes = [25, 12, 45, 23, 56, 2, 5, 120];
+                votes.map(function (a) {
+                    addNVotes(a, cursor)
+                    cursor.add({minutes: 10});
+                });
             }
             cb(null, 'OK');
         }
