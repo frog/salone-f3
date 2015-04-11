@@ -260,6 +260,10 @@ mongo.connect(dbUrl, function (err, db) {
             q: '#factorfiction',
             count: 1
         }, function (error, tweets, response) {
+            if (error) {
+                winston.error('received Error from twitter retriever!',error);
+                return;
+            }
             if (tweets.statuses.length == 0) return;
             if (latestTweet == undefined || latestTweet.text !== tweets.statuses[0].text) {
                 latestTweet = tweets.statuses[0];

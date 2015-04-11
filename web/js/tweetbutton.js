@@ -5,13 +5,14 @@ var URL_SHORTENED_LENGTH = 22;
 var TWEET_LENGTH = 140;
 
 var ACCOUNT = "frogdesign";
-
+var HASHTAGS = ['factorfiction', 'frogmi']
 
 module.exports.ViewClass = React.createClass({
     displayName: 'TweetButton',
     render: function () {
+        //prepare chunks of tweet
         var postfix = " @" + ACCOUNT;
-        var hashtags = ' #' + ['factorfiction', 'frogmi'].join(' #');
+        var hashtags = ' #' + HASHTAGS.join(' #');
         var availableChars = TWEET_LENGTH - hashtags.length - postfix.length - URL_SHORTENED_LENGTH - 1;
 
         //cutting the last character if needed and showing ellipsis

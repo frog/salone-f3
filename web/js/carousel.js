@@ -100,7 +100,7 @@ var VoteFlowChart = React.createClass({
 
                 parsed.forEach(function (element) {
                     limits.forEach(function (el, idx) {
-                        var end = idx >= limits.length - 1 ? moment('2093-02-08', "YYYY-DD-MM") : limits[idx + 1].startTime;
+                        var end = idx >= limits.length - 1 ? endPoint : limits[idx + 1].startTime;
                         //console.log(element, el.startTime, end);
                         if (element.isBetween(el.startTime, end)) {
                             el.count++;
