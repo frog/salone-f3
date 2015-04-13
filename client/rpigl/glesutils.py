@@ -563,13 +563,13 @@ def load_uniform(uniform, value):
 
 def _get_array_from_alpha_surface(surface, withAlpha = False):
     rgb = pygame.surfarray.pixels3d(surface).astype(numpy.uint8)
-    if (withAlpha):
+    if withAlpha:
         alpha = pygame.surfarray.pixels_alpha(surface)
     #rgb *= alpha[:,:,numpy.newaxis]
     #rgb /= 255
     result = numpy.empty(rgb.shape[:-1] + (4,), dtype=numpy.uint8)
     result[:,:,:3] = rgb
-    if (withAlpha):
+    if withAlpha:
         result[:,:,3] = alpha
     else:
         result[:,:,3] = 255
@@ -616,12 +616,12 @@ class TextureData(object):
     def from_surface(surface, withAlpha = False):
         """Create texture data from a Pygame Surface."""
         if surface.get_flags() & pygame.SRCALPHA:
-            #print "32"
+            print "32"
             desired_depth = 32
             get_array = _get_array_from_alpha_surface
             convert = surface.convert_alpha
         else:
-            #print "24"
+            print "24"
             desired_depth = 24
             get_array = pygame.surfarray.pixels3d
             convert = surface.convert
@@ -630,18 +630,19 @@ class TextureData(object):
             #print "CONVERT"
             surface = convert(desired_depth, surface.get_flags())
 
-        #print "TEXT2"
+        print "TEXT2"
         array = get_array(surface, withAlpha)
-        #print "ARRAY"
+        print "ARRAY"
         ar = numpy.swapaxes(array, 0, 1)
-        #print "DATA"
+        print "DATA"
         result =  TextureData.from_ndarray(ar)
-        #print "TEXTEND"
+        print "TEXTEND"
         return result
 
     @staticmethod
     def from_file(filename_or_obj, withAlpha = False):
         """Create texture data from a file, either indicated by name or by file object."""
+        print "FromFile", filename_or_obj
         image = pygame.image.load(filename_or_obj)
         texture = TextureData.from_surface(image, withAlpha)
         return texture

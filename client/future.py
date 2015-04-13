@@ -148,6 +148,7 @@ class Future(glesutils.GameWindow):
             
         self.redraw()
         if len(self.animation) == 0:
+            handled = False
             if self.kopressed == 0:
                 self.kopressed = pi.read(PIR_PIN_KO)
                 if self.kopressed == 1:
@@ -155,18 +156,21 @@ class Future(glesutils.GameWindow):
                     self.currentStamp = self.fiction
                     Scenarios.getCurrent().vote('Fiction')
                     self.goOn()
+                    handled = True
             else:
                 self.kopressed = pi.read(PIR_PIN_KO)
-                
-            if self.okpressed == 0:
-                self.okpressed = pi.read(PIR_PIN_OK)
-                if self.okpressed == 1:
-                    print "OK!"
-                    self.currentStamp = self.fact
-                    Scenarios.getCurrent().vote('Fact')
-                    self.goOn()
-            else:
-                self.okpressed = pi.read(PIR_PIN_OK)
+                handled = True
+
+            if not handled:
+                if self.okpressed == 0:
+                    self.okpressed = pi.read(PIR_PIN_OK)
+                    if self.okpressed == 1:
+                        print "OK!"
+                        self.currentStamp = self.fact
+                        Scenarios.getCurrent().vote('Fact')
+                        self.goOn()
+                else:
+                    self.okpressed = pi.read(PIR_PIN_OK)
         if self.preload:
             self.preload = False
             Scenarios.getPrevious().unloadTexture()
