@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1bb75932-12b9-4a8a-bffa-9fc15c58402d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/bundle.js" afterPath="$PROJECT_DIR$/public/js/bundle.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/js/carousel.js" afterPath="$PROJECT_DIR$/web/js/carousel.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gulpfile.js" afterPath="$PROJECT_DIR$/gulpfile.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/js/tweetbutton.js" afterPath="$PROJECT_DIR$/web/js/tweetbutton.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/hpstatic/css/style.css" afterPath="$PROJECT_DIR$/public/hpstatic/css/style.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/js/voteView.js" afterPath="$PROJECT_DIR$/web/js/voteView.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="salone-f3.iws" />
@@ -33,266 +30,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="carousel.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/web/js/carousel.js">
+      <file leaf-file-name="style.css" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/public/hpstatic/css/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.270627" vertical-offset="705" max-vertical-offset="3855">
-              <caret line="124" column="6" selection-start-line="124" selection-start-column="6" selection-end-line="124" selection-end-column="6" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/package.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="210" max-vertical-offset="1185">
-              <caret line="14" column="113" selection-start-line="14" selection-start-column="113" selection-end-line="14" selection-end-column="113" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="bundle.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/js/bundle.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="666636" max-vertical-offset="670440">
-              <caret line="44463" column="0" selection-start-line="44463" selection-start-column="0" selection-end-line="44463" selection-end-column="0" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-                <marker date="1428914443000" expanded="true" signature="672174:681680" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="672224:681545" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="674776:681361" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="678415:678759" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="678573:678582" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="678766:679109" placeholder="/** Sets a subset of the props. ...*/" />
-                <marker date="1428914443000" expanded="true" signature="679241:679981" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="680006:680120" placeholder="/** Replaces all of the props. ...*/" />
-                <marker date="1428914443000" expanded="true" signature="680207:681257" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="680551:680607" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="681517:681544" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="681673:681678" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="681753:681761" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="681783:681788" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="681836:682485" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="681836:681863" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="681882:682436" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="681883:682160" placeholder="/** Copyright 2013-2015, Facebook, Inc. ...*/" />
-                <marker date="1428914443000" expanded="true" signature="686220:687501" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="687364:687426" placeholder="{&quot;prop&quot;: null...}" />
-                <marker date="1428914443000" expanded="true" signature="687494:687499" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="687540:687548" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="687541:687546" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="687594:688352" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="687613:687640" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="687659:688286" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="687660:687885" placeholder="/** Copyright 2013-2015, Facebook, Inc. ...*/" />
-                <marker date="1428914443000" expanded="true" signature="688149:688172" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="688138:688169" placeholder="{&quot;prop&quot;: 'prop'...}" />
-                <marker date="1428914443000" expanded="true" signature="688258:688285" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="688345:688350" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="688389:688397" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="688393:688398" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="688446:690202" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="688505:688532" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="688551:690177" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="688552:688706" placeholder="/** Copyright 2013-2015, Facebook, Inc. ...*/" />
-                <marker date="1428914443000" expanded="true" signature="688984:689277" placeholder="/** Constructs an enumeration with keys equal to their value. ...*/" />
-                <marker date="1428914443000" expanded="true" signature="689329:689958" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="689588:689807" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="689604:689656" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="690149:690176" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="690195:690200" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="690223:690231" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="690266:690271" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="690319:691060" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="690291:690365" placeholder="/** Copyright 2013-2015, Facebook, Inc. ...*/" />
-                <marker date="1428914443000" expanded="true" signature="690380:690791" placeholder="/** Allows extraction of a minified key. Let's the build system minify keys ...*/" />
-                <marker date="1428914443000" expanded="true" signature="690824:690948" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="690854:690873" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="905720:908234" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="905734:907964" placeholder="{&quot;./af&quot;: 167...}" />
-                <marker date="1428914443000" expanded="true" signature="908010:908017" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="908227:908232" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="908243:908252" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="908264:908269" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="908317:908941" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="908308:908392" placeholder="/** Parses an URI ...*/" />
-                <marker date="1428914443000" expanded="true" signature="908476:908521" placeholder="[...]" />
-                <marker date="1428914443000" expanded="true" signature="908622:908916" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="908815:908857" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="908989:908998" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="908990:908995" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="909043:909109" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="909102:909107" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="909103:909112" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="909348:909353" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="909401:909833" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="909365:909519" placeholder="/** Slice reference. ...*/" />
-                <marker date="1428914443000" expanded="true" signature="909594:909685" placeholder="/** Bind `obj` to `fn`. ...*/" />
-                <marker date="1428914443000" expanded="true" signature="909735:909781" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="909741:909781" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="909898:913624" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="910220:910898" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="910260:910894" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="910964:911095" placeholder="/** Listen on the given `event` with `fn`. ...*/" />
-                <marker date="1428914443000" expanded="true" signature="911202:911232" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="911261:911434" placeholder="/** Adds an `event` listener that will be invoked a single ...*/" />
-                <marker date="1428914443000" expanded="true" signature="911581:911755" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="911623:911634" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="911822:912000" placeholder="/** Remove the given callback for `event` or all ...*/" />
-                <marker date="1428914443000" expanded="true" signature="912129:912642" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="912147:912174" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="912400:912432" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="912586:912614" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="912677:912822" placeholder="/** Emit `event` with the given args. ...*/" />
-                <marker date="1428914443000" expanded="true" signature="912865:913057" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="912958:913048" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="913005:913046" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="913121:913180" placeholder="/** Return array of callbacks for `event`. ...*/" />
-                <marker date="1428914443000" expanded="true" signature="913228:913236" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="913300:913485" placeholder="/** Check if this emitter has `event` handlers. ...*/" />
-                <marker date="1428914443000" expanded="true" signature="917399:917708" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="917799:918066" placeholder="/** Reconstructs a binary packet from its placeholder packet and buffers ...*/" />
-                <marker date="1428914443000" expanded="true" signature="918149:918761" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="918161:918601" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="918161:918272" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="918297:918399" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="918442:918597" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="918426:918541" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="918870:919164" placeholder="/** Asynchronously removes Blobs or Files from data via ...*/" />
-                <marker date="1428914443000" expanded="true" signature="919237:920862" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="919252:920716" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="919372:920409" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="919447:920335" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="921480:921709" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="921566:921670" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="921702:921707" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="921706:921715" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="921764:921769" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="921817:923055" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="921798:921825" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="921843:923075" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="921814:921823" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="921908:921972" placeholder="/** Module exports. ...*/" />
-                <marker date="1428914443000" expanded="true" signature="922143:922310" placeholder="/** Checks for binary data. ...*/" />
-                <marker date="1428914443000" expanded="true" signature="922354:923027" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="922430:922985" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="922604:922615" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="922652:922751" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="922670:922678" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="922792:922908" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="922769:922773" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="922849:922909" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="923047:923074" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="1518986:1519859" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="1519896:1520004" placeholder="/** Listen on the given `event` with `fn`. ...*/" />
-                <marker date="1428914443000" expanded="true" signature="1520130:1520158" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="1520259:1520400" placeholder="/** Adds an `event` listener that will be invoked a single ...*/" />
-                <marker date="1428914443000" expanded="true" signature="1520505:1520726" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="1520568:1520614" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="1521884:1522991" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="1521888:1522030" placeholder="/** Parses an URI ...*/" />
-                <marker date="1428914443000" expanded="true" signature="1522140:1522261" placeholder="[...]" />
-                <marker date="1428914443000" expanded="true" signature="1522351:1522959" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="1522451:1522492" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="1522634:1522714" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="1522823:1522897" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="1522984:1522989" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="1523047:1523056" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="1523064:1523069" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="1523117:1524191" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="1523071:1523098" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="1523116:1524211" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="1523117:1523486" placeholder="/** JSON parse. ...*/" />
-                <marker date="1428914443000" expanded="true" signature="1523797:1523812" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="1523923:1523925" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="1524183:1524210" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="1546209:1551010" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="1548065:1549299" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="1548874:1548908" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="1548965:1549017" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="1549098:1549225" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="1549335:1549462" placeholder="/** Override `onData` to use a timer on iOS. ...*/" />
-                <marker date="1428914443000" expanded="true" signature="1549541:1549657" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="1549554:1549655" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="1549571:1549630" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="1549662:1549714" placeholder="/** Writes data to socket. ...*/" />
-                <marker date="1428914443000" expanded="true" signature="1549873:1549997" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="1549912:1549965" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="1549933:1549957" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="1550036:1550056" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="1550423:1550446" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="1550650:1550664" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="1550741:1550865" placeholder="/** Feature detection for WebSocket. ...*/" />
-                <marker date="1428914443000" expanded="true" signature="1550928:1550994" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="1551003:1551008" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="1551013:1551022" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="1551068:1551073" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="1551121:1552327" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="1551075:1551102" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="1551120:1552319" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="1551131:1551187" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="1551260:1551325" placeholder="/** Module exports. ...*/" />
-                <marker date="1428914443000" expanded="true" signature="1551415:1551621" placeholder="/** Checks for binary data. ...*/" />
-                <marker date="1428914443000" expanded="true" signature="1551686:1552261" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="1551786:1552229" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="1551840:1551900" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="1551966:1552026" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="1551991:1552027" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="1552067:1552182" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="1552048:1552058" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="1552108:1552126" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="1552291:1552318" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="1552320:1552325" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="1552380:1552389" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="1552444:1552449" placeholder="/*...*/" />
-                <marker date="1428914443000" expanded="true" signature="1552497:1553151" placeholder="{...}" />
-                <marker date="1428914443000" expanded="true" signature="1552542:1552611" placeholder="/** An abstraction for slicing an arraybuffer even when ...*/" />
-                <marker date="1428914443000" expanded="true" signature="1552742:1553058" placeholder="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="gulpfile.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gulpfile.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="270" max-vertical-offset="930">
-              <caret line="18" column="21" selection-start-line="18" selection-start-column="21" selection-end-line="18" selection-end-column="21" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/README.md">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="75" max-vertical-offset="180">
-              <caret line="5" column="4" selection-start-line="5" selection-start-column="4" selection-end-line="5" selection-end-column="4" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="bundle.js.map" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/js/bundle.js.map">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="90">
-              <caret line="0" column="97" selection-start-line="0" selection-start-column="97" selection-end-line="0" selection-end-column="97" />
-              <folding />
-            </state>
-          </provider>
-          <provider editor-type-id="sourcemapFileViewerProvider">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="tweetbutton.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/js/tweetbutton.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="705">
-              <caret line="2" column="9" selection-start-line="2" selection-start-column="9" selection-end-line="2" selection-end-column="9" />
+            <state vertical-scroll-proportion="0.41887227" vertical-offset="1496" max-vertical-offset="20340">
+              <caret line="124" column="42" selection-start-line="124" selection-start-column="42" selection-end-line="124" selection-end-column="42" />
               <folding />
             </state>
           </provider>
@@ -301,28 +43,8 @@
       <file leaf-file-name="voteView.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/js/voteView.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="960" max-vertical-offset="3630">
-              <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/app.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="3546" max-vertical-offset="5235">
-              <caret line="238" column="0" selection-start-line="238" selection-start-column="0" selection-end-line="238" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="projection.ejs" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/projection.ejs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="240" max-vertical-offset="345">
-              <caret line="16" column="7" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="7" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1875" max-vertical-offset="3645">
+              <caret line="145" column="40" selection-start-line="145" selection-start-column="40" selection-end-line="145" selection-end-column="40" />
               <folding />
             </state>
           </provider>
@@ -355,12 +77,10 @@
         <option value="$PROJECT_DIR$/views/vizgif.html" />
         <option value="$PROJECT_DIR$/server/spreads.json" />
         <option value="$PROJECT_DIR$/views/vizgif.ejs" />
-        <option value="$PROJECT_DIR$/public/hpstatic/css/style.css" />
         <option value="$PROJECT_DIR$/web/js/vizOne.js" />
         <option value="$PROJECT_DIR$/web/js/main.js" />
         <option value="$PROJECT_DIR$/views/index.ejs" />
         <option value="$PROJECT_DIR$/web/css/style.scss" />
-        <option value="$PROJECT_DIR$/web/js/voteView.js" />
         <option value="$PROJECT_DIR$/server/app.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/README.md" />
@@ -368,6 +88,8 @@
         <option value="$PROJECT_DIR$/web/js/tweetbutton.js" />
         <option value="$PROJECT_DIR$/gulpfile.js" />
         <option value="$PROJECT_DIR$/web/js/carousel.js" />
+        <option value="$PROJECT_DIR$/web/js/voteView.js" />
+        <option value="$PROJECT_DIR$/public/hpstatic/css/style.css" />
       </list>
     </option>
   </component>
@@ -453,6 +175,10 @@
               <option name="myItemId" value="web" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="css" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -496,7 +222,47 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
+              <option name="myItemId" value="hpstatic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="salone-f3" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="salone-f3" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hpstatic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="css" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="salone-f3" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="salone-f3" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="css" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -867,20 +633,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="525" max-vertical-offset="2310">
-          <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="59" selection-end-column="72" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/hpstatic/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.589286" vertical-offset="1255" max-vertical-offset="20175">
-          <caret line="112" column="1" selection-start-line="112" selection-start-column="1" selection-end-line="112" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/index.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-4.375" vertical-offset="0" max-vertical-offset="810">
@@ -892,13 +644,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="326" max-vertical-offset="1590">
           <caret line="37" column="9" selection-start-line="37" selection-start-column="9" selection-end-line="37" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/css/style.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1498" max-vertical-offset="2190">
-          <caret line="64" column="21" selection-start-line="64" selection-start-column="21" selection-end-line="64" selection-end-column="21" />
         </state>
       </provider>
     </entry>
@@ -962,200 +707,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/js/bundle.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="666636" max-vertical-offset="670440">
-          <caret line="44463" column="0" selection-start-line="44463" selection-start-column="0" selection-end-line="44463" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="670455">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <marker date="1428914443000" expanded="true" signature="672174:681680" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="672224:681545" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="674776:681361" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="678415:678759" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="678573:678582" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="678766:679109" placeholder="/** Sets a subset of the props. ...*/" />
-            <marker date="1428914443000" expanded="true" signature="679241:679981" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="680006:680120" placeholder="/** Replaces all of the props. ...*/" />
-            <marker date="1428914443000" expanded="true" signature="680207:681257" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="680551:680607" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="681517:681544" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="681673:681678" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="681753:681761" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="681783:681788" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="681836:682485" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="681836:681863" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="681882:682436" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="681883:682160" placeholder="/** Copyright 2013-2015, Facebook, Inc. ...*/" />
-            <marker date="1428914443000" expanded="true" signature="686220:687501" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="687364:687426" placeholder="{&quot;prop&quot;: null...}" />
-            <marker date="1428914443000" expanded="true" signature="687494:687499" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="687540:687548" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="687541:687546" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="687594:688352" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="687613:687640" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="687659:688286" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="687660:687885" placeholder="/** Copyright 2013-2015, Facebook, Inc. ...*/" />
-            <marker date="1428914443000" expanded="true" signature="688149:688172" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="688138:688169" placeholder="{&quot;prop&quot;: 'prop'...}" />
-            <marker date="1428914443000" expanded="true" signature="688258:688285" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="688345:688350" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="688389:688397" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="688393:688398" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="688446:690202" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="688505:688532" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="688551:690177" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="688552:688706" placeholder="/** Copyright 2013-2015, Facebook, Inc. ...*/" />
-            <marker date="1428914443000" expanded="true" signature="688984:689277" placeholder="/** Constructs an enumeration with keys equal to their value. ...*/" />
-            <marker date="1428914443000" expanded="true" signature="689329:689958" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="689588:689807" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="689604:689656" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="690149:690176" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="690195:690200" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="690223:690231" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="690266:690271" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="690319:691060" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="690291:690365" placeholder="/** Copyright 2013-2015, Facebook, Inc. ...*/" />
-            <marker date="1428914443000" expanded="true" signature="690380:690791" placeholder="/** Allows extraction of a minified key. Let's the build system minify keys ...*/" />
-            <marker date="1428914443000" expanded="true" signature="690824:690948" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="690854:690873" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="905720:908234" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="905734:907964" placeholder="{&quot;./af&quot;: 167...}" />
-            <marker date="1428914443000" expanded="true" signature="908010:908017" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="908227:908232" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="908243:908252" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="908264:908269" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="908317:908941" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="908308:908392" placeholder="/** Parses an URI ...*/" />
-            <marker date="1428914443000" expanded="true" signature="908476:908521" placeholder="[...]" />
-            <marker date="1428914443000" expanded="true" signature="908622:908916" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="908815:908857" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="908989:908998" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="908990:908995" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="909043:909109" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="909102:909107" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="909103:909112" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="909348:909353" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="909401:909833" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="909365:909519" placeholder="/** Slice reference. ...*/" />
-            <marker date="1428914443000" expanded="true" signature="909594:909685" placeholder="/** Bind `obj` to `fn`. ...*/" />
-            <marker date="1428914443000" expanded="true" signature="909735:909781" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="909741:909781" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="909898:913624" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="910220:910898" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="910260:910894" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="910964:911095" placeholder="/** Listen on the given `event` with `fn`. ...*/" />
-            <marker date="1428914443000" expanded="true" signature="911202:911232" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="911261:911434" placeholder="/** Adds an `event` listener that will be invoked a single ...*/" />
-            <marker date="1428914443000" expanded="true" signature="911581:911755" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="911623:911634" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="911822:912000" placeholder="/** Remove the given callback for `event` or all ...*/" />
-            <marker date="1428914443000" expanded="true" signature="912129:912642" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="912147:912174" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="912400:912432" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="912586:912614" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="912677:912822" placeholder="/** Emit `event` with the given args. ...*/" />
-            <marker date="1428914443000" expanded="true" signature="912865:913057" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="912958:913048" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="913005:913046" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="913121:913180" placeholder="/** Return array of callbacks for `event`. ...*/" />
-            <marker date="1428914443000" expanded="true" signature="913228:913236" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="913300:913485" placeholder="/** Check if this emitter has `event` handlers. ...*/" />
-            <marker date="1428914443000" expanded="true" signature="917399:917708" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="917799:918066" placeholder="/** Reconstructs a binary packet from its placeholder packet and buffers ...*/" />
-            <marker date="1428914443000" expanded="true" signature="918149:918761" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="918161:918601" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="918161:918272" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="918297:918399" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="918442:918597" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="918426:918541" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="918870:919164" placeholder="/** Asynchronously removes Blobs or Files from data via ...*/" />
-            <marker date="1428914443000" expanded="true" signature="919237:920862" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="919252:920716" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="919372:920409" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="919447:920335" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="921480:921709" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="921566:921670" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="921702:921707" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="921706:921715" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="921764:921769" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="921817:923055" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="921798:921825" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="921843:923075" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="921814:921823" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="921908:921972" placeholder="/** Module exports. ...*/" />
-            <marker date="1428914443000" expanded="true" signature="922143:922310" placeholder="/** Checks for binary data. ...*/" />
-            <marker date="1428914443000" expanded="true" signature="922354:923027" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="922430:922985" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="922604:922615" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="922652:922751" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="922670:922678" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="922792:922908" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="922769:922773" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="922849:922909" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="923047:923074" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="1518986:1519859" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="1519896:1520004" placeholder="/** Listen on the given `event` with `fn`. ...*/" />
-            <marker date="1428914443000" expanded="true" signature="1520130:1520158" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="1520259:1520400" placeholder="/** Adds an `event` listener that will be invoked a single ...*/" />
-            <marker date="1428914443000" expanded="true" signature="1520505:1520726" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="1520568:1520614" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="1521884:1522991" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="1521888:1522030" placeholder="/** Parses an URI ...*/" />
-            <marker date="1428914443000" expanded="true" signature="1522140:1522261" placeholder="[...]" />
-            <marker date="1428914443000" expanded="true" signature="1522351:1522959" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="1522451:1522492" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="1522634:1522714" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="1522823:1522897" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="1522984:1522989" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="1523047:1523056" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="1523064:1523069" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="1523117:1524191" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="1523071:1523098" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="1523116:1524211" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="1523117:1523486" placeholder="/** JSON parse. ...*/" />
-            <marker date="1428914443000" expanded="true" signature="1523797:1523812" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="1523923:1523925" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="1524183:1524210" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="1546209:1551010" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="1548065:1549299" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="1548874:1548908" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="1548965:1549017" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="1549098:1549225" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="1549335:1549462" placeholder="/** Override `onData` to use a timer on iOS. ...*/" />
-            <marker date="1428914443000" expanded="true" signature="1549541:1549657" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="1549554:1549655" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="1549571:1549630" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="1549662:1549714" placeholder="/** Writes data to socket. ...*/" />
-            <marker date="1428914443000" expanded="true" signature="1549873:1549997" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="1549912:1549965" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="1549933:1549957" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="1550036:1550056" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="1550423:1550446" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="1550650:1550664" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="1550741:1550865" placeholder="/** Feature detection for WebSocket. ...*/" />
-            <marker date="1428914443000" expanded="true" signature="1550928:1550994" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="1551003:1551008" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="1551013:1551022" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="1551068:1551073" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="1551121:1552327" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="1551075:1551102" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="1551120:1552319" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="1551131:1551187" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="1551260:1551325" placeholder="/** Module exports. ...*/" />
-            <marker date="1428914443000" expanded="true" signature="1551415:1551621" placeholder="/** Checks for binary data. ...*/" />
-            <marker date="1428914443000" expanded="true" signature="1551686:1552261" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="1551786:1552229" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="1551840:1551900" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="1551966:1552026" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="1551991:1552027" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="1552067:1552182" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="1552048:1552058" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="1552108:1552126" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="1552291:1552318" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="1552320:1552325" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="1552380:1552389" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="1552444:1552449" placeholder="/*...*/" />
-            <marker date="1428914443000" expanded="true" signature="1552497:1553151" placeholder="{...}" />
-            <marker date="1428914443000" expanded="true" signature="1552542:1552611" placeholder="/** An abstraction for slicing an arraybuffer even when ...*/" />
-            <marker date="1428914443000" expanded="true" signature="1552742:1553058" placeholder="{...}" />
+            <element signature="n#!!doc" expanded="false" />
+            <marker date="1428918770000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428918770000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428918770000" expanded="true" signature="-1:-1" placeholder="{&quot;displayName&quot;: 'VoteView'...}" />
+            <marker date="1428918770000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428918770000" expanded="true" signature="-1:-1" placeholder="{...}" />
           </folding>
         </state>
       </provider>
@@ -1168,18 +728,42 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/js/voteView.js">
+    <entry file="file://$PROJECT_DIR$/web/js/carousel.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3630">
-          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="285" max-vertical-offset="3855">
+          <caret line="61" column="22" selection-start-line="61" selection-start-column="22" selection-end-line="61" selection-end-column="22" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/js/carousel.js">
+    <entry file="file://$PROJECT_DIR$/web/css/style.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.270627" vertical-offset="705" max-vertical-offset="3855">
-          <caret line="124" column="6" selection-start-line="124" selection-start-column="6" selection-end-line="124" selection-end-column="6" />
+        <state vertical-scroll-proportion="3.125" vertical-offset="1035" max-vertical-offset="2190">
+          <caret line="64" column="21" selection-start-line="64" selection-start-column="21" selection-end-line="64" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="915" max-vertical-offset="2325">
+          <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="59" selection-end-column="72" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/js/voteView.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1875" max-vertical-offset="3645">
+          <caret line="145" column="40" selection-start-line="145" selection-start-column="40" selection-end-line="145" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/hpstatic/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.41887227" vertical-offset="1496" max-vertical-offset="20340">
+          <caret line="124" column="42" selection-start-line="124" selection-start-column="42" selection-end-line="124" selection-end-column="42" />
           <folding />
         </state>
       </provider>

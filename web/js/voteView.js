@@ -146,6 +146,7 @@ var VoteView = React.createClass({
                                     </a>
                                 </div>
                             </div>
+                            <div className="vseparator"></div>
                             <div className="col-md-6 blocktext">
 
                                 <img src="/hpstatic/img/registerhere.png" width="50%" alt="frog turns 10"/>
