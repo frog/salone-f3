@@ -127,6 +127,12 @@ address {
     margin-bottom: 80px;
 }
 
+@media (max-width: 768px) {
+    .vseparator {
+        display: none;
+    }
+}
+
 #separatore {
     padding: 0.75rem 0;
     background-color: #ffffff;
