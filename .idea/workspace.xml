@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1bb75932-12b9-4a8a-bffa-9fc15c58402d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/future.py" afterPath="$PROJECT_DIR$/client/future.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/rpigl/glesutils.py" afterPath="$PROJECT_DIR$/client/rpigl/glesutils.py" />
     </list>
     <ignored path="salone-f3.iws" />
@@ -67,8 +66,8 @@
       <file leaf-file-name="glesutils.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/rpigl/glesutils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="2.2306547" vertical-offset="8131" max-vertical-offset="15105">
-              <caret line="642" column="17" selection-start-line="642" selection-start-column="8" selection-end-line="642" selection-end-column="17" />
+            <state vertical-scroll-proportion="0.86904764" vertical-offset="9076" max-vertical-offset="15120">
+              <caret line="644" column="41" selection-start-line="644" selection-start-column="41" selection-end-line="644" selection-end-column="41" />
               <folding />
             </state>
           </provider>
@@ -795,8 +794,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/rpigl/glesutils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.2306547" vertical-offset="8131" max-vertical-offset="15105">
-          <caret line="642" column="17" selection-start-line="642" selection-start-column="8" selection-end-line="642" selection-end-column="17" />
+        <state vertical-scroll-proportion="0.86904764" vertical-offset="9076" max-vertical-offset="15120">
+          <caret line="644" column="41" selection-start-line="644" selection-start-column="41" selection-end-line="644" selection-end-column="41" />
           <folding />
         </state>
       </provider>
