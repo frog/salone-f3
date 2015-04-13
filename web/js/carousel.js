@@ -82,7 +82,7 @@ var VoteFlowChart = React.createClass({
                     result.minutes(inbound.minutes());
                     result.seconds(inbound.seconds());
                     //console.log("res ",result);
-                    return result;
+                    return inbound;
                 });
                 var limits = [];
                 var startPoint = moment();
@@ -108,10 +108,10 @@ var VoteFlowChart = React.createClass({
                     });
                 });
                 console.log("parsed", parsed.map(function (e) {
-                    return e.format("HH:mm:ss")
+                    return e.format("DD MM HH:mm:ss")
                 }));
                 console.log("limits", limits.map(function (e) {
-                    return e.startTime.format("HH:mm:ss") + e.count
+                    return e.startTime.format("DD MM HH:mm:ss") + e.count
                 }));
 
                 this.setState({

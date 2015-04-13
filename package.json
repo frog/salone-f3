@@ -12,7 +12,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node node_modules/nodemon/bin/nodemon server/app.js",
-    "startDev": "(gulp watch & echo $!> client.pid) && (node node_modules/nodemon/bin/nodemon server/app.js & echo $!> server.pid)",
+    "startDev": "(gulp watch & echo $!> client.pid) && (node node_modules/nodemon/bin/nodemon --watch server,web server/app.js & echo $!> server.pid)",
     "stop": "kill -TERM $(cat client.pid); kill -TERM $(cat server.pid)"
   },
   "dependencies": {

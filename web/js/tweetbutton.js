@@ -1,3 +1,7 @@
+/**
+ * Module to render the twitter share button related to a given
+ * spread
+ */
 var React = require('react');
 
 var URL = "http://f3.cloud.frogdesign.com";
