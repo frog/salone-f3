@@ -563,13 +563,13 @@ def load_uniform(uniform, value):
 
 def _get_array_from_alpha_surface(surface, withAlpha = False):
     rgb = pygame.surfarray.pixels3d(surface).astype(numpy.uint8)
-    if (withAlpha):
+    if withAlpha:
         alpha = pygame.surfarray.pixels_alpha(surface)
     #rgb *= alpha[:,:,numpy.newaxis]
     #rgb /= 255
     result = numpy.empty(rgb.shape[:-1] + (4,), dtype=numpy.uint8)
     result[:,:,:3] = rgb
-    if (withAlpha):
+    if withAlpha:
         result[:,:,3] = alpha
     else:
         result[:,:,3] = 255
