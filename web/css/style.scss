@@ -139,3 +139,72 @@ html, body {
     }
   }
 }
+
+.exitPool{
+  color: white;
+  padding-top: 100px;
+  text-align: center;
+  &.undefined{
+    visibility: hidden;
+  }
+
+
+  h2 {
+    display: inline-block;
+    line-height: 1;
+    font-size: 180px;
+    padding: 30px;
+    text-transform: uppercase;
+  }
+
+  &.fiction h2{
+    background-color: white;
+    color: #000000;
+  }
+
+  &.fact h2{
+    background-color: #46bd01;
+    color: white;
+  }
+
+  img{
+    background-color: white;
+    margin: 40px 0 30px -46px;
+    width: 1080px;
+  }
+
+  &.fact img{
+    background-color: #46bd01;
+  }
+
+  p{
+    font-size: 34px;
+    line-height: 1.5;
+    text-decoration: underline;
+    padding: 0 130px;
+  }
+
+  .stats{
+    position: absolute;
+    bottom: 30px;
+    font-size: 48px;
+    left: 210px;
+    right: 210px;
+    text-transform: uppercase;
+
+    .stats-fact{
+      transform: translateY(-50%);
+      color: #46bd01;
+      position: absolute;
+      left: 0;
+      top:50%
+    }
+    .stats-fiction {
+      transform: translateY(-50%);
+      position: absolute;
+      right: 0;
+      top:50%
+    }
+
+  }
+}

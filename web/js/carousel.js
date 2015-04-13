@@ -1,5 +1,6 @@
 var React = require('react'),
-    moment = require('moment-timezone');
+    moment = require('moment-timezone'),
+    PieChart = require("react-chartjs").Pie;
 
 var isBrowser = !(global && Object.prototype.toString.call(global.process) === '[object process]');
 if (isBrowser) {
@@ -203,6 +204,111 @@ var TweetDisplay = React.createClass({
     }
 });
 
+
+var ExitPool = React.createClass({
+    displayName: 'ExitPool',
+    getInitialState: function () {
+        return {
+            currentIdx: 0,
+            story: {
+                fact:1,
+                fiction:1,
+                percentage:{}
+            },
+            stories: []
+        };
+    },
+    fetchData: function () {
+        reqwest({
+            url: '/spreads'
+            , type: 'json'
+            , error: function (err) {
+                console.log("WHAT?")
+            }
+            , success: function (resp) {
+                this.setState({stories: resp});
+            }.bind(this)
+        });
+    },
+    render: function () {
+        var story = this.state.story,
+         chartData = [
+             {
+                 value: parseInt(story.percentage.fiction),
+                 color:"#fff",
+                 highlight: "#fff",
+                 label: ""
+             },
+            {
+                value: parseInt(story.percentage.fact),
+                color:"#46bd01",
+                highlight: "#46bd01",
+                label: ""
+            }
+         ],
+        chartOptions = {
+            segmentShowStroke : false,
+            animation: false,
+            showScale: false
+        };
+        console.log(chartData);
+
+
+        return (
+            <div className={'exitPool ' + story.result}>
+                <h2>{story.result}!</h2>
+                <img src={'/imgs/spreads/'+story.spreadId+'.png'}/>
+                <p>{story.text}</p>
+                <div className="stats">
+                    <div className="stats-fact">Fact<br/>{story.percentage.fact}%</div>
+                    <PieChart data={chartData} options={chartOptions} redraw/>
+                    <div className="stats-fiction">Fiction<br/>{story.percentage.fiction}%</div>
+                </div>
+            </div>
+        );
+    },
+    getStoryData: function() {
+        var story = this.state.stories[this.state.currentIdx],
+            fact = parseInt(story.fact),
+            fiction = parseInt(story.fiction),
+            total = fact+fiction;
+
+        story.result = fact >= fiction ? 'fact':'fiction';
+
+        //a little cheat :)
+        if (fact == fiction){
+            fact++;
+            total++;
+        }
+
+        story.percentage = {
+            fact: Math.round(fact / total * 100),
+            fiction: Math.round(fiction / total * 100)
+        };
+        console.log('story', story);
+        return story;
+    },
+    switchStory: function(){
+        var next = this.state.currentIdx + 1;
+        if (next >= this.state.length){
+            next = 0;
+        }
+
+        var story = this.getStoryData();
+        this.setState(
+            {story: story,
+            currentIdx: next}
+        );
+    },
+    componentDidMount: function () {
+        this.fetchData();
+        socket.on('update', function (data) {
+            this.fetchData();
+        }.bind(this));
+    }
+});
+
+
 var Carousel = React.createClass({
 
     displayName: 'Carousel',
@@ -216,7 +322,7 @@ var Carousel = React.createClass({
             <div className="carousel">
                 <TweetDisplay ref="twitter" tweet={this.props.tweet}/>
                 <VizOne ref="chart"/>
-                <div className="viz three" ref="single"/>
+                <ExitPool ref="single"/>
             </div>
         );
     },
@@ -226,9 +332,20 @@ var Carousel = React.createClass({
             React.findDOMNode(this.refs.chart),
             React.findDOMNode(this.refs.single)
         ];
-        var state = this.state;
+        var state = this.state,
+            exitPool = this.refs.single;
+
+        //exitPool.switchStory();
         console.log('componentDidMount -> state', state);
         setInterval(function () {
+
+            //when the exitpool hides switch the story
+            if (state.currentIdx == 2) {
+                setTimeout(function(){
+                    exitPool.switchStory();
+                }, 1000);
+
+            }
             if (state.dir === 'right') {
                 components[state.currentIdx].style.left = '-100%';
                 state.currentIdx++;

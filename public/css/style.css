@@ -146,5 +146,53 @@ html, body {
         flex-basis: 0;
         text-align: center; }
 
+.exitPool {
+  color: white;
+  padding-top: 100px;
+  text-align: center; }
+  .exitPool.undefined {
+    visibility: hidden; }
+  .exitPool h2 {
+    display: inline-block;
+    line-height: 1;
+    font-size: 180px;
+    padding: 30px;
+    text-transform: uppercase; }
+  .exitPool.fiction h2 {
+    background-color: white;
+    color: #000000; }
+  .exitPool.fact h2 {
+    background-color: #46bd01;
+    color: white; }
+  .exitPool img {
+    background-color: white;
+    margin: 40px 0 30px -46px;
+    width: 1080px; }
+  .exitPool.fact img {
+    background-color: #46bd01; }
+  .exitPool p {
+    font-size: 34px;
+    line-height: 1.5;
+    text-decoration: underline;
+    padding: 0 130px; }
+  .exitPool .stats {
+    position: absolute;
+    bottom: 30px;
+    font-size: 48px;
+    left: 210px;
+    right: 210px;
+    text-transform: uppercase; }
+    .exitPool .stats .stats-fact {
+      transform: translateY(-50%);
+      color: #46bd01;
+      position: absolute;
+      left: 0;
+      top: 50%; }
+    .exitPool .stats .stats-fiction {
+      transform: translateY(-50%);
+      position: absolute;
+      right: 0;
+      top: 50%; }
+
 
 /*# sourceMappingURL=style.css.map */

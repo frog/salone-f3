@@ -309,7 +309,8 @@ mongo.connect(dbUrl, function (err, db) {
 
                 function addNVotes(n, cursor) {
                     for (var i = 0; i < n; i++) {
-                        incrementVoteFor('3dbabies', 'fact', function () {
+                        var factOrFict =  Math.random() < 0.5 ? 'fact':'fiction';
+                        incrementVoteFor('3dbabies', factOrFict, function () {
                         }, cursor.toDate());
                     }
                 }
