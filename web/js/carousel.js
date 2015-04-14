@@ -298,7 +298,7 @@ var ExitPool = React.createClass({
     },
     switchStory: function () {
         var next = this.state.currentIdx + 1;
-        if (next >= this.state.length) {
+        if (next >= this.state.stories.length) {
             next = 0;
         }
 
