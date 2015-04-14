@@ -23,11 +23,11 @@ function processJS(need_watch) {
                     { test: /masonry-layout/, loader: 'imports?define=>false&this=>window'}
                 ]
             },
-            /*plugins: [
+            plugins: [
                 new wp.optimize.UglifyJsPlugin({
                     compress: { warnings: false}
                 })
-            ],*/
+            ],
             watch : need_watch
         }))
         .pipe(gulp.dest(JS_DEST));

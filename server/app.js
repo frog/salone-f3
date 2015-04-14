@@ -7,6 +7,7 @@ var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var React = require('react');
 var Twitter = require('twitter');
+var compress = require('compression');
 
 //set up logger
 var logger = new winston.Logger({
@@ -41,6 +42,7 @@ mongo.connect(dbUrl, function (err, db) {
     //create Express app on port 5000
     var app = express();
     app.set('port', PORT);
+    app.use(compress());
     app.use(express.static(__dirname + '/../public'));
 
     app.use(session({
