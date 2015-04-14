@@ -51,7 +51,7 @@ html, body {
   height: 1920px;
   margin: 0 auto;
   position: relative;
-  overflow: hidden;
+  //overflow: hidden;
 
   & > div {
     -webkit-transition: all 1s;
@@ -182,6 +182,10 @@ html, body {
     line-height: 1.5;
     text-decoration: underline;
     padding: 0 130px;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   .stats{

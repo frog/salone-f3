@@ -211,9 +211,12 @@ var ExitPool = React.createClass({
         return {
             currentIdx: 0,
             story: {
-                fact:1,
-                fiction:1,
-                percentage:{}
+                fact: 1,
+                fiction: 1,
+                percentage: {
+                    fact: 1,
+                    fiction: 1
+                }
             },
             stories: []
         };
@@ -223,7 +226,7 @@ var ExitPool = React.createClass({
             url: '/spreads'
             , type: 'json'
             , error: function (err) {
-                console.log("WHAT?")
+                console.log("Error while retrieving /spreads", err);
             }
             , success: function (resp) {
                 this.setState({stories: resp});
@@ -232,52 +235,57 @@ var ExitPool = React.createClass({
     },
     render: function () {
         var story = this.state.story,
-         chartData = [
-             {
-                 value: parseInt(story.percentage.fiction),
-                 color:"#fff",
-                 highlight: "#fff",
-                 label: ""
-             },
-            {
-                value: parseInt(story.percentage.fact),
-                color:"#46bd01",
-                highlight: "#46bd01",
-                label: ""
-            }
-         ],
-        chartOptions = {
-            segmentShowStroke : false,
-            animation: false,
-            showScale: false
-        };
+            chartData = [
+                {
+                    value: parseInt(story.percentage.fiction),
+                    color: "#fff",
+                    highlight: "#fff",
+                    label: ""
+                },
+                {
+                    value: parseInt(story.percentage.fact),
+                    color: "#46bd01",
+                    highlight: "#46bd01",
+                    label: ""
+                }
+            ],
+            chartOptions = {
+                segmentShowStroke: false,
+                animation: false,
+                showScale: false
+            };
         console.log(chartData);
 
 
         return (
             <div className={'exitPool ' + story.result}>
                 <h2>{story.result}!</h2>
-                <img src={'/imgs/spreads/'+story.spreadId+'.png'}/>
+                <img src={'/imgs/spreads/' + story.spreadId + '.png'}/>
                 <p>{story.text}</p>
                 <div className="stats">
-                    <div className="stats-fact">Fact<br/>{story.percentage.fact}%</div>
+                    <div className="stats-fact">Fact
+                        <br/>{story.percentage.fact}%</div>
                     <PieChart data={chartData} options={chartOptions} redraw/>
-                    <div className="stats-fiction">Fiction<br/>{story.percentage.fiction}%</div>
+                    <div className="stats-fiction">Fiction
+                        <br/>{story.percentage.fiction}%</div>
                 </div>
             </div>
         );
     },
-    getStoryData: function() {
+    getStoryData: function () {
+        if (this.state.currentIdx >= this.state.stories.length) return;
         var story = this.state.stories[this.state.currentIdx],
-            fact = parseInt(story.fact),
-            fiction = parseInt(story.fiction),
-            total = fact+fiction;
+            fact = story.fact ? parseInt(story.fact) : 0,
+            fiction = story.fiction ? parseInt(story.fiction) : 0,
+            total = fact + fiction;
 
-        story.result = fact >= fiction ? 'fact':'fiction';
+        story.result = fact >= fiction ? 'fact' : 'fiction';
 
         //a little cheat :)
-        if (fact == fiction){
+        if (fact == fiction && fact == 0) {
             fact++;
+            fiction++;
+            total++;
             total++;
         }
 
@@ -288,17 +296,21 @@ var ExitPool = React.createClass({
         console.log('story', story);
         return story;
     },
-    switchStory: function(){
+    switchStory: function () {
         var next = this.state.currentIdx + 1;
-        if (next >= this.state.length){
+        if (next >= this.state.length) {
             next = 0;
         }
 
         var story = this.getStoryData();
-        this.setState(
-            {story: story,
-            currentIdx: next}
-        );
+        if (story) {
+            this.setState(
+                {
+                    story: story,
+                    currentIdx: next
+                }
+            );
+        }
     },
     componentDidMount: function () {
         this.fetchData();
@@ -341,7 +353,7 @@ var Carousel = React.createClass({
 
             //when the exitpool hides switch the story
             if (state.currentIdx == 2) {
-                setTimeout(function(){
+                setTimeout(function () {
                     exitPool.switchStory();
                 }, 1000);
 

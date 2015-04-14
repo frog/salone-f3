@@ -77,8 +77,7 @@ html, body {
   width: 1080px;
   height: 1920px;
   margin: 0 auto;
-  position: relative;
-  overflow: hidden; }
+  position: relative; }
   .carousel > div {
     -webkit-transition: all 1s;
     width: 100%;
@@ -174,7 +173,11 @@ html, body {
     font-size: 34px;
     line-height: 1.5;
     text-decoration: underline;
-    padding: 0 130px; }
+    padding: 0 130px;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden; }
   .exitPool .stats {
     position: absolute;
     bottom: 30px;
