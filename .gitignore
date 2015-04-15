@@ -34,3 +34,4 @@ node_modules
 #.project
 #.pydevproject
 *.DS_Store
+workspace.xml

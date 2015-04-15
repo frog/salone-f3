@@ -1,0 +1,31 @@
+wlan0     Link encap:Ethernet  HWaddr 74:da:38:09:fe:2d
+          inet addr:10.228.81.123  Bcast:10.228.81.255  Mask:255.255.255.0
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:652 errors:0 dropped:3 overruns:0 frame:0
+          TX packets:51 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:190782 (186.3 KiB)  TX bytes:8908 (8.6 KiB)
+
+wlan0     Link encap:Ethernet  HWaddr 74:da:38:06:58:0a
+          inet addr:10.228.81.107  Bcast:10.228.81.255  Mask:255.255.255.0
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:922 errors:0 dropped:19 overruns:0 frame:0
+          TX packets:58 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:330336 (322.5 KiB)  TX bytes:9734 (9.5 KiB)
+
+wlan0     Link encap:Ethernet  HWaddr 74:da:38:06:57:fe
+          inet addr:10.228.81.109  Bcast:10.228.81.255  Mask:255.255.255.0
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:1355 errors:0 dropped:12 overruns:0 frame:0
+          TX packets:256 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:307565 (300.3 KiB)  TX bytes:49087 (47.9 KiB)
+
+wlan0     Link encap:Ethernet  HWaddr 74:da:38:06:58:43
+          inet addr:10.228.81.110  Bcast:10.228.81.255  Mask:255.255.255.0
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:2260 errors:0 dropped:26 overruns:0 frame:0
+          TX packets:527 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:1013470 (989.7 KiB)  TX bytes:79503 (77.6 KiB)
