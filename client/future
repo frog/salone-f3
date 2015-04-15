@@ -7,15 +7,12 @@
 # Required-Stop:     $remote_fs $syslog
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
-# Short-Description: Example initscript
-# Description:       This file should be used to construct scripts to be
-#                    placed in /etc/init.d.
+# Short-Description: Future FactOrFiction installation
+# Description:       The Future Fact Or Fiction installation
+#
 ### END INIT INFO
 
-# Author: Foo Bar <foobar@baz.org>
-#
-# Please remove the "Author" lines above and replace them
-# with your own name if you copy and modify this script.
+# Author: Emanuele Di Saverio <emanuele.disaverio@gmail.com>
 
 case "$1" in 
     start)
