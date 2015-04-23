@@ -1,0 +1,236 @@
+[{
+  "_id": "5527c3b45e7b7fcc5a4ed654",
+  "spreadId": "kidscant",
+  "headline": "KIDS CAN’T WRITE",
+  "text": "Disaster as Finish Government presents school results just eight years after decision to stop teaching handwriting is taken. “It’s true our kids can’t write with their hands but our PISA results speak for themselves” says Head of Education.",
+  "tags": ["education"],
+  "href": "http://www.bbc.com/news/blogs-news-from-elsewhere-30146160",
+  "fiction": 80,
+  "fact": 107
+}, {
+  "_id": "5527c3b45e7b7fcc5a4ed655",
+  "spreadId": "grannies",
+  "headline": "Skype grannies",
+  "text": "Villages in remote parts of Africa get free English lessons from elderly in Europe and the US. “It’s lovely. We enjoy the company.“ says Cornwall based great-grandmother who dials in Nairobi every Tuesday and Thursday.",
+  "tags": ["education"],
+  "href": "http://www.ncl.ac.uk/solecentral/join/granny/",
+  "fact": 146,
+  "fiction": 15
+}, {
+  "_id": "5527c3b45e7b7fcc5a4ed657",
+  "spreadId": "cashnotaccepted",
+  "headline": "CASH NOT ACCEPTED",
+  "text": "Confusion among tourists as Sweden removes all bills and coins from circulation.",
+  "tags": ["finance"],
+  "href": "http://www.theguardian.com/world/2014/nov/11/welcome-sweden-electronic-money-not-so-funny",
+  "spreadFile": "banner.tga",
+  "fact": 123,
+  "fiction": 47
+}, {
+  "_id": "5527c3b45e7b7fcc5a4ed658",
+  "spreadId": "bitcoinwipesout",
+  "headline": "BITCOIN WIPES OUT THE DOLLAR",
+  "text": "Bitcoin surpasses the dollar as top currency for investment in the US. Elderly abandon traditional banks to secure their pensions.",
+  "tags": ["finance"],
+  "href": "http://www.inc.com/christine-lagorio/fred-wilson-bitcoin-predictions.html",
+  "fiction": 93,
+  "fact": 56
+}, {
+  "_id": "5527c3b45e7b7fcc5a4ed659",
+  "spreadId": "3dbabies",
+  "headline": "3D PRINTED BABIES",
+  "text": "Outrage as NASA announces genetically designed babies for future space missions.",
+  "tags": ["misc"],
+  "href": "http://www.dezeen.com/2015/03/06/will-i-am-interview-future-3d-printing-people/",
+  "fiction": 114,
+  "fact": 35
+}, {
+  "_id": "5527c3b45e7b7fcc5a4ed65a",
+  "spreadId": "manabandons",
+  "headline": "MAN ABANDONS LIFE FOR VIRTUAL REALITY",
+  "text": "Detroit resident decides to dedicate 100% of his time to his virtual life. “Let’s face it - real life stinks”.",
+  "tags": ["misc"],
+  "href": "http://www.scienceclarified.com/scitech/Virtual-Reality/Which-World-Is-Real-The-Future-of-Virtual-Reality.html",
+  "fact": 105,
+  "fiction": 40
+}, {
+  "_id": "5527c3b45e7b7fcc5a4ed65b",
+  "spreadId": "genderspasse",
+  "headline": "GENDERS ABOLISHED",
+  "text": "Public outcry in Scaninavia as men and women cannot be publicly distinguished using pronouns like “him” or “her”. Teenagers: “Genders are passé”.",
+  "tags": ["misc"],
+  "href": "http://en.wikipedia.org/wiki/Hen_%28pronoun%29",
+  "fiction": 62,
+  "fact": 83
+}, {
+  "_id": "5527c3b45e7b7fcc5a4ed65c",
+  "spreadId": "mutantolympics",
+  "headline": "MUTANT OLYMPICS",
+  "text": "Join us for the launch of the first ever Mutant Olympics held between locations on Earth and the Moon in 2026. All chemicals allowed; record-breaking and time-trimming guaranteed!",
+  "tags": ["misc"],
+  "href": "http://www.nytimes.com/2008/08/12/science/12tier.html?_r=0",
+  "fiction": 126,
+  "fact": 46
+}, {
+  "_id": "5527c3b45e7b7fcc5a4ed65d",
+  "spreadId": "massextinction",
+  "headline": "MASS EXTINCTION : DISASTER AS EARTH HITS RESET",
+  "text": "Multiple species are disappearing from the face of the Earth every year. “Project Ark” gathers millions of genetic samples to let extinct creatures roam our planet in the future.",
+  "tags": ["misc"],
+  "href": "http://www.livescience.com/8557-mass-extinction-threat-earth-verge-huge-reset-button.html",
+  "fiction": 54,
+  "fact": 91
+}, {
+  "_id": "5527c3b45e7b7fcc5a4ed652",
+  "spreadId": "nocoffee",
+  "headline": "No coffee for you!",
+  "text": "Copenhagen. A smart, privately owned coffee machine refused to serve an ill owner her morning coffee, as the system perceived it as dangerous for her health. “If I need this type of advice I go to the doctor, thank you very much” the woman wrote in an open letter to the manufacturer.",
+  "tags": ["smarthome"],
+  "href": "http://www.engadget.com/2015/01/02/smarter-wifi-coffee-machine/",
+  "fact": 95,
+  "fiction": 57
+}, {
+  "_id": "5527c3b45e7b7fcc5a4ed644",
+  "spreadId": "lastdriver",
+  "headline": "Meet the man with the last drivers licence",
+  "text": "Meet Henry, the happy Londoner who was granted the last drivers licence before The Great Ban of Human Driving Act in 2021. Full story on page 6.",
+  "tags": ["mobility"],
+  "href": "http://www.wired.com/2015/03/mercedes-benz-f-015-autonomous-car",
+  "fiction": 95,
+  "fact": 73
+}, {
+  "_id": "5527c3b45e7b7fcc5a4ed646",
+  "spreadId": "parismanhattan",
+  "headline": "Paris > Manhattan - 1 hour!",
+  "text": "Europeans flock to French capital as Hyperloop Tube System is extended below the Atlantic for quick and safe travels to the US in less than an hour.",
+  "tags": ["mobility"],
+  "href": "http://en.wikipedia.org/wiki/Hyperloop",
+  "fiction": 85,
+  "fact": 77
+}, {
+  "_id": "5527c3b45e7b7fcc5a4ed647",
+  "spreadId": "declinemoon",
+  "headline": "Decline in moon tourism",
+  "text": "Richard Branson: \"Let’s face it, the moon was cool in the 60s, now it’s just a dead lump in the sky, blocking the view“.",
+  "tags": ["mobility"],
+  "href": "http://www.futuretimeline.net/21stcentury/2035.htm#.VPhASlPF_QE",
+  "fiction": 77,
+  "fact": 78
+}, {
+  "_id": "5527c3b45e7b7fcc5a4ed648",
+  "spreadId": "savedbydrones",
+  "headline": "Saved by drones",
+  "text": "A drone swarm saved twelve people from drowning after a boat incident outside Sicily. The drone patrol quickly reached the location and saved the passengers by releasing inflating life rafts to the people in water.",
+  "tags": ["mobility"],
+  "href": "http://www.gizmag.com/pars-life-saving-flying-robot/29831",
+  "fact": 117,
+  "fiction": 32
+}, {
+  "_id": "5527c3b45e7b7fcc5a4ed649",
+  "spreadId": "venushorror",
+  "headline": "Venus cloud city horror",
+  "text": "Crew burns in sulphur as Genesis Aircraft loses control. “We need to review security protocol“ says commander in chief.",
+  "tags": ["mobility"],
+  "href": "http://www.popularmechanics.com/space/a13379/nasa-cloud-city-venus-colony-17549027",
+  "fiction": 110,
+  "fact": 62
+}, {
+  "_id": "5527c3b45e7b7fcc5a4ed64a",
+  "spreadId": "augmentedeyes",
+  "headline": "Augmented eyes",
+  "text": "Google announced their next generation contact lenses at SXSW2025 last month. Early adopters are already complaining of severe dependencies to the new technology. “Taking the lenses off is basically impossible as I don’t want to loose any of the new features”.",
+  "tags": ["healthcare"],
+  "href": "http://www.dailymail.co.uk/news/article-2334257/Mission-Impossible-style-contact-lenses-pictures-scan-data-step-closer-reality-scientists-develop-LED-soft-lenses.html",
+  "fact": 123,
+  "fiction": 41
+}, {
+  "_id": "5527c3b45e7b7fcc5a4ed64b",
+  "spreadId": "mybodyac",
+  "headline": "My body AC",
+  "text": "“Cool as a breeze”. Barcelona residents rejoice as a new system for administrating their own temperature is installed directly into their bodies.",
+  "tags": ["healthcare"],
+  "href": "http://www.wired.com/2013/10/an-ingenious-wristband-that-keeps-your-body-at-the-perfect-temperature-no-ac-required",
+  "fact": 67,
+  "fiction": 82
+}, {
+  "_id": "5527c3b45e7b7fcc5a4ed64c",
+  "spreadId": "swalloweddoctor",
+  "headline": "“I SWALLOWED MY DOCTOR”",
+  "text": "Brooklyn mother-of-five explains how her medical condition is monitored from inside her body.",
+  "tags": ["healthcare"],
+  "href": "http://www.fastcoexist.com/3042782/4-crazy-predictions-for-the-future-of-health-care-human-augmentation-hacked-dna-and-more",
+  "fact": 112,
+  "fiction": 37
+}, {
+  "_id": "5527c3b45e7b7fcc5a4ed64d",
+  "spreadId": "elevatoradviced",
+  "headline": "“THE ELEVATOR ADVICED ME TO TAKE THE STAIRS”",
+  "text": "American senior citizen was told to take the stairs while visiting a super mall in Germany. By the elevator: “The elevator read public data and offered a suggestion to improve the woman’s health”.",
+  "tags": ["healthcare"],
+  "href": "http://www.pleasurabletroublemakers.com/intervator/",
+  "fact": 115,
+  "fiction": 28
+}, {
+  "_id": "5527c3b45e7b7fcc5a4ed64e",
+  "spreadId": "thirdeye",
+  "headline": "My third eye",
+  "text": "Meet the mother-of-four that installed a third eye in her neck for perfect 360 degree vision. “I can’t believe I lived without it before”.",
+  "tags": ["healthcare"],
+  "href": "http://getnarrative.com/shop",
+  "fiction": 84,
+  "fact": 60
+}, {
+  "_id": "5527c3b45e7b7fcc5a4ed64f",
+  "spreadId": "livingtatoos",
+  "headline": "Living tatoos",
+  "text": "Smart digital tattoos are on the rise in Japan. Teenage groups are exploring new ideas by uploading images to their skin for a fresh appearance every day.",
+  "tags": ["healthcare"],
+  "href": "http://www.fastcodesign.com/3036175/from-the-designers-of-fitbit-a-digital-tattoo-implanted-under-your-skin",
+  "fact": 88,
+  "fiction": 55
+}, {
+  "_id": "5527c3b45e7b7fcc5a4ed650",
+  "spreadId": "headtransplant",
+  "headline": "MAN GETS HEAD TRANSPLANT",
+  "text": "Neighbours flock to get their know “new” acquaintance. Best friend laughs: “He definitely had an upgrade”.",
+  "tags": ["healthcare"],
+  "href": "http://www.telegraph.co.uk/news/science/science-news/11436319/Frankenstein-style-human-head-transplant-could-happen-in-two-years.html",
+  "fact": 89,
+  "fiction": 77
+}, {
+  "_id": "5527c3b45e7b7fcc5a4ed651",
+  "spreadId": "dumbhome",
+  "headline": "“I WANT MY DUMB HOME BACK”",
+  "text": "Man in a pub: “I dream of a day when I can just have a beer, mow the lawn and avoid awkward, cold conversations with my Scandinavian furniture”",
+  "tags": ["smarthome"],
+  "href": "http://qz.com/324267/smart-furniture-multi-touch-screens-and-parametric-modeling-are-the-future-of-interior-design/",
+  "fact": 113,
+  "fiction": 35
+}, {
+  "_id": "5527c3b45e7b7fcc5a4ed653",
+  "spreadId": "fritz",
+  "headline": "FRITZ - OUR ROBOT BUTLER",
+  "text": "As families struggle to find the perfect support around the house, miniaturised mechanics is paving the way for embedded intelligence and robot assistants. Meet the family that purchase their own robot butlers to provide help to questions, facilitate communication with family and friends, carry heavy loads and shopping (inside and outside the home).",
+  "tags": ["smarthome"],
+  "href": "http://www.technocrazed.com/romeo-an-intelligent-french-robot-to-help-elderly-with-daily-tasks",
+  "fact": 93,
+  "fiction": 36
+}, {
+  "_id": "5527c3b45e7b7fcc5a4ed656",
+  "spreadId": "lifelong",
+  "headline": "LIFELONG LEARNING",
+  "text": "Leading US Universities are announcing new degree programmes this summer. The new curriculums - designed to last for the full duration of a persons life – are distributed as one-month “sabbaticals” across the lifespan of a student. Head Principal: “It seems absurd to suggest that subjects learned while being a young teenager should dictate ones life forever”",
+  "tags": ["education"],
+  "href": "http://www.ted.com/talks/sir_ken_robinson_bring_on_the_revolution",
+  "fact": 83,
+  "fiction": 44
+}, {
+  "_id": "5527c3b45e7b7fcc5a4ed645",
+  "spreadId": "truckstrike",
+  "headline": "Truck drivers on strike (against self-driving trucks)",
+  "text": "Robo-commerce: self-driving trucks and drones will deliver anything wherever your are in a few hours. Representatives of local unions gathered in town hall for regional march against “modern profanities”.",
+  "tags": ["mobility"],
+  "href": "http://www.bloomberg.com/news/articles/2014-12-09/self-driving-trucks-to-revolutionize-logistics-dhl-says",
+  "fact": 124,
+  "fiction": 31
+}]
