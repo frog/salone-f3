@@ -200,6 +200,7 @@ mongo.connect(dbUrl, function (err, db) {
                 votedIdsFiction: req.session.votedIdsFiction ? req.session.votedIdsFiction : []
             };
             var reactHtml = React.renderToString(VoteView(startingProps));
+
             res.render('index', {
                 title: "Welcome",
                 viewFile: viewFile,
